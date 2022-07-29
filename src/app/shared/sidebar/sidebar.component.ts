@@ -8,18 +8,19 @@ import { SidebarRoutes } from '../interfaces';
 })
 export class SidebarComponent implements OnInit {
 
-  @Input() public version: any;
+  @Input() public version: string = "";
+  @Input() public title: string = "";
 
   routes: Array<SidebarRoutes> = [
     {
       name: "Builder",
       path: "/builder",
-      active: true,
+      visible: true,
     },
     {
       name: "Layout",
       path: "/layout",
-      active: false,
+      visible: true,
     }
   ];
 

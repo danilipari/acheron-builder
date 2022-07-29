@@ -1,0 +1,18 @@
+$violet: #712cf9;
+
+#sidebar {
+  width: 250px;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.nav-link {
+  background-color: inherit;
+  &.active {
+    background-color: $violet!important;
+  }
+}
+.bg-violet {
+  background-color: $violet;
+}
+
