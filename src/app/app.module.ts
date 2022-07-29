@@ -7,13 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { LayoutComponent } from './views/layout/layout.component';
-import { BuilderComponent } from './views/builder/builder.component';
 
 const components: Array<any> = [
   SidebarComponent,
-  LayoutComponent,
-  BuilderComponent,
 ];
 
 @NgModule({
@@ -30,6 +26,8 @@ const components: Array<any> = [
   exports: [
     components
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ]
 })
 export class AppModule { }
