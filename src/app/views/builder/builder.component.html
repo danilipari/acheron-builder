@@ -1,1 +1,14 @@
-<p>builder works!</p>
+<div class="container-fluid">
+  {{ items | json }}
+</div>
+
+<div class="">
+  <div class="w-50 my-2 px-5" *ngFor="let typeInput of types; let iT = index;">
+    <label [for]="typeInput.label">{{ typeInput.label }}</label>
+    <hr>
+    <small class="text-muted">Value: {{ typeInput.value ? typeInput.value : 'Empty' }}</small>
+    <hr>
+    <input class="form-control" [(ngModel)]="typeInput.value" [type]="typeInput.type" [placeholder]="typeInput.label">
+    <br>
+  </div>
+</div>
