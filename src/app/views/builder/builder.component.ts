@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./builder.component.scss']
 })
 export class BuilderComponent implements OnInit {
+  ea_icon: string = 'https://static.escort-advisor.com/favicon.ico';
 
   types: Array<any> = [
     {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SidebarRoutes } from '../interfaces';
 
 @Component({
@@ -7,7 +7,8 @@ import { SidebarRoutes } from '../interfaces';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  version: string = '1.0.0';
+
+  @Input() public version: any;
 
   routes: Array<SidebarRoutes> = [
     {
