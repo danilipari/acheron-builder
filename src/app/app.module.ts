@@ -1,18 +1,35 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { LayoutComponent } from './views/layout/layout.component';
+import { BuilderComponent } from './views/builder/builder.component';
+
+const components: Array<any> = [
+  SidebarComponent,
+  LayoutComponent,
+  BuilderComponent,
+];
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    components,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
+  exports: [
+    components
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

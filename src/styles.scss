@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+$violet: #712cf9;
+
+#sidebar {
+  width: 250px;
+  height: 100%;
+}
+
+.nav-link {
+  background-color: inherit!important;
+  &.active {
+    background-color: $violet!important;
+  }
+}
+.bg-violet {
+  background-color: $violet;
+}
+
