@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigurationDialog } from '../../shared/interfaces';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
 
 @Component({
   selector: 'app-builder',
@@ -175,9 +178,53 @@ export class BuilderComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
+    /*  */
+  }
+
+  /**
+   * @description function openDialog
+   * @author Docs Angular Material
+   * @visibility private
+   * @returns void
+   */
+  private openDialog(): void {
+    const dialogRef = this.dialog.open(DialogRenderComponent, {
+      width: '250px',
+      data: {name: 'Dani'},
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The dialog was closed', result);
+    });
+  }
+
+  /**
+   * @description function renderDialog
+   * @author Dani Lipari
+   * @param data: any
+   * @param id: number | string
+   * @visibility public
+   * @returns void
+   */
+  public renderDialog(data: any, id: number | string): void {
+    const config: ConfigurationDialog = {
+      width: `${window.innerWidth  - (window.innerWidth / 2)}px`,
+      height: `${window.innerHeight - 150}px`,
+      data: {
+        title: 'Render Json',
+        form : data
+      },
+    };
+    const dialogRef = this.dialog.open(DialogRenderComponent, config);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The dialog was closed', result);
+    });
   }
 
 }

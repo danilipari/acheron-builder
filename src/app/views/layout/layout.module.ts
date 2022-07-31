@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 
@@ -20,6 +21,7 @@ const components: Array<any> = [
   imports: [
     CommonModule,
     FormsModule,
+    MatDialogModule,
     LayoutRoutingModule,
   ],
   exports: [

@@ -1,0 +1,6 @@
+<div *ngIf="!!data">
+  <p>{{ data?.title }}</p>
+  <p>{{ data | json }}</p>
+
+  <button class="btn btn-danger" (click)="onNoClick()">close dialog</button>
+</div>

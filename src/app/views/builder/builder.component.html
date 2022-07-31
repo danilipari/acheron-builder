@@ -4,8 +4,9 @@
   </form>
 </div>
 <div class="my-5">
+
   <div class="list-group w-auto px-5">
-    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true" (click)="renderDialog('Form #1', 0)">
       <img [src]="ea_icon" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
       <div class="d-flex gap-2 w-100 justify-content-between">
         <div>
@@ -15,10 +16,10 @@
           <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
           <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
         </div>
-        <small class="opacity-50 text-nowrap">now</small>
+        <small class="opacity-50 text-nowrap text-white">now</small>
       </div>
     </div>
-    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true" (click)="renderDialog('Form #2', 1)">
       <img [src]="ea_icon" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
       <div class="d-flex gap-2 w-100 justify-content-between">
         <div>
@@ -28,10 +29,27 @@
           <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
           <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
         </div>
+        <small class="opacity-50 text-nowrap text-white">2d</small>
+      </div>
+    </div>
+    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true" (click)="renderDialog('Form #3', 2)">
+      <img [src]="ea_icon" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h6 class="mb-0">Form #3</h6>
+          <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+          <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+          <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+          <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+        </div>
         <small class="opacity-50 text-nowrap">3d</small>
       </div>
     </div>
   </div>
+</div>
+
+<div id="json_action" routerLink="/builder/action" class="">
+  <button mat-mini-fab size="large" color="accent" aria-label="add_json">+</button>
 </div>
 
 

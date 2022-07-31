@@ -4,3 +4,19 @@ $violet: #712cf9;
   background-color: $violet;
 }
 
+#json_action {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+}
+
+.mat-flat-button.mat-accent,
+.mat-raised-button.mat-accent,
+.mat-fab.mat-accent,
+.mat-mini-fab.mat-accent {
+  background-color: $violet;
+}
+
+.list-group-item:hover {
+  background-image: linear-gradient(to right, white, #7b4ed647);
+}
