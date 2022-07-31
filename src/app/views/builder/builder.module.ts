@@ -4,16 +4,24 @@ import { FormsModule } from '@angular/forms';
 
 import { BuilderComponent } from './builder.component';
 import { BuilderRoutingModule } from './builder-routing.module';
+import { BuilderActionComponent } from './builder-action/builder-action.component';
 
+const components: Array<any> = [
+  BuilderComponent,
+  BuilderActionComponent,
+];
 
 @NgModule({
   declarations: [
-    BuilderComponent,
+    components
   ],
   imports: [
     CommonModule,
     FormsModule,
     BuilderRoutingModule,
+  ],
+  exports: [
+    components
   ]
 })
 export class BuilderModule {}
