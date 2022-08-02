@@ -1,6 +1,54 @@
-<div *ngIf="!!data">
-  <p>{{ data?.title }}</p>
-  <p>{{ data | json }}</p>
+<div *ngIf="!!data" class="d-flex h-100">
+  <!-- <button id="close_dialog" type="button" class="btn btn-danger shadow-lg" (click)="onNoClick()">x</button> -->
+  <div class="col-8 p-2">
+    <div class="card">
+      <div class="card-header">
+        <h2>{{ data?.title }}</h2>
+      </div>
 
-  <button class="btn btn-danger" (click)="onNoClick()">close dialog</button>
+      <div class="card-body">
+        <app-json-render [json]="data.form.form"></app-json-render>
+      </div>
+
+      <div class="card-footer d-flex justify-content-around">
+        <button type="button" class="btn btn-lg btn-outline-danger w-75 mx-2" (click)="onNoClick()">{{ 'delete' | uppercase }}</button>
+        <button type="button" class="btn btn-lg btn-outline-success w-75 mx-2" [routerLink]="'/builder/action/' + data.form.id" (click)="onNoClick()">{{ 'edit' | uppercase }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="col bg-light p-4 position-relative">
+    <div class="d-flex flex-column">
+      <div class="box_config_json">
+        <h2>Configs Json</h2>
+        <p>Title: <span class="mb-0 opacity-75">{{ data.form.title }}</span></p>
+        <p>Description: <span class="mb-0 opacity-75">{{ data.form.description }}</span></p>
+        <p>Created: <span class="mb-0 opacity-75">{{ data.form.created_at | date: 'dd-MM-yyyy HH:mm' }}</span></p>
+        <p>Updated: <span class="mb-0 opacity-75">{{ data.form.updated_at | date: 'dd-MM-yyyy HH:mm' }}</span></p>
+        <p>Deleted: <span class="mb-0 opacity-75">{{ data.form.deleted_at ? true : false }}</span></p> <!-- (data.form.deleted_at | date: 'dd-MM-yyyy HH:mm') -->
+        <hr>
+        <p>Advertising Campaign: <span class="mb-0 opacity-75">{{ data.form.advertising_campaign | json }}</span></p>
+        <hr>
+        <p>User: <span class="mb-0 opacity-75">{{ data.form.user | json }}</span></p>
+      </div>
+
+      <div class="box_config_json">
+        <div class="d-flex justify-content-between mx-2 mb-4">
+          <h2 class="mb-0">Hystory</h2>
+          <h3 class="mb-0">Last update</h3>
+        </div>
+
+        <div class="list-group w-auto overflow-scroll" style="max-height: 350px;">
+          <div *ngFor="let form of [{id: 0}, {id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}, {id: 7}, {id: 8}]; let iF = index;" class="list-group-item list-group-item-action d-flex gap-3 py-3 shadow-sm" aria-current="true">
+            <div class=" w-100">
+              <div class="d-flex justify-content-between">
+                <h4 class="mb-0">User {{ iF }}</h4>
+                <h4 class="mb-0">02-08-2022 15:0{{ iF }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

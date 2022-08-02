@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationDialog } from '../../shared/interfaces';
+import { ConfigurationDialog, FormContainer } from '../../shared/interfaces';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
 
@@ -178,6 +178,51 @@ export class BuilderComponent implements OnInit {
     }
   ];
 
+  forms: Array<FormContainer> = [
+    {
+      id: 1,
+      title: "Form #1",
+      description: "Form #1 description",
+      advertising_campaign_id: 1,
+      advertising_campaign: {},
+      form: [],
+      layout_id: 1,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      deleted_at: null,
+      user_id: 1,
+      user: {},
+    },
+    {
+      id: 2,
+      title: "Form #2",
+      description: "Form #2 description",
+      advertising_campaign_id: 2,
+      advertising_campaign: {},
+      form: [],
+      layout_id: 2,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      deleted_at: null,
+      user_id: 1,
+      user: {},
+    },
+    {
+      id: 3,
+      title: "Form #3",
+      description: "Form #3 description",
+      advertising_campaign_id: 3,
+      advertising_campaign: {},
+      form: [],
+      layout_id: 3,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      deleted_at: null,
+      user_id: 1,
+      user: {},
+    },
+  ];
+
   constructor(
     public dialog: MatDialog,
   ) {}
@@ -211,13 +256,13 @@ export class BuilderComponent implements OnInit {
    * @visibility public
    * @returns void
    */
-  public renderDialog(data: any, id: number | string): void {
+  public renderDialog(id: number): void {
     const config: ConfigurationDialog = {
       width: `${window.innerWidth  - (window.innerWidth / 2)}px`,
       height: `${window.innerHeight - 150}px`,
       data: {
-        title: 'Render Json',
-        form : data
+        title: this.forms[id]?.title,
+        form : this.forms[id]
       },
     };
     const dialogRef = this.dialog.open(DialogRenderComponent, config);

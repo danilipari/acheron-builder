@@ -6,13 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { SharedModule } from './shared/shared.module';
 
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogRenderComponent } from './components/dialog-render/dialog-render.component';
 
 const components: Array<any> = [
-  SidebarComponent,
+  /*  */
 ];
 
 @NgModule({
@@ -25,6 +25,7 @@ const components: Array<any> = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    SharedModule,
     BrowserAnimationsModule
   ],
   providers: [],

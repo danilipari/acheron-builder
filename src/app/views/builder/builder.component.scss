@@ -8,6 +8,11 @@ $violet: #712cf9;
   position: absolute;
   bottom: 25px;
   right: 25px;
+  & button {
+    font-size: 35px;
+    height: 60px;
+    width: 60px;
+  }
 }
 
 .mat-flat-button.mat-accent,
@@ -18,5 +23,5 @@ $violet: #712cf9;
 }
 
 .list-group-item:hover {
-  background-image: linear-gradient(to right, white, #7b4ed647);
+  background-image: linear-gradient(to right, white, #7854bf47, #50299c47);
 }
