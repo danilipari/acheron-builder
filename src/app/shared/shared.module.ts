@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormsModule } from '@angular/forms';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { RouterModule } from '@angular/router';
 import { JsonRenderComponent } from './json-render/json-render.component';
 
@@ -21,6 +22,7 @@ const components: Array<any> = [
     CommonModule,
     RouterModule,
     FormsModule,
+    NgxJsonViewerModule
   ],
   exports: [
     components,

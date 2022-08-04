@@ -19,3 +19,10 @@
 .list-group-item:hover {
   background-image: linear-gradient(to right, white, #7854bf47, #50299c47);
 }
+
+.card .card-body#json {
+  border: 1px solid rgba(0, 0, 0, 0.119);
+  border-radius: 8px;
+  padding: 10px 0px;
+  margin: 15px;
+}
