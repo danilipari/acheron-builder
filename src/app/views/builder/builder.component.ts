@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationDialog, FormContainer } from '../../shared/interfaces';
+import { ConfigurationDialog, FormContainer, FormStructure } from '../../shared/interfaces';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
 
@@ -119,63 +119,19 @@ export class BuilderComponent implements OnInit {
     },
   ];
 
-  items: Array<any> = [
+  items: Array<FormStructure> = [
     {
-      "type": "select",
-      "label": "Oggetto dell'incarico",
-      "name": "oggetto-dell-incarico",
-      "validations": [],
-      "options": [
-        "option1",
-        "option2",
-        "option3"
-      ]
+      "index": 0,
+      "inputType": "",
+      "component":"",
+      "editable": true,
+      "label": "Title",
+      "description": "description",
+      "placeholder": "placeholder",
+      "options": [],
+      "required": false,
+      "validation": "/.*/",
     },
-    {
-      "type": "text",
-      "label": "Tipologia Incarico",
-      "name": "tipologia-incarico",
-      "validations": [],
-      "options": [
-        ""
-      ]
-    },
-    {
-      "type": "date",
-      "label": "Data inizio incarico",
-      "inputType": "date",
-      "name": "inizio-incarico",
-      "validations": [],
-      "options": [
-        ""
-      ]
-    },
-    {
-      "type": "text",
-      "label": "Data fine incarico",
-      "name": "fine-incarico",
-      "validations": [
-        {
-          "name": "required",
-          "validator": "Validators.required",
-          "message": "Campo obbligatorio"
-        }
-      ],
-      "options": [""]
-    },
-    {
-      "type": "upload",
-      "label": "upload",
-      "name": "upload",
-      "validations": [],
-      "options": [
-        ""
-      ]
-    },
-    {
-      "type": "button",
-      "label": "Salva"
-    }
   ];
 
   forms: Array<FormContainer> = [
@@ -185,7 +141,7 @@ export class BuilderComponent implements OnInit {
       description: "Form #1 description",
       advertising_campaign_id: 1,
       advertising_campaign: {},
-      form: [],
+      form: [...this.items],
       layout_id: 1,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -199,7 +155,7 @@ export class BuilderComponent implements OnInit {
       description: "Form #2 description",
       advertising_campaign_id: 2,
       advertising_campaign: {},
-      form: [],
+      form: [...this.items],
       layout_id: 2,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -213,7 +169,7 @@ export class BuilderComponent implements OnInit {
       description: "Form #3 description",
       advertising_campaign_id: 3,
       advertising_campaign: {},
-      form: [],
+      form: [...this.items],
       layout_id: 3,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),

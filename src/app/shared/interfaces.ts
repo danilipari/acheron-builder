@@ -27,7 +27,7 @@ export interface FormContainer {
   title: string;
   created_at: string | null;
   updated_at: string | null;
-  form: Array<any>; // Need to dclare after
+  form: Array<FormStructure>; // Need to dclare after
   user_id: string | number;
   user: object; // Need to dclare after
 
@@ -37,4 +37,27 @@ export interface FormContainer {
   deleted_at?: string | null;
   advertising_campaign_id?: number | string;
   advertising_campaign?: object; // Need to dclare after
+}
+
+export interface FormStructure {
+  // Required
+  inputType: string;
+  component: string;
+  editable: boolean;
+  label: string;
+  description: string;
+  placeholder: string;
+  options: Array<any>;
+  required: boolean;
+  validation: string;
+
+  //! Not required
+  index?: number;
+}
+
+
+export interface typeStructure {
+  type: string;
+  label: string;
+  value: string | null;
 }
