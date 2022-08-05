@@ -118,7 +118,7 @@ items = types.map((el: any, index: number) => ({
   "inputType": el.type,
   "component":"",
   "enabled": true,
-  "name": "",
+  "name": `${el.type}-${index}`,
   "label": el.label,
   "error": "",
   "description": "description",
