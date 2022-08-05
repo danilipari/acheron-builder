@@ -13,18 +13,18 @@ export class BuilderComponent implements OnInit {
 
   types: Array<any> = [
     {
-      type: "button",
-      label: "button",
+      type: "text",
+      label: "text",
       value: null,
     },
     {
-      type: "checkbox",
-      label: "checkbox",
+      type: "email",
+      label: "email",
       value: null,
     },
     {
-      type: "color",
-      label: "color",
+      type: "password",
+      label: "password",
       value: null,
     },
     {
@@ -38,33 +38,13 @@ export class BuilderComponent implements OnInit {
       value: null,
     },
     {
-      type: "email",
-      label: "email",
-      value: null,
-    },
-    {
-      type: "hidden",
-      label: "hidden",
-      value: null,
-    },
-    {
-      type: "image",
-      label: "image",
-      value: null,
-    },
-    {
-      type: "month",
-      label: "month",
-      value: null,
-    },
-    {
       type: "number",
       label: "number",
       value: null,
     },
     {
-      type: "password",
-      label: "password",
+      type: "checkbox",
+      label: "checkbox",
       value: null,
     },
     {
@@ -78,28 +58,8 @@ export class BuilderComponent implements OnInit {
       value: null,
     },
     {
-      type: "reset",
-      label: "reset",
-      value: null,
-    },
-    {
-      type: "search",
-      label: "search",
-      value: null,
-    },
-    {
-      type: "submit",
-      label: "submit",
-      value: null,
-    },
-    {
       type: "tel",
       label: "tel",
-      value: null,
-    },
-    {
-      type: "text",
-      label: "text",
       value: null,
     },
     {
@@ -108,30 +68,241 @@ export class BuilderComponent implements OnInit {
       value: null,
     },
     {
+      type: "week",
+      label: "week",
+      value: null,
+    },
+    {
+      type: "month",
+      label: "month",
+      value: null,
+    },
+
+    /* {
+      type: "color",
+      label: "color",
+      value: null,
+    },
+    {
+      type: "button",
+      label: "button",
+      value: null,
+    },
+    {
+      type: "search",
+      label: "search",
+      value: null,
+    },
+    {
       type: "url",
       label: "url",
       value: null,
     },
     {
-      type: "week",
-      label: "week",
+      type: "submit",
+      label: "submit",
       value: null,
     },
+    {
+      type: "reset",
+      label: "reset",
+      value: null,
+    },
+    {
+      type: "hidden",
+      label: "hidden",
+      value: null,
+    },
+    {
+      type: "image",
+      label: "image",
+      value: null,
+    }, */
   ];
 
   items: Array<FormStructure> = [
     {
-      "index": 0,
-      "inputType": "",
-      "component":"",
-      "editable": true,
-      "label": "Title",
-      "description": "description",
-      "placeholder": "placeholder",
-      "options": [],
-      "required": false,
-      "validation": "/.*/",
+      index: 0,
+      inputType: 'text',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'text',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your text',
+      options: [],
+      required: false,
+      validation: '/.*/'
     },
+    {
+      index: 1,
+      inputType: 'email',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'email',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your email',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 2,
+      inputType: 'password',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'password',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your password',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 3,
+      inputType: 'date',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'date',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your date',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 4,
+      inputType: 'datetime-local',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'datetime-local',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your datetime-local',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 5,
+      inputType: 'number',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'number',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your number',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 6,
+      inputType: 'checkbox',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'checkbox',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your checkbox',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 7,
+      inputType: 'radio',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'radio',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your radio',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 8,
+      inputType: 'range',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'range',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your range',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 9,
+      inputType: 'tel',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'tel',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your tel',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 10,
+      inputType: 'time',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'time',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your time',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 11,
+      inputType: 'week',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'week',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your week',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    },
+    {
+      index: 12,
+      inputType: 'month',
+      component: '',
+      enabled: true,
+      name: '',
+      label: 'month',
+      error: '',
+      description: 'description',
+      placeholder: 'Insert your month',
+      options: [],
+      required: false,
+      validation: '/.*/'
+    }
   ];
 
   forms: Array<FormContainer> = [

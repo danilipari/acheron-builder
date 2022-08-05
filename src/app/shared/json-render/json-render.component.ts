@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class JsonRenderComponent implements OnInit {
 
   @Input() public json: any;
+  @Input() public in_out: any;
 
   constructor() { }
 

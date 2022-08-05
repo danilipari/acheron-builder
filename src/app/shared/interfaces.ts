@@ -43,8 +43,10 @@ export interface FormStructure {
   // Required
   inputType: string;
   component: string;
-  editable: boolean;
+  enabled: boolean;
   label: string;
+  name: string;
+  error: string;
   description: string;
   placeholder: string;
   options: Array<any>;
