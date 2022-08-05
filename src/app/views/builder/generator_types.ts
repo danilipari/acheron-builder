@@ -115,11 +115,12 @@ console.log('--- in generator ---');
 
 items = types.map((el: any, index: number) => ({
   "index": index,
-  "inputType": el.type,
+  "inputType": `${el.type}`,
   "component":"",
   "enabled": true,
   "name": `${el.type}-${index}`,
-  "label": el.label,
+  "label": `${el.type}`,
+  "value": "",
   "error": "",
   "description": "description",
   "placeholder": `Insert your ${el.type}`,

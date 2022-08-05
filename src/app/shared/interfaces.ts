@@ -47,6 +47,8 @@ export interface FormStructure {
   label: string;
   name: string;
   error: string;
+  value: string;
+  href: string;
   description: string;
   placeholder: string;
   options: Array<any>;
