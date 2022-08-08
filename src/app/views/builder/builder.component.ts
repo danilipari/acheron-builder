@@ -402,12 +402,12 @@ export class BuilderComponent implements OnInit {
   }
 
   /**
-   * @description function renderDialog
    * @author Dani Lipari
-   * @param data: any
-   * @param id: number | string
-   * @visibility public
-   * @returns void
+   * @description Function renderDialog
+   * @param data: Any
+   * @param id: Number | String
+   * @visibility Public
+   * @returns Void
    */
   public renderDialog(id: number): void {
     const config: ConfigurationDialog = {

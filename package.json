@@ -1,6 +1,9 @@
 {
   "name": "acheron-builder",
   "version": "0.0.0",
+  "description": "Form builder for Private Project named 'Acheron'",
+  "main": "main.ts",
+  "author": "Dani Lipari",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
