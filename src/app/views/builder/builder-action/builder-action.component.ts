@@ -141,8 +141,16 @@ export class BuilderActionComponent implements OnInit {
       type: 'add',
     };
 
-    if (type === 'types') {
-      this.type = type;
+    const move = {
+      label: 'Move input here',
+      type: 'move',
+    };
+
+    this.type = type;
+
+    console.log(this.type);
+
+    if (this.type === 'types') {
       this.forms = this.forms.reduce((acc, form, index) => {
         if (index+1 === this.forms.length) {
           acc = [...acc, add, form, add];
@@ -151,8 +159,17 @@ export class BuilderActionComponent implements OnInit {
         }
         return acc;
       }, []);
+    } else {
+      this.forms = this.forms.reduce((acc, form, index) => {
+        if (index+1 === this.forms.length) {
+          acc = [...acc, move, form, move];
+        } else {
+          acc = [...acc, move, form];
+        }
+        return acc;
+      }, []);
     }
-    console.log('here', type, index, this.forms);
+
   }
 
   drop(event: CdkDragDrop<number[]>) {
@@ -163,9 +180,14 @@ export class BuilderActionComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
-
-      this.forms = this.forms.filter((el: any) => el.type !== 'add');
+    } else {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+        );
     }
+    this.forms = this.forms.filter((el: any) => (el.type !== 'add' && el.type !== 'move'));
   }
 
 }

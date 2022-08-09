@@ -38,9 +38,10 @@
             *ngFor="let form of forms; let iF = index;"
             cdkDrag
             [cdkDragData]="form"
+            (cdkDragStarted)="dragStart($event, 'forms', iF)"
             class="list-group m-4 pt- shadow-sm"
           >
-            <div class="list-group-item " [ngClass]="form.type === 'add' ? 'new-form-item' : ''">
+            <div class="list-group-item " [ngClass]="form.type === 'add' ? 'new-form-item' : form.type === 'move' ? 'move-form-item' : ''">
               {{ form.label }}
             </div>
           </div>
