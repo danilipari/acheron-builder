@@ -1,12 +1,12 @@
-#new-form-item {
-  border: 1.5px dashed green;
-  background-color: rgba(0, 128, 0, 0.15);
-  height: 50px;
-  line-height: 30px;
-  text-transform: uppercase;
-}
-
 .list-group-item {
   height: 50px;
   width: 100%;
+
+  &.new-form-item {
+    border: 1.5px dashed green;
+    background-color: rgba(0, 128, 0, 0.15);
+    height: 50px;
+    line-height: 30px;
+    text-transform: uppercase;
+  }
 }

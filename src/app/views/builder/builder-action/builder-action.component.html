@@ -15,7 +15,7 @@
             *ngFor="let type of types; let iT = index"
             cdkDrag
             [cdkDragData]="types"
-            (cdkDragStarted)="dragStart($event, iT)"
+            (cdkDragStarted)="dragStart($event, 'types', iT)"
             class="list-group m-4 shadow-sm"
           >
             <div class="list-group-item">
@@ -26,29 +26,23 @@
 
       </div>
       <div class="col border">
-
         <div
           id="forms"
-          class=""
+          class="h-100"
           cdkDropList
           [cdkDropListData]="forms"
           cdkDropListConnectedTo="types"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="drop($event)"
+        >
           <div
             *ngFor="let form of forms; let iF = index;"
             cdkDrag
             [cdkDragData]="form"
-            class="list-group m-4 shadow-sm"
+            class="list-group m-4 pt- shadow-sm"
           >
-            <div class="list-group-item">
+            <div class="list-group-item " [ngClass]="form.type === 'add' ? 'new-form-item' : ''">
               {{ form.label }}
             </div>
-          </div>
-        </div>
-
-        <div class="list-group m-4 shadow-sm" *ngIf="touched">
-          <div id="new-form-item" class="list-group-item">
-            Add new input here
           </div>
         </div>
 
