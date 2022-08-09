@@ -11,6 +11,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag
 export class BuilderActionComponent implements OnInit {
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
 
+  public touched: boolean = false;
 
   public types: Array<typeStructure> = [
     {
@@ -134,6 +135,11 @@ export class BuilderActionComponent implements OnInit {
     console.log('routeID Builder', this.route_id);
   }
 
+  dragStart($event: any, index: number): void {
+    this.touched = true;
+    console.log('here', index);
+  }
+
   drop(event: CdkDragDrop<number[]>) {
     if (event.container.connectedTo === 'types') {
       copyArrayItem(
@@ -144,15 +150,29 @@ export class BuilderActionComponent implements OnInit {
       );
       console.log(event, 'event drop in', event);
     } else {
-      copyArrayItem(
+      moveItemInArray(
         event.previousContainer.data,
-        event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
       /* moveItemInArray(event.container.data, event.previousIndex, event.currentIndex); */
       console.log(event, 'event drop out');
     }
+    this.touched = false;
+  }
+
+  dropp(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+    this.touched = false;
   }
 
 }

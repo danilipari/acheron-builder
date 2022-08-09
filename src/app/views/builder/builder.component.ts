@@ -393,7 +393,9 @@ export class BuilderComponent implements OnInit {
   private openDialog(): void {
     const dialogRef = this.dialog.open(DialogRenderComponent, {
       width: '250px',
-      data: {name: 'Dani'},
+      data: {
+        name: 'Dani'
+      },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

@@ -11,7 +11,13 @@
           cdkDropListConnectedTo="forms"
           (cdkDropListDropped)="drop($event)"
         >
-          <div class="list-group m-4 shadow-sm" *ngFor="let type of types" [cdkDragData]="type" cdkDrag>
+          <div
+            *ngFor="let type of types; let iT = index"
+            cdkDrag
+            [cdkDragData]="types"
+            (cdkDragStarted)="dragStart($event, iT)"
+            class="list-group m-4 shadow-sm"
+          >
             <div class="list-group-item">
               {{ type.label }}
             </div>
@@ -28,10 +34,21 @@
           [cdkDropListData]="forms"
           cdkDropListConnectedTo="types"
           (cdkDropListDropped)="drop($event)">
-          <div class="list-group m-4 shadow-sm" *ngFor="let form of forms" [cdkDragData]="form" cdkDrag>
+          <div
+            *ngFor="let form of forms; let iF = index;"
+            cdkDrag
+            [cdkDragData]="form"
+            class="list-group m-4 shadow-sm"
+          >
             <div class="list-group-item">
               {{ form.label }}
             </div>
+          </div>
+        </div>
+
+        <div class="list-group m-4 shadow-sm" *ngIf="touched">
+          <div id="new-form-item" class="list-group-item">
+            Add new input here
           </div>
         </div>
 
