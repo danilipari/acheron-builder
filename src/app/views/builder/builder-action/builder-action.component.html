@@ -32,13 +32,11 @@
             class="h-100"
             cdkDropList
             [cdkDropListData]="forms"
-            cdkDropListConnectedTo="types"
             (cdkDropListDropped)="drop($event)"
           >
             <div
-              *ngFor="let form of forms; let iF = index;"
+              *ngFor="let form of forms; trackBy: trackByFn; let iF = index;"
               cdkDrag
-              [cdkDragData]="form"
               (cdkDragStarted)="dragStart($event, 'forms', iF)"
               class="list-group m-4 shadow-sm"
             >

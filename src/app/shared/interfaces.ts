@@ -61,6 +61,7 @@ export interface FormStructure {
 
 
 export interface typeStructure {
+  uuid: string;
   type: string;
   label: string;
   value: string | null;
