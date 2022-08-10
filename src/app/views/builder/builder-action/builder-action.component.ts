@@ -151,8 +151,8 @@ export class BuilderActionComponent implements OnInit {
     console.log(this.type);
 
     if (this.type === 'types') {
-      this.forms = this.forms.reduce((acc, form, index) => {
-        if (index+1 === this.forms.length) {
+      this.forms = this.forms.reduce((acc, form, iT) => {
+        if (iT+1 === this.forms.length) {
           acc = [...acc, add, form, add];
         } else {
           acc = [...acc, add, form];
@@ -160,14 +160,17 @@ export class BuilderActionComponent implements OnInit {
         return acc;
       }, []);
     } else {
-      this.forms = this.forms.reduce((acc, form, index) => {
-        if (index+1 === this.forms.length) {
-          acc = [...acc, move, form, move];
-        } else {
-          acc = [...acc, move, form];
-        }
-        return acc;
-      }, []);
+      console.log(this.forms, index);
+      if (this.forms.length > 2) {
+        this.forms = this.forms.reduce((acc, form, iF) => {
+          if (iF+1 === this.forms.length) {
+            acc = [...acc, move, form, move];
+          } else {
+            acc = [...acc, move, form];
+          }
+          return acc;
+        }, []);
+      }
     }
 
   }
@@ -185,7 +188,7 @@ export class BuilderActionComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex,
-        );
+      );
     }
     this.forms = this.forms.filter((el: any) => (el.type !== 'add' && el.type !== 'move'));
   }
