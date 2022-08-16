@@ -12,6 +12,8 @@ import * as uuid from "uuid";
 export class BuilderActionComponent implements OnInit {
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
 
+  public formSelected: number | null = null;
+
   public type!: string;
 
   public types: Array<typeStructure> = [
@@ -201,6 +203,11 @@ export class BuilderActionComponent implements OnInit {
 
   }
 
+  selectFormItem(index: number): void {
+    console.log('selectFormItem', index);
+    this.formSelected = index;
+  }
+
   trackByFn(index: number, item: any) {
     return item.uuid;
   }
@@ -220,7 +227,8 @@ export class BuilderActionComponent implements OnInit {
         event.currentIndex,
       );
     }
-    // this.forms = this.forms.map((elMap: any) => ({...elMap, uuid: uuid.v4()})).filter((el: any) => (el.type !== 'add' && el.type !== 'move'));
+    /* this.forms = this.forms.map((elMap: any) => ({...elMap, uuid: uuid.v4()})).filter((el: any) => (el.type !== 'add' && el.type !== 'move')); */
+    this.forms = this.forms.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
   }
 
 }

@@ -1,3 +1,4 @@
+$violet: #712cf9;
 .list-group-item {
   height: 50px;
   width: 100%;
@@ -16,5 +17,9 @@
     height: 50px;
     line-height: 30px;
     text-transform: uppercase;
+  }
+
+  &.border.border-primary {
+    border-color: $violet !important;
   }
 }

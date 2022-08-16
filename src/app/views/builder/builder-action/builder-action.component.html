@@ -40,34 +40,26 @@
               (cdkDragStarted)="dragStart($event, 'forms', iF)"
               class="list-group m-4 shadow-sm"
             >
-              <div class="list-group-item " [ngClass]="form.type === 'add' ? 'new-form-item' : form.type === 'move' ? 'move-form-item' : ''">
-                {{ form.label }}
+              <div class="list-group-item " (click)="selectFormItem(iF)" [ngClass]="iF === formSelected ? ' border border-primary ' : ''">
+                {{ form.label }} - {{ form.uuid }}
               </div>
             </div>
           </div>
-
-          <!-- <div class="example-container">
-            <h2>forms</h2>
-
-            <div
-              id="forms"
-              cdkDropList
-              [cdkDropListData]="forms"
-              cdkDropListConnectedTo="types"
-              class="example-list"
-              (cdkDropListDropped)="drop($event)"
-              >
-              <div
-                class="example-box"
-                *ngFor="let form of forms"
-                cdkDrag
-                [cdkDragData]="form"> {{ form | json }} </div>
+        </div>
+        <ng-container *ngIf="formSelected !== null">
+          <div class="col-4 border p-3">
+            <div class="d-flex justify-content-between">
+              <div>
+                option - {{ formSelected }}
+              </div>
+              <div>
+                <button class="btn btn-danger" (click)="formSelected = null">CLOSE</button>
+              </div>
             </div>
-          </div> -->
-        </div>
-        <div class="col-4 border">
-          option
-        </div>
+
+            <pre>{{ forms[formSelected] | json }}</pre>
+          </div>
+        </ng-container>
       </div>
     </div>
   </ng-container>
