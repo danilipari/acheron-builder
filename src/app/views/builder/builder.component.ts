@@ -135,6 +135,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -151,6 +152,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -167,6 +169,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -183,6 +186,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -199,6 +203,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -215,6 +220,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -231,6 +237,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -247,6 +254,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -263,6 +271,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -279,6 +288,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -295,6 +305,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -311,6 +322,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     },
     {
@@ -327,6 +339,7 @@ export class BuilderComponent implements OnInit {
       "required":false,
       "validation":"/.*/",
       "value": "",
+      "visible":true,
       "href":""
     }
   ];

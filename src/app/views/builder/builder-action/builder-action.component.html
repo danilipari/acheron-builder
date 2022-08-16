@@ -43,8 +43,9 @@
               <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
                 {{ form.label }}
 
-                <div>
-                  <input [type]="form.type" [placeholder]="" [value]="">
+                <div class="form-group">
+                  <p>{{ form.label | titlecase }}</p>
+                  <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.label" [value]="form.value">
                 </div>
               </div>
             </div>

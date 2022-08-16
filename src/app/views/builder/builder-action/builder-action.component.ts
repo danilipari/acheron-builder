@@ -148,8 +148,8 @@ export class BuilderActionComponent implements OnInit {
   public forms: Array<any> = [
     {
       uuid: uuid.v4(),
-      type: "button",
-      label: "button",
+      type: "text",
+      label: "text",
       value: null,
     },
   ];
