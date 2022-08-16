@@ -40,24 +40,24 @@
               (cdkDragStarted)="dragStart($event, 'forms', iF)"
               class="list-group m-4 shadow-sm"
             >
-              <div class="list-group-item " (click)="selectFormItem(iF)" [ngClass]="iF === formSelected ? ' border border-primary ' : ''">
-                {{ form.label }} - {{ form.uuid }}
+              <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
+                {{ form.label }}
               </div>
             </div>
           </div>
         </div>
-        <ng-container *ngIf="formSelected !== null">
+        <ng-container *ngIf="formSelected !== ''">
           <div class="col-4 border p-3">
             <div class="d-flex justify-content-between">
               <div>
                 option - {{ formSelected }}
               </div>
               <div>
-                <button class="btn btn-danger" (click)="formSelected = null">CLOSE</button>
+                <button class="btn btn-danger" (click)="formSelected = ''">CLOSE</button>
               </div>
             </div>
 
-            <pre>{{ forms[formSelected] | json }}</pre>
+            <pre>{{ getFormItem(formSelected) | json }}</pre>
           </div>
         </ng-container>
       </div>
