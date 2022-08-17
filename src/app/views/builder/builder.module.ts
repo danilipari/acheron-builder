@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { BuilderComponent } from './builder.component';
 import { BuilderRoutingModule } from './builder-routing.module';
@@ -24,6 +26,7 @@ const components: Array<any> = [
     MatDialogModule,
     MatButtonModule,
     DragDropModule,
+    MatSnackBarModule,
     BuilderRoutingModule,
   ],
   exports: [

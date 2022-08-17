@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { typeStructure, FormStructure } from '../../../shared/interfaces';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
 import * as uuid from "uuid";
 
@@ -11,6 +12,9 @@ import * as uuid from "uuid";
 })
 export class BuilderActionComponent implements OnInit {
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
+
+  private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  private _verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   public formSelected: string = '';
 
@@ -285,7 +289,10 @@ export class BuilderActionComponent implements OnInit {
     },
   ];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     console.log('routeID Builder', this.route_id);
@@ -327,6 +334,15 @@ export class BuilderActionComponent implements OnInit {
     }
   }
 
+  public snackBar(message: string = 'Done!', color: string = 'default'): void {
+    this._snackBar.open(message, 'Close', {
+      horizontalPosition: this._horizontalPosition,
+      verticalPosition: this._verticalPosition,
+      duration: 2500,
+      panelClass: [`snake-${color}`]
+    });
+  }
+
   indexFormRefresh(): void {
     this.forms?.forEach((form: any, index: number) => { form.index = index });
   }
@@ -346,7 +362,7 @@ export class BuilderActionComponent implements OnInit {
         event.currentIndex,
       );
 
-      this.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.types[fromIndex].type))[0];
+      this.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.types[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
       this.indexFormRefresh();
 
       localStorage.setItem('_local_db', JSON.stringify(this.forms));

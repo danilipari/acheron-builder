@@ -60,7 +60,7 @@
                 </div>
                 <div>
                   <button class="btn btn-danger mx-2" (click)="formSelected = ''">CLOSE</button>
-                  <button class="btn btn-outline-danger" (click)="rmFromItem(formSelected); formSelected = ''">Delete</button>
+                  <button class="btn btn-outline-danger" (click)="rmFromItem(formSelected); formSelected = ''; snackBar('Item successfully removed!');">Delete</button>
                 </div>
               </div>
               <div class="card-body">
