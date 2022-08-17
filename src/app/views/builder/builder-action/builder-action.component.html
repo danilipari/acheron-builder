@@ -1,6 +1,5 @@
 <div>
   <ng-container *ngIf="!!(!route_id)">
-    create new builder
     <div class="container-fluid px-0">
       <div class="d-flex body">
         <div class="col-2 border">
@@ -20,7 +19,7 @@
               class="list-group m-4 shadow-sm"
             >
               <div class="list-group-item">
-                {{ type.label }} - {{ type.uuid }}
+                {{ type.label }}
               </div>
             </div>
           </div>
@@ -53,17 +52,25 @@
         </div>
         <ng-container *ngIf="formSelected !== ''">
           <div class="col-4 border p-3">
-            <div class="d-flex justify-content-between">
-              <div>
-                option - {{ formSelected }}
+
+            <div class="card">
+              <div class="card-header d-flex justify-content-between">
+                <div class="my-auto">
+                  <b>ID: </b>  {{ formSelected }}
+                </div>
+                <div>
+                  <button class="btn btn-danger mx-2" (click)="formSelected = ''">CLOSE</button>
+                  <button class="btn btn-outline-danger" (click)="rmFromItem(formSelected); formSelected = ''">Delete</button>
+                </div>
               </div>
-              <div>
-                <button class="btn btn-danger mx-2" (click)="formSelected = ''">CLOSE</button>
-                <button class="btn btn-outline-danger" (click)="rmFromItem(formSelected); formSelected = ''">Delete</button>
+              <div class="card-body">
+                <pre>{{ getFormItem(formSelected) | json }}</pre>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-lg btn-outline-success w-100">SAVE</button>
               </div>
             </div>
 
-            <pre>{{ getFormItem(formSelected) | json }}</pre>
           </div>
         </ng-container>
       </div>
