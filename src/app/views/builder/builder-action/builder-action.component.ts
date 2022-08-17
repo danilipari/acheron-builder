@@ -14,7 +14,244 @@ export class BuilderActionComponent implements OnInit {
 
   public formSelected: string = '';
 
-  public type!: string;
+  public type!: any;
+
+  private _items: Array<FormStructure> = [
+    {
+      "index":0,
+      "uuid": uuid.v4(),
+      "inputType":"text",
+      "component":"",
+      "enabled":true,
+      "name":"text-0",
+      "label":"text",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your text",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":1,
+      "uuid": uuid.v4(),
+      "inputType":"email",
+      "component":"",
+      "enabled":true,
+      "name":"email-1",
+      "label":"email",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your email",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":2,
+      "uuid": uuid.v4(),
+      "inputType":"password",
+      "component":"",
+      "enabled":true,
+      "name":"password-2",
+      "label":"password",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your password",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":3,
+      "uuid": uuid.v4(),
+      "inputType":"date",
+      "component":"",
+      "enabled":true,
+      "name":"date-3",
+      "label":"date",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your date",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":4,
+      "uuid": uuid.v4(),
+      "inputType":"datetime-local",
+      "component":"",
+      "enabled":true,
+      "name":"datetime-local-4",
+      "label":"datetime-local",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your datetime-local",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":5,
+      "uuid": uuid.v4(),
+      "inputType":"number",
+      "component":"",
+      "enabled":true,
+      "name":"number-5",
+      "label":"number",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your number",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":6,
+      "uuid": uuid.v4(),
+      "inputType":"checkbox",
+      "component":"",
+      "enabled":true,
+      "name":"checkbox-6",
+      "label":"checkbox",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your checkbox",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":7,
+      "uuid": uuid.v4(),
+      "inputType":"radio",
+      "component":"",
+      "enabled":true,
+      "name":"radio-7",
+      "label":"radio",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your radio",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":8,
+      "uuid": uuid.v4(),
+      "inputType":"range",
+      "component":"",
+      "enabled":true,
+      "name":"range-8",
+      "label":"range",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your range",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":9,
+      "uuid": uuid.v4(),
+      "inputType":"tel",
+      "component":"",
+      "enabled":true,
+      "name":"tel-9",
+      "label":"tel",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your tel",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":10,
+      "uuid": uuid.v4(),
+      "inputType":"time",
+      "component":"",
+      "enabled":true,
+      "name":"time-10",
+      "label":"time",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your time",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":11,
+      "uuid": uuid.v4(),
+      "inputType":"week",
+      "component":"",
+      "enabled":true,
+      "name":"week-11",
+      "label":"week",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your week",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index":12,
+      "uuid": uuid.v4(),
+      "inputType":"month",
+      "component":"",
+      "enabled":true,
+      "name":"month-12",
+      "label":"month",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your month",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    }
+  ];
 
   public types: Array<typeStructure> = [
     {
@@ -83,10 +320,22 @@ export class BuilderActionComponent implements OnInit {
 
   public forms: Array<typeStructure | FormStructure> = [
     {
-      uuid: uuid.v4(),
-      type: "text",
-      label: "text",
-      value: null,
+      "index":0,
+      "uuid": uuid.v4(),
+      "inputType":"text",
+      "component":"",
+      "enabled":true,
+      "name":"text-0",
+      "label":"text",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your text",
+      "options":[],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
     },
   ];
 
@@ -98,6 +347,7 @@ export class BuilderActionComponent implements OnInit {
   }
 
   init(): void {
+    this.indexFormRefresh();
     if(localStorage.getItem('_local_db')) {
       this._db = localStorage.getItem('_local_db');
       this.forms = JSON.parse(this._db);
@@ -106,23 +356,11 @@ export class BuilderActionComponent implements OnInit {
     }
   }
 
-  dragStart($event: any, type: string, index: number): void {
-    const add = {
-      uuid: null,
-      label: 'Add new input here',
-      type: 'add',
-      value: null,
+  dragStart($event: any, type: string, uuid: string, index: number): void {
+    this.type = {
+      type: type,
+      uuid: uuid,
     };
-
-    const move = {
-      uuid: null,
-      label: 'Move input here',
-      type: 'move',
-      value: null,
-    };
-
-    this.type = type;
-
   }
 
   setFormItem(uuid: string): void {
@@ -135,7 +373,16 @@ export class BuilderActionComponent implements OnInit {
 
   rmFromItem(uuid: string): void {
     this.forms = this.forms.filter((form: any) => form.uuid !== uuid);
-    localStorage.setItem('_local_db', JSON.stringify(this.forms));
+
+    if (this.forms.length > 0) {
+      localStorage.setItem('_local_db', JSON.stringify(this.forms));
+    } else {
+      this.init();
+    }
+  }
+
+  indexFormRefresh(): void {
+    this.forms?.forEach((form: any, index: number) => { form.index = index });
   }
 
   trackByFn(index: number, item: any) {
@@ -143,26 +390,27 @@ export class BuilderActionComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<number[]>) {
-    if (this.type === 'types') {
+    const fromIndex = event.previousIndex;
+    const leaveIndex = event.currentIndex;
+    if (this.type.type === 'types') {
       copyArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
+
+      this.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.types[fromIndex].type))[0];
+      this.indexFormRefresh();
+
       localStorage.setItem('_local_db', JSON.stringify(this.forms));
-
-
-      console.log(
-        event.previousContainer.data,
-        event.container.data
-      );
     } else {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
+      this.indexFormRefresh();
     }
     this.types = this.types.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
   }
