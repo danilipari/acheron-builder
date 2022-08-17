@@ -58,7 +58,7 @@ export interface FormStructure {
   validation: string;
 
   //! Not required
-  index?: number;
+  index?: number | null;
   uuid?: string;
 }
 

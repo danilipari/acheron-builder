@@ -18,12 +18,12 @@ export class BuilderActionComponent implements OnInit {
 
   private _items: Array<FormStructure> = [
     {
-      "index":0,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"text",
       "component":"",
       "enabled":true,
-      "name":"text-0",
+      "name":"text",
       "label":"text",
       "error":"",
       "description":"description",
@@ -36,12 +36,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":1,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"email",
       "component":"",
       "enabled":true,
-      "name":"email-1",
+      "name":"email",
       "label":"email",
       "error":"",
       "description":"description",
@@ -54,12 +54,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":2,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"password",
       "component":"",
       "enabled":true,
-      "name":"password-2",
+      "name":"password",
       "label":"password",
       "error":"",
       "description":"description",
@@ -72,12 +72,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":3,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"date",
       "component":"",
       "enabled":true,
-      "name":"date-3",
+      "name":"date",
       "label":"date",
       "error":"",
       "description":"description",
@@ -90,7 +90,7 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":4,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"datetime-local",
       "component":"",
@@ -108,12 +108,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":5,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"number",
       "component":"",
       "enabled":true,
-      "name":"number-5",
+      "name":"number",
       "label":"number",
       "error":"",
       "description":"description",
@@ -126,12 +126,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":6,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"checkbox",
       "component":"",
       "enabled":true,
-      "name":"checkbox-6",
+      "name":"checkbox",
       "label":"checkbox",
       "error":"",
       "description":"description",
@@ -144,12 +144,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":7,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"radio",
       "component":"",
       "enabled":true,
-      "name":"radio-7",
+      "name":"radio",
       "label":"radio",
       "error":"",
       "description":"description",
@@ -162,12 +162,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":8,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"range",
       "component":"",
       "enabled":true,
-      "name":"range-8",
+      "name":"range",
       "label":"range",
       "error":"",
       "description":"description",
@@ -180,12 +180,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":9,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"tel",
       "component":"",
       "enabled":true,
-      "name":"tel-9",
+      "name":"tel",
       "label":"tel",
       "error":"",
       "description":"description",
@@ -198,12 +198,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":10,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"time",
       "component":"",
       "enabled":true,
-      "name":"time-10",
+      "name":"time",
       "label":"time",
       "error":"",
       "description":"description",
@@ -216,12 +216,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":11,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"week",
       "component":"",
       "enabled":true,
-      "name":"week-11",
+      "name":"week",
       "label":"week",
       "error":"",
       "description":"description",
@@ -234,12 +234,12 @@ export class BuilderActionComponent implements OnInit {
       "href":""
     },
     {
-      "index":12,
+      "index": null,
       "uuid": uuid.v4(),
       "inputType":"month",
       "component":"",
       "enabled":true,
-      "name":"month-12",
+      "name":"month",
       "label":"month",
       "error":"",
       "description":"description",
