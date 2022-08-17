@@ -94,18 +94,16 @@ export class BuilderActionComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('routeID Builder', this.route_id);
+    this.init();
+  }
 
+  init(): void {
     if(localStorage.getItem('_local_db')) {
       this._db = localStorage.getItem('_local_db');
       this.forms = JSON.parse(this._db);
     } else {
       localStorage.setItem('_local_db', JSON.stringify(this.forms));
     }
-
-    console.log(
-      'localStorage',
-      localStorage.getItem('_local_db')
-    );
   }
 
   dragStart($event: any, type: string, index: number): void {
@@ -153,6 +151,12 @@ export class BuilderActionComponent implements OnInit {
         event.currentIndex,
       );
       localStorage.setItem('_local_db', JSON.stringify(this.forms));
+
+
+      console.log(
+        event.previousContainer.data,
+        event.container.data
+      );
     } else {
       moveItemInArray(
         event.container.data,
