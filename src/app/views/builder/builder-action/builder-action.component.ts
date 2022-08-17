@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { typeStructure } from '../../../shared/interfaces';
+import { typeStructure, FormStructure } from '../../../shared/interfaces';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
 import * as uuid from "uuid";
 
@@ -79,7 +79,9 @@ export class BuilderActionComponent implements OnInit {
     },
   ];
 
-  public forms: Array<any> = [
+  private _db: any;
+
+  public forms: Array<typeStructure | FormStructure> = [
     {
       uuid: uuid.v4(),
       type: "text",
@@ -92,6 +94,18 @@ export class BuilderActionComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('routeID Builder', this.route_id);
+
+    if(localStorage.getItem('_local_db')) {
+      this._db = localStorage.getItem('_local_db');
+      this.forms = JSON.parse(this._db);
+    } else {
+      localStorage.setItem('_local_db', JSON.stringify(this.forms));
+    }
+
+    console.log(
+      'localStorage',
+      localStorage.getItem('_local_db')
+    );
   }
 
   dragStart($event: any, type: string, index: number): void {
@@ -118,7 +132,12 @@ export class BuilderActionComponent implements OnInit {
   }
 
   getFormItem(uuid: string): any {
-    return this.forms.filter(form => form.uuid === uuid)[0];
+    return this.forms.filter((form: any) => form.uuid === uuid)[0];
+  }
+
+  rmFromItem(uuid: string): void {
+    this.forms = this.forms.filter((form: any) => form.uuid !== uuid);
+    localStorage.setItem('_local_db', JSON.stringify(this.forms));
   }
 
   trackByFn(index: number, item: any) {
@@ -133,6 +152,7 @@ export class BuilderActionComponent implements OnInit {
         event.previousIndex,
         event.currentIndex,
       );
+      localStorage.setItem('_local_db', JSON.stringify(this.forms));
     } else {
       moveItemInArray(
         event.container.data,

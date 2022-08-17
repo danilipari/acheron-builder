@@ -2,7 +2,7 @@
   <ng-container *ngIf="!!(!route_id)">
     create new builder
     <div class="container-fluid px-0">
-      <div class="d-flex">
+      <div class="d-flex body">
         <div class="col-2 border">
           <div
             id="types"
@@ -20,7 +20,7 @@
               class="list-group m-4 shadow-sm"
             >
               <div class="list-group-item">
-                {{ type.label }}
+                {{ type.label }} - {{ type.uuid }}
               </div>
             </div>
           </div>
@@ -58,7 +58,8 @@
                 option - {{ formSelected }}
               </div>
               <div>
-                <button class="btn btn-danger" (click)="formSelected = ''">CLOSE</button>
+                <button class="btn btn-danger mx-2" (click)="formSelected = ''">CLOSE</button>
+                <button class="btn btn-outline-danger" (click)="rmFromItem(formSelected); formSelected = ''">Delete</button>
               </div>
             </div>
 
