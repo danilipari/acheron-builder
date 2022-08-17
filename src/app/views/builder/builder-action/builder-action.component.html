@@ -65,6 +65,24 @@
               </div>
               <div class="card-body">
                 <pre>{{ getFormItem(formSelected) | json }}</pre>
+                <hr>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-check form-switch form-switch-md">
+                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['enabled']" [(ngModel)]="getFormItem(formSelected)['enabled']">
+                      <label class="mt-2 mx-3" for="switch">Enabled</label>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check form-switch form-switch-md">
+                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['required']" [(ngModel)]="getFormItem(formSelected)['required']">
+                      <label class="mt-2 mx-3" for="switch">Required</label>
+                    </div>
+                  </div>
+                </div>
+
+
               </div>
               <div class="card-footer">
                 <button class="btn btn-lg btn-outline-success w-100">SAVE</button>
