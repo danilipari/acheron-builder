@@ -19,20 +19,20 @@ export class BuilderActionComponent implements OnInit {
   public types: Array<typeStructure> = [
     {
       uuid: uuid.v4(),
-      type: "button",
-      label: "button",
+      type: "text",
+      label: "text",
       value: null,
     },
     {
       uuid: uuid.v4(),
-      type: "checkbox",
-      label: "checkbox",
+      type: "email",
+      label: "email",
       value: null,
     },
     {
       uuid: uuid.v4(),
-      type: "color",
-      label: "color",
+      type: "password",
+      label: "password",
       value: null,
     },
     {
@@ -49,68 +49,8 @@ export class BuilderActionComponent implements OnInit {
     },
     {
       uuid: uuid.v4(),
-      type: "email",
-      label: "email",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "hidden",
-      label: "hidden",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "image",
-      label: "image",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "month",
-      label: "month",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
       type: "number",
       label: "number",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "password",
-      label: "password",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "radio",
-      label: "radio",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "range",
-      label: "range",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "reset",
-      label: "reset",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "search",
-      label: "search",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
-      type: "submit",
-      label: "submit",
       value: null,
     },
     {
@@ -121,26 +61,20 @@ export class BuilderActionComponent implements OnInit {
     },
     {
       uuid: uuid.v4(),
-      type: "text",
-      label: "text",
-      value: null,
-    },
-    {
-      uuid: uuid.v4(),
       type: "time",
       label: "time",
       value: null,
     },
     {
       uuid: uuid.v4(),
-      type: "url",
-      label: "url",
+      type: "week",
+      label: "week",
       value: null,
     },
     {
       uuid: uuid.v4(),
-      type: "week",
-      label: "week",
+      type: "month",
+      label: "month",
       value: null,
     },
   ];
@@ -176,30 +110,6 @@ export class BuilderActionComponent implements OnInit {
     };
 
     this.type = type;
-
-
-    /* if (this.type === 'types') {
-      this.forms = this.forms.reduce((acc, form, iT) => {
-        if (iT+1 === this.forms.length) {
-          acc = [...acc, {...add, uuid: uuid.v4()}, form, {...add, uuid: uuid.v4()}];
-        } else {
-          acc = [...acc, {...add, uuid: uuid.v4()}, form];
-        }
-        return acc;
-      }, []);
-    } else {
-      console.log(this.forms, index);
-      if (false) {
-        this.forms = this.forms.reduce((acc, form, iF) => {
-          if (iF+1 === this.forms.length) {
-            acc = [...acc, {...move, uuid: uuid.v4()}, form, {...move, uuid: uuid.v4()}];
-          } else {
-            acc = [...acc, {...move, uuid: uuid.v4()}, form];
-          }
-          return acc;
-        }, []);
-      }
-    } */
 
   }
 

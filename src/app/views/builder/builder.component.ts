@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationDialog, FormContainer, FormStructure } from '../../shared/interfaces';
+import { ConfigurationDialog, FormContainer, FormStructure, typeStructure } from '../../shared/interfaces';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
+import * as uuid from "uuid";
 
 @Component({
   selector: 'app-builder',
@@ -11,35 +12,73 @@ import { DialogRenderComponent } from '../../components/dialog-render/dialog-ren
 export class BuilderComponent implements OnInit {
   ea_icon: string = 'https://static.escort-advisor.com/favicon.ico';
 
-  types: Array<any> = [
+  types: Array<typeStructure> = [
     {
+      uuid: uuid.v4(),
       type: "text",
       label: "text",
       value: null,
     },
     {
+      uuid: uuid.v4(),
       type: "email",
       label: "email",
       value: null,
     },
     {
+      uuid: uuid.v4(),
       type: "password",
       label: "password",
       value: null,
     },
     {
+      uuid: uuid.v4(),
       type: "date",
       label: "date",
       value: null,
     },
     {
+      uuid: uuid.v4(),
       type: "datetime-local",
       label: "datetime-local",
       value: null,
     },
     {
+      uuid: uuid.v4(),
       type: "number",
       label: "number",
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "tel",
+      label: "tel",
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "time",
+      label: "time",
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "week",
+      label: "week",
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "month",
+      label: "month",
+      value: null,
+    },
+
+    /*
+    {
+      uuid: uuid.v4(),
+      type: "range",
+      label: "range",
       value: null,
     },
     {
@@ -53,32 +92,6 @@ export class BuilderComponent implements OnInit {
       value: null,
     },
     {
-      type: "range",
-      label: "range",
-      value: null,
-    },
-    {
-      type: "tel",
-      label: "tel",
-      value: null,
-    },
-    {
-      type: "time",
-      label: "time",
-      value: null,
-    },
-    {
-      type: "week",
-      label: "week",
-      value: null,
-    },
-    {
-      type: "month",
-      label: "month",
-      value: null,
-    },
-
-    /* {
       type: "color",
       label: "color",
       value: null,
@@ -123,6 +136,7 @@ export class BuilderComponent implements OnInit {
   items: Array<FormStructure> = [
     {
       "index":0,
+      "uuid": uuid.v4(),
       "inputType":"text",
       "component":"",
       "enabled":true,
@@ -140,6 +154,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":1,
+      "uuid": uuid.v4(),
       "inputType":"email",
       "component":"",
       "enabled":true,
@@ -157,6 +172,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":2,
+      "uuid": uuid.v4(),
       "inputType":"password",
       "component":"",
       "enabled":true,
@@ -174,6 +190,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":3,
+      "uuid": uuid.v4(),
       "inputType":"date",
       "component":"",
       "enabled":true,
@@ -191,6 +208,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":4,
+      "uuid": uuid.v4(),
       "inputType":"datetime-local",
       "component":"",
       "enabled":true,
@@ -208,6 +226,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":5,
+      "uuid": uuid.v4(),
       "inputType":"number",
       "component":"",
       "enabled":true,
@@ -225,6 +244,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":6,
+      "uuid": uuid.v4(),
       "inputType":"checkbox",
       "component":"",
       "enabled":true,
@@ -242,6 +262,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":7,
+      "uuid": uuid.v4(),
       "inputType":"radio",
       "component":"",
       "enabled":true,
@@ -259,6 +280,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":8,
+      "uuid": uuid.v4(),
       "inputType":"range",
       "component":"",
       "enabled":true,
@@ -276,6 +298,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":9,
+      "uuid": uuid.v4(),
       "inputType":"tel",
       "component":"",
       "enabled":true,
@@ -293,6 +316,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":10,
+      "uuid": uuid.v4(),
       "inputType":"time",
       "component":"",
       "enabled":true,
@@ -310,6 +334,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":11,
+      "uuid": uuid.v4(),
       "inputType":"week",
       "component":"",
       "enabled":true,
@@ -327,6 +352,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       "index":12,
+      "uuid": uuid.v4(),
       "inputType":"month",
       "component":"",
       "enabled":true,
@@ -347,6 +373,7 @@ export class BuilderComponent implements OnInit {
   forms: Array<FormContainer> = [
     {
       id: 1,
+      uuid: uuid.v4(),
       title: "Form #1",
       description: "Form #1 description",
       advertising_campaign_id: 1,
@@ -361,6 +388,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       id: 2,
+      uuid: uuid.v4(),
       title: "Form #2",
       description: "Form #2 description",
       advertising_campaign_id: 2,
@@ -375,6 +403,7 @@ export class BuilderComponent implements OnInit {
     },
     {
       id: 3,
+      uuid: uuid.v4(),
       title: "Form #3",
       description: "Form #3 description",
       advertising_campaign_id: 3,

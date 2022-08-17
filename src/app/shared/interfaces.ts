@@ -24,6 +24,7 @@ export interface DialogData {
 export interface FormContainer {
   // Required
   id: string | number;
+  uuid: string;
   title: string;
   created_at: string | null;
   updated_at: string | null;
@@ -58,6 +59,7 @@ export interface FormStructure {
 
   //! Not required
   index?: number;
+  uuid?: string;
 }
 
 
