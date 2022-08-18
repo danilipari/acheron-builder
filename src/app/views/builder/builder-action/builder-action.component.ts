@@ -3,12 +3,20 @@ import { ActivatedRoute } from '@angular/router';
 import { typeStructure, FormStructure } from '../../../shared/interfaces';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
+import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation } from 'angular-animations';
 import * as uuid from "uuid";
 
 @Component({
   selector: 'app-builder-action',
   templateUrl: './builder-action.component.html',
-  styleUrls: ['./builder-action.component.scss']
+  styleUrls: ['./builder-action.component.scss'],
+  animations: [
+    bounceInRightOnEnterAnimation({ anchor: 'enter1', translate: '500px' }),
+    bounceInLeftOnEnterAnimation(),
+    bounceInRightOnEnterAnimation(),
+    bounceOutLeftOnLeaveAnimation(),
+    bounceOutRightOnLeaveAnimation(),
+  ],
 })
 export class BuilderActionComponent implements OnInit {
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
@@ -317,7 +325,13 @@ export class BuilderActionComponent implements OnInit {
   }
 
   setFormItem(uuid: string): void {
-    this.formSelected = uuid;
+    if (this.formSelected === '') {
+      setTimeout(() => {
+        this.formSelected = uuid;
+      }, 150);
+    } else {
+      this.formSelected = uuid;
+    }
   }
 
   getFormItem(uuid: string): any {

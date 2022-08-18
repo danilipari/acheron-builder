@@ -2,7 +2,7 @@
   <ng-container *ngIf="!!(!route_id)">
     <div class="container-fluid px-0">
       <div class="d-flex body">
-        <div class="col-2 border">
+        <div class="structure col-2 border">
           <div
             id="types"
             class=""
@@ -25,7 +25,7 @@
           </div>
 
         </div>
-        <div class="col border">
+        <div class="structure col border">
           <div
             id="forms"
             class="h-100"
@@ -41,15 +41,15 @@
             >
               <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
                 <div class="form-group">
-                  <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.label | titlecase }}</span></p>
-                  <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.label" [value]="form.value">
+                  <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
+                  <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
                 </div>
               </div>
             </div>
           </div>
         </div>
         <ng-container *ngIf="formSelected !== ''">
-          <div class="col-4 border p-3">
+          <div class="structure col-4 border p-3" [@enter1]>
 
             <div class="card">
               <div class="card-header d-flex justify-content-between">
