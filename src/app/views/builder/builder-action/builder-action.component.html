@@ -40,10 +40,8 @@
               class="list-group m-4 shadow-sm"
             >
               <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
-                {{ form.label }}
-
                 <div class="form-group">
-                  <p>{{ form.label | titlecase }}</p>
+                  <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.label | titlecase }}</span></p>
                   <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.label" [value]="form.value">
                 </div>
               </div>
@@ -56,7 +54,7 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between">
                 <div class="my-auto">
-                  <b>ID: </b>  {{ formSelected }}
+                  <p><span class="text-muted">ID: </span> <span class="text-primary-ab"> {{ formSelected }} </span></p>
                 </div>
                 <div>
                   <button class="btn btn-danger mx-2" (click)="formSelected = ''">CLOSE</button>
@@ -64,21 +62,75 @@
                 </div>
               </div>
               <div class="card-body">
-                <pre>{{ getFormItem(formSelected) | json }}</pre>
+                <p class="text-primary-ab">{{ 'previewing json' | titlecase }}</p>
+                <div class="border rounded w-100 h-25 overflow-scroll">
+                  <div> <!-- style="pointer-events: none;" -->
+                    <ngx-json-viewer [json]="getFormItem(formSelected)" [expanded]="true"></ngx-json-viewer>
+                  </div>
+                </div>
+
+
                 <hr>
 
-                <div class="row">
-                  <div class="col-6">
+                <p class="text-primary-ab">{{ 'edit field/Json properties' | titlecase }}</p>
+
+
+                <div class="row mt-4">
+                  <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
                       <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['enabled']" [(ngModel)]="getFormItem(formSelected)['enabled']">
                       <label class="mt-2 mx-3" for="switch">Enabled</label>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
                       <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['required']" [(ngModel)]="getFormItem(formSelected)['required']">
                       <label class="mt-2 mx-3" for="switch">Required</label>
                     </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-check form-switch form-switch-md">
+                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['visible']" [(ngModel)]="getFormItem(formSelected)['visible']">
+                      <label class="mt-2 mx-3" for="switch">Visible</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-6 form-group">
+                    <label>Name</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['name']" [(ngModel)]="getFormItem(formSelected)['name']">
+                  </div>
+                  <div class="col-6 form-group">
+                    <label>Label</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['label']" [(ngModel)]="getFormItem(formSelected)['label']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="8" [value]="getFormItem(formSelected)['description']" [(ngModel)]="getFormItem(formSelected)['description']"></textarea>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-6 form-group">
+                    <label>Placeholder</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['placeholder']" [(ngModel)]="getFormItem(formSelected)['placeholder']">
+                  </div>
+                  <div class="col-6 form-group">
+                    <label>Href</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['href']" [(ngModel)]="getFormItem(formSelected)['href']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Validation Pattern</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['validation']" [(ngModel)]="getFormItem(formSelected)['validation']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Value</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['value']" [(ngModel)]="getFormItem(formSelected)['value']">
                   </div>
                 </div>
 

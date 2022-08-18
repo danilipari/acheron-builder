@@ -44,10 +44,16 @@ body {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+$violet: #712cf9;
+
 .snake-success {
   background-color: #198754;
 }
 
 .snake-default {
-  background-color: #712cf9;
+  background-color: $violet !important;
+}
+
+.text-primary-ab {
+  color: $violet !important;
 }

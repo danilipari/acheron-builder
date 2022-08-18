@@ -6,6 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { SharedModule } from '../../shared/shared.module';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+
 
 import { BuilderComponent } from './builder.component';
 import { BuilderRoutingModule } from './builder-routing.module';
@@ -27,6 +30,8 @@ const components: Array<any> = [
     MatButtonModule,
     DragDropModule,
     MatSnackBarModule,
+    SharedModule,
+    NgxJsonViewerModule,
     BuilderRoutingModule,
   ],
   exports: [
