@@ -8,6 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SharedModule } from '../../shared/shared.module';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 
 import { BuilderComponent } from './builder.component';
@@ -31,6 +32,7 @@ const components: Array<any> = [
     DragDropModule,
     MatSnackBarModule,
     SharedModule,
+    NgxBootstrapIconsModule.pick(allIcons),
     NgxJsonViewerModule,
     BuilderRoutingModule,
   ],

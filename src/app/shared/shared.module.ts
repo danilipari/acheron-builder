@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { RouterModule } from '@angular/router';
 import { JsonRenderComponent } from './json-render/json-render.component';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 
 const components: Array<any> = [
@@ -22,6 +23,7 @@ const components: Array<any> = [
     CommonModule,
     RouterModule,
     FormsModule,
+    NgxBootstrapIconsModule.pick(allIcons),
     NgxJsonViewerModule
   ],
   exports: [

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { typeStructure, FormStructure } from '../../../shared/interfaces';
+import { ConfigurationDialog, typeStructure, FormStructure } from '../../../shared/interfaces';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
+import { DialogAlertMessagesComponent } from '../../../components/dialog-alert-messages/dialog-alert-messages.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation } from 'angular-animations';
 import * as uuid from "uuid";
 
@@ -299,7 +301,8 @@ export class BuilderActionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -389,6 +392,35 @@ export class BuilderActionComponent implements OnInit {
       this.indexFormRefresh();
     }
     this.types = this.types.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
+  }
+
+
+  /**
+   * @author Dani Lipari
+   * @description Function open DialogAlertMessage
+   * @param {String} title
+   * @param {String} message
+   * @param {String} color
+   * @visibility Public
+   * @returns Void
+  */
+  public dialogAlertMessage(title: string = 'AlertMessage', message: string = 'Confrim?', color: string = 'success', options: any[] = [{label: 'No', value: 'no', color: 'danger', action: 'close'}, {label: 'Yes', value: 'yes', color: 'success', action: 'confirm'}]): void {
+    const config: ConfigurationDialog = {
+      width: `${window.innerWidth  - (window.innerWidth / 1.35)}px`,
+      height: `${window.innerHeight - 800}px`,
+      data: {
+        uuid: this.formSelected,
+        title: title,
+        message: message,
+        color: color,
+        options: options,
+      },
+    };
+    const dialogRef = this.dialog.open(DialogAlertMessagesComponent, config);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The dialog was closed', result);
+    });
   }
 
 }

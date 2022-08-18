@@ -373,25 +373,6 @@ export class BuilderComponent implements OnInit {
   }
 
   /**
-   * @description function openDialog
-   * @author Docs Angular Material
-   * @visibility private
-   * @returns void
-   */
-  private openDialog(): void {
-    const dialogRef = this.dialog.open(DialogRenderComponent, {
-      width: '250px',
-      data: {
-        name: 'Dani'
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed', result);
-    });
-  }
-
-  /**
    * @author Dani Lipari
    * @description Function renderDialog
    * @param data: Any
