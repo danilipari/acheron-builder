@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationDialog, Workflow, FormStructure, FormItem, typeStructure, Forms } from '../../shared/interfaces';
+import { ConfigurationDialog, Workflow, FormStructure, FormItem, typeStructure } from '../../shared/interfaces';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
 import * as uuid from "uuid";
@@ -135,7 +135,9 @@ export class BuilderComponent implements OnInit {
   ];
 
   forms_structure: FormStructure = {
-    form_name: 'xxx',
+    form_name: 'form name',
+    form_special: false,
+    form_text: '',
     forms: [
       {
         "index": 0,
@@ -320,7 +322,7 @@ export class BuilderComponent implements OnInit {
     ],
     actions: [
       {
-        "index": 10,
+        "index": 1,
         "uuid": uuid.v4(),
         "inputType":"button",
         "component":"",
@@ -343,12 +345,6 @@ export class BuilderComponent implements OnInit {
         "href":""
       },
     ],
-  }
-
-  _forms: Forms = {
-    title: 'title',
-    uuid: 'e3ef05b0-e875-43c2-b78c-64b7c945a670',
-    form: [this.forms_structure]
   }
 
 
