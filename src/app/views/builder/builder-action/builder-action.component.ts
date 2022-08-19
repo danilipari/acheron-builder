@@ -210,7 +210,30 @@ export class BuilderActionComponent implements OnInit {
       "value": "",
       "visible":true,
       "href":""
-    }
+    },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
+      "inputType":"button",
+      "component":"",
+      "enabled":true,
+      "name":"button",
+      "label":"button",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your button",
+      "options":[
+        {
+          "optionType": "submit",
+          "value": false,
+        }
+      ],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
   ];
 
   public types: Array<typeStructure> = [
@@ -272,6 +295,12 @@ export class BuilderActionComponent implements OnInit {
       uuid: uuid.v4(),
       type: "month",
       label: "month",
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "button",
+      label: "button",
       value: null,
     },
   ];

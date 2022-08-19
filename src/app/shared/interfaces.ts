@@ -49,13 +49,19 @@ export interface FormStructure {
   href: string;
   description: string;
   placeholder: string;
-  options: Array<any>;
+  options: Array<OptionsFormStructure>;
   required: boolean;
   validation: string;
 
   //! Not required
   index?: number | null;
   uuid?: string;
+}
+
+export interface OptionsFormStructure {
+  // Required
+  optionType: string;
+  value: boolean | string | null;
 }
 
 

@@ -73,6 +73,12 @@ export class BuilderComponent implements OnInit {
       label: "month",
       value: null,
     },
+    {
+      uuid: uuid.v4(),
+      type: "button",
+      label: "button",
+      value: null,
+    },
 
     /*
     {
@@ -94,11 +100,6 @@ export class BuilderComponent implements OnInit {
     {
       type: "color",
       label: "color",
-      value: null,
-    },
-    {
-      type: "button",
-      label: "button",
       value: null,
     },
     {
@@ -313,7 +314,30 @@ export class BuilderComponent implements OnInit {
       "value": "",
       "visible":true,
       "href":""
-    }
+    },
+    {
+      "index": 10,
+      "uuid": uuid.v4(),
+      "inputType":"button",
+      "component":"",
+      "enabled":true,
+      "name":"button",
+      "label":"button",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your button",
+      "options":[
+        {
+          "optionType": "submit",
+          "value": false,
+        }
+      ],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
   ];
 
   forms: Array<FormContainer> = [

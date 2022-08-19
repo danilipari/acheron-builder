@@ -66,6 +66,12 @@ const types: Array<any> = [
     label: "month",
     value: null,
   },
+  {
+    uuid: uuidv4(),
+    type: "button",
+    label: "button",
+    value: null,
+  },
 ];
 
 
