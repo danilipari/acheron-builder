@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BuilderComponent } from './builder.component';
-import { BuilderActionComponent } from './builder-action/builder-action.component';
+import { WorkflowComponent } from './workflow.component';
+import { WorkflowActionComponent } from './workflow-action/workflow-action.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: BuilderComponent
+    component: WorkflowComponent
   },
   {
     path: 'action',
-    component: BuilderActionComponent
+    component: WorkflowActionComponent
   },
   {
     path: 'action/:id',
-    component: BuilderActionComponent
+    component: WorkflowActionComponent
   }
 
 ];
@@ -23,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BuilderRoutingModule {}
+export class WorkflowRoutingModule {}

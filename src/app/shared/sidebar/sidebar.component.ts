@@ -13,8 +13,8 @@ export class SidebarComponent implements OnInit {
 
   routes: Array<SidebarRoutes> = [
     {
-      name: "Builder",
-      path: "/builder",
+      name: "Workflow",
+      path: "/workflow",
       visible: true,
     },
     {
@@ -23,8 +23,8 @@ export class SidebarComponent implements OnInit {
       visible: true,
     },
     {
-      name: "Forms",
-      path: "/forms",
+      name: "Form",
+      path: "/form",
       visible: true,
     },
   ];

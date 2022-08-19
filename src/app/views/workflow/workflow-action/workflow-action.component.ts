@@ -9,9 +9,9 @@ import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutL
 import * as uuid from "uuid";
 
 @Component({
-  selector: 'app-builder-action',
-  templateUrl: './builder-action.component.html',
-  styleUrls: ['./builder-action.component.scss'],
+  selector: 'app-workflow-action',
+  templateUrl: './workflow-action.component.html',
+  styleUrls: ['./workflow-action.component.scss'],
   animations: [
     bounceInRightOnEnterAnimation({ anchor: 'enter1', translate: '500px' }),
     bounceInLeftOnEnterAnimation(),
@@ -20,7 +20,7 @@ import * as uuid from "uuid";
     bounceOutRightOnLeaveAnimation(),
   ],
 })
-export class BuilderActionComponent implements OnInit {
+export class WorkflowActionComponent implements OnInit {
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
 
   private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
@@ -335,7 +335,7 @@ export class BuilderActionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('routeID Builder', this.route_id);
+    console.log('routeID Workflow', this.route_id);
     this.init();
   }
 

@@ -12,7 +12,7 @@
 
       <div class="card-footer d-flex justify-content-around">
         <button type="button" class="btn btn-lg btn-outline-danger w-75 mx-2" (click)="onNoClick()">{{ 'delete' | uppercase }}</button>
-        <button type="button" class="btn btn-lg btn-outline-success w-75 mx-2" [routerLink]="'/builder/action/' + data.form.id" (click)="onNoClick()">{{ 'edit' | uppercase }}</button>
+        <button type="button" class="btn btn-lg btn-outline-success w-75 mx-2" [routerLink]="'/workflow/action/' + data.form.id" (click)="onNoClick()">{{ 'edit' | uppercase }}</button>
       </div>
     </div>
   </div>

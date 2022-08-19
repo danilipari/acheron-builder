@@ -11,15 +11,15 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 
-import { BuilderComponent } from './builder.component';
-import { BuilderRoutingModule } from './builder-routing.module';
-import { BuilderActionComponent } from './builder-action/builder-action.component';
+import { WorkflowComponent } from './workflow.component';
+import { WorkflowRoutingModule } from './workflow-routing.module';
+import { WorkflowActionComponent } from './workflow-action/workflow-action.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 const components: Array<any> = [
-  BuilderComponent,
-  BuilderActionComponent,
+  WorkflowComponent,
+  WorkflowActionComponent,
 ];
 
 @NgModule({
@@ -37,10 +37,10 @@ const components: Array<any> = [
     MatTooltipModule,
     NgxBootstrapIconsModule.pick(allIcons),
     NgxJsonViewerModule,
-    BuilderRoutingModule,
+    WorkflowRoutingModule,
   ],
   exports: [
     components
   ]
 })
-export class BuilderModule {}
+export class WorkflowModule {}

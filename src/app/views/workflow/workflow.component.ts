@@ -5,11 +5,11 @@ import { DialogRenderComponent } from '../../components/dialog-render/dialog-ren
 import * as uuid from "uuid";
 
 @Component({
-  selector: 'app-builder',
-  templateUrl: './builder.component.html',
-  styleUrls: ['./builder.component.scss']
+  selector: 'app-workflow',
+  templateUrl: './workflow.component.html',
+  styleUrls: ['./workflow.component.scss']
 })
-export class BuilderComponent implements OnInit {
+export class WorkflowComponent implements OnInit {
   ea_icon: string = 'https://static.escort-advisor.com/favicon.ico';
 
   types: Array<typeStructure> = [

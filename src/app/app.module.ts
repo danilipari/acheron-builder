@@ -25,9 +25,9 @@ const components: Array<any> = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     SharedModule,
     DialogRenderModule,
+    FormsModule,
     DialogAlertMessagesModule,
     BrowserAnimationsModule
   ],
