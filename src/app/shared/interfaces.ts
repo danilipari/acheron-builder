@@ -39,8 +39,8 @@ export interface Workflow {
 export interface FormStructure {
   // Required
   form_name: string;
-  form: Array<FormItem>;
-  action: Array<FormItem>;
+  forms: Array<FormItem>;
+  actions: Array<FormItem>;
 }
 
 export interface FormItem {

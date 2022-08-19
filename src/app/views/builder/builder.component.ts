@@ -136,7 +136,7 @@ export class BuilderComponent implements OnInit {
 
   forms_structure: FormStructure = {
     form_name: 'xxx',
-    form: [
+    forms: [
       {
         "index": 0,
         "uuid": uuid.v4(),
@@ -318,7 +318,7 @@ export class BuilderComponent implements OnInit {
         "href":""
       },
     ],
-    action: [
+    actions: [
       {
         "index": 10,
         "uuid": uuid.v4(),
