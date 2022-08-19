@@ -21,23 +21,29 @@ export interface DialogData {
   [key: string]: any;
 }
 
-export interface FormContainer {
+export interface Workflow {
   // Required
   id: string | number;
   uuid: string;
   title: string;
   created_at: string | null;
-  updated_at: string | null;
-  form: Array<FormStructure>; // Need to dclare after
+  forms: Array<FormStructure>;
+  layout_id: number; // Need to assign default value 0
 
   //! Not required
   description?: string;
-  layout_id?: number | string;
+  updated_at?: string | null;
   deleted_at?: string | null;
 }
 
 export interface FormStructure {
   // Required
+  form_name: string;
+  form: Array<FormItem>;
+  action: Array<FormItem>;
+}
+
+export interface FormItem {
   inputType: string;
   component: string;
   enabled: boolean;
@@ -56,6 +62,12 @@ export interface FormStructure {
   //! Not required
   index?: number | null;
   uuid?: string;
+}
+
+export interface Forms {
+  title: string;
+  uuid?: string;
+  form?: Array<FormStructure>
 }
 
 export interface OptionsFormStructure {

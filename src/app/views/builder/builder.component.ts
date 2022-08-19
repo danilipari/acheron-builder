@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationDialog, FormContainer, FormStructure, typeStructure } from '../../shared/interfaces';
+import { ConfigurationDialog, Workflow, FormStructure, FormItem, typeStructure, Forms } from '../../shared/interfaces';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
 import * as uuid from "uuid";
@@ -134,7 +134,225 @@ export class BuilderComponent implements OnInit {
     }, */
   ];
 
-  items: Array<FormStructure> = [
+  forms_structure: FormStructure = {
+    form_name: 'xxx',
+    form: [
+      {
+        "index": 0,
+        "uuid": uuid.v4(),
+        "inputType":"text",
+        "component":"",
+        "enabled":true,
+        "name":"text",
+        "label":"text",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your text",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 1,
+        "uuid": uuid.v4(),
+        "inputType":"email",
+        "component":"",
+        "enabled":true,
+        "name":"email",
+        "label":"email",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your email",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 2,
+        "uuid": uuid.v4(),
+        "inputType":"password",
+        "component":"",
+        "enabled":true,
+        "name":"password",
+        "label":"password",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your password",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 3,
+        "uuid": uuid.v4(),
+        "inputType":"date",
+        "component":"",
+        "enabled":true,
+        "name":"date",
+        "label":"date",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your date",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 4,
+        "uuid": uuid.v4(),
+        "inputType":"datetime-local",
+        "component":"",
+        "enabled":true,
+        "name":"datetime-local",
+        "label":"datetime-local",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your datetime-local",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 5,
+        "uuid": uuid.v4(),
+        "inputType":"number",
+        "component":"",
+        "enabled":true,
+        "name":"number",
+        "label":"number",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your number",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 6,
+        "uuid": uuid.v4(),
+        "inputType":"tel",
+        "component":"",
+        "enabled":true,
+        "name":"tel",
+        "label":"tel",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your tel",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 7,
+        "uuid": uuid.v4(),
+        "inputType":"time",
+        "component":"",
+        "enabled":true,
+        "name":"time",
+        "label":"time",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your time",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 8,
+        "uuid": uuid.v4(),
+        "inputType":"week",
+        "component":"",
+        "enabled":true,
+        "name":"week",
+        "label":"week",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your week",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+      {
+        "index": 9,
+        "uuid": uuid.v4(),
+        "inputType":"month",
+        "component":"",
+        "enabled":true,
+        "name":"month",
+        "label":"month",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your month",
+        "options":[],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+    ],
+    action: [
+      {
+        "index": 10,
+        "uuid": uuid.v4(),
+        "inputType":"button",
+        "component":"",
+        "enabled":true,
+        "name":"button",
+        "label":"button",
+        "error":"",
+        "description":"description",
+        "placeholder":"Insert your button",
+        "options":[
+          {
+            "optionType": "submit",
+            "value": false,
+          }
+        ],
+        "required":false,
+        "validation":"/.*/",
+        "value": "",
+        "visible":true,
+        "href":""
+      },
+    ],
+  }
+
+  _forms: Forms = {
+    title: 'title',
+    uuid: 'e3ef05b0-e875-43c2-b78c-64b7c945a670',
+    form: [this.forms_structure]
+  }
+
+
+  items: Array<FormItem> = [
     {
       "index": 0,
       "uuid": uuid.v4(),
@@ -340,13 +558,13 @@ export class BuilderComponent implements OnInit {
     },
   ];
 
-  forms: Array<FormContainer> = [
+  forms: Array<Workflow> = [
     {
       id: 1,
       uuid: uuid.v4(),
-      title: "Form #1",
-      description: "Form #1 description",
-      form: [...this.items],
+      title: "Workflow #1",
+      description: "Workflow #1 description",
+      forms: [this.forms_structure],
       layout_id: 1,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -355,9 +573,9 @@ export class BuilderComponent implements OnInit {
     {
       id: 2,
       uuid: uuid.v4(),
-      title: "Form #2",
-      description: "Form #2 description",
-      form: [...this.items],
+      title: "Workflow #2",
+      description: "Workflow #2 description",
+      forms: [this.forms_structure],
       layout_id: 2,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -366,9 +584,9 @@ export class BuilderComponent implements OnInit {
     {
       id: 3,
       uuid: uuid.v4(),
-      title: "Form #3",
-      description: "Form #3 description",
-      form: [...this.items],
+      title: "Workflow #3",
+      description: "Workflow #3 description",
+      forms: [this.forms_structure],
       layout_id: 3,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),

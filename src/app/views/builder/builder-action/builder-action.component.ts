@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConfigurationDialog, typeStructure, FormStructure } from '../../../shared/interfaces';
+import { ConfigurationDialog, typeStructure, FormStructure, FormItem } from '../../../shared/interfaces';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
 import { DialogAlertMessagesComponent } from '../../../components/dialog-alert-messages/dialog-alert-messages.component';
@@ -30,7 +30,7 @@ export class BuilderActionComponent implements OnInit {
 
   public type!: any;
 
-  private _items: Array<FormStructure> = [
+  private _items: Array<FormItem> = [
     {
       "index": null,
       "uuid": uuid.v4(),
@@ -307,7 +307,7 @@ export class BuilderActionComponent implements OnInit {
 
   private _db: any;
 
-  public forms: Array<typeStructure | FormStructure> = [
+  public forms: Array<typeStructure | FormItem> = [
     {
       "index":0,
       "uuid": uuid.v4(),
