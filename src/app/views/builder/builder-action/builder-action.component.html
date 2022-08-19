@@ -54,11 +54,19 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between">
                 <div class="my-auto">
-                  <p><span class="text-muted">ID: </span> <span class="text-primary-ab"> {{ formSelected }} </span></p>
+                  <i-bs
+                    matTooltip="Close field"
+                    (click)="formSelected = ''"
+                    name="chevron-double-right"
+                    class="text-primary-ab"
+                    width="24px"
+                    height="24px"
+                  ></i-bs>
+                  <!-- <button class="btn btn-outline-danger" (click)="dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'delete')">Delete</button> -->
+                  <!-- rmFromItem(formSelected); formSelected = ''; snackBar('Item successfully removed!'); -->
                 </div>
-                <div>
-                  <button class="btn btn-danger mx-2" (click)="formSelected = ''">CLOSE</button>
-                  <button class="btn btn-outline-danger" (click)="dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?')">Delete</button> <!-- rmFromItem(formSelected); formSelected = ''; snackBar('Item successfully removed!'); -->
+                <div class="my-auto">
+                  <p class="mb-0 my-auto"><span class="text-muted">ID: </span> <span class="text-primary-ab"> {{ formSelected }} </span></p>
                 </div>
               </div>
               <div class="card-body">
@@ -137,7 +145,7 @@
 
               </div>
               <div class="card-footer">
-                <button class="btn btn-lg btn-outline-success w-100" (click)="snackBar('Item successfully saved!');">SAVE</button>
+                <button class="btn btn-lg btn-outline-success w-100" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save')">SAVE</button>
               </div>
             </div>
 

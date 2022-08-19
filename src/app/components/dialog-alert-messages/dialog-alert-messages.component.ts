@@ -10,9 +10,11 @@ import { ConfigurationDialog } from '../../shared/interfaces';
 export class DialogAlertMessagesComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<DialogAlertMessagesComponent>,
+    private dialogRef: MatDialogRef<DialogAlertMessagesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfigurationDialog | any,
-  ) {}
+  ) {
+    dialogRef.disableClose = true;
+  }
 
   ngOnInit(): void {
     /*  */
@@ -27,6 +29,7 @@ export class DialogAlertMessagesComponent implements OnInit {
 
   onSaveClick(): void {
     const output: any = {
+      "type": this.data.action,
       "action": {
         "confirm": true,
       }

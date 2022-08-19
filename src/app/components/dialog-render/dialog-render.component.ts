@@ -10,9 +10,11 @@ import { ConfigurationDialog } from '../../shared/interfaces';
 export class DialogRenderComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<DialogRenderComponent>,
+    private dialogRef: MatDialogRef<DialogRenderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfigurationDialog | any,
-  ) {}
+  ) {
+    dialogRef.disableClose = false;
+  }
 
   ngOnInit(): void {
     /*  */

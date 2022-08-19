@@ -14,6 +14,8 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { BuilderComponent } from './builder.component';
 import { BuilderRoutingModule } from './builder-routing.module';
 import { BuilderActionComponent } from './builder-action/builder-action.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 const components: Array<any> = [
   BuilderComponent,
@@ -32,6 +34,7 @@ const components: Array<any> = [
     DragDropModule,
     MatSnackBarModule,
     SharedModule,
+    MatTooltipModule,
     NgxBootstrapIconsModule.pick(allIcons),
     NgxJsonViewerModule,
     BuilderRoutingModule,

@@ -400,7 +400,9 @@ export class BuilderActionComponent implements OnInit {
    * @description Function open DialogAlertMessage
    * @param {String} title
    * @param {String} message
-   * @param {String} color
+   * @param {String} icon
+   * @param {Array} action
+   * @param {String} options
    * @visibility Public
    * @returns Void
   */
@@ -408,21 +410,21 @@ export class BuilderActionComponent implements OnInit {
     title: string = 'AlertMessage',
     message: string = 'Confrim?',
     icon: string = 'exclamation-triangle-fill',
-    color: string = 'success',
+    action: string = 'save',
     options: any[] = [
       {label: 'No', value: 'no', color: 'danger', action: 'close'},
       {label: 'Yes', value: 'yes', color: 'success', action: 'confirm'}
     ],
   ): void {
     const config: ConfigurationDialog = {
-      width: `${window.innerWidth  - (window.innerWidth / 1.35)}px`,
-      height: `${window.innerHeight - 800}px`,
+      width: `800px`,
+      height: `400px`,
       data: {
         uuid: this.formSelected,
         title: title,
         message: message,
-        color: color,
         icon: icon,
+        action: action,
         options: options,
       },
     };
@@ -431,9 +433,11 @@ export class BuilderActionComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed', result);
       if (result) {
-        if(result?.action?.confirm === true) {
+        if( result.type === 'delete' && result?.action?.confirm === true) {
           this.rmFromItem(this.formSelected);
           this.formSelected = '';
+        } else if (result.type === 'save') {
+          this.snackBar();
         }
       }
     });
