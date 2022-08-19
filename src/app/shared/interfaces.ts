@@ -29,15 +29,11 @@ export interface FormContainer {
   created_at: string | null;
   updated_at: string | null;
   form: Array<FormStructure>; // Need to dclare after
-  user_id: string | number;
-  user: object; // Need to dclare after
 
   //! Not required
   description?: string;
   layout_id?: number | string;
   deleted_at?: string | null;
-  advertising_campaign_id?: number | string;
-  advertising_campaign?: object; // Need to dclare after
 }
 
 export interface FormStructure {

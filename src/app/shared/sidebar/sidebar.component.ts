@@ -21,7 +21,12 @@ export class SidebarComponent implements OnInit {
       name: "Layout",
       path: "/layout",
       visible: true,
-    }
+    },
+    {
+      name: "Forms",
+      path: "/forms",
+      visible: true,
+    },
   ];
 
   constructor() { }
