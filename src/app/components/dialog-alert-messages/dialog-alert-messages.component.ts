@@ -20,14 +20,16 @@ export class DialogAlertMessagesComponent implements OnInit {
 
   onNoClick(): void {
     const output: any = {
-      close: true
+      "close": true
     };
     this.dialogRef.close(output);
   }
 
   onSaveClick(): void {
     const output: any = {
-      save: true
+      "action": {
+        "confirm": true,
+      }
     };
     this.dialogRef.close(output);
   }

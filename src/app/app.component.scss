@@ -5,3 +5,7 @@ $violet: #712cf9;
   min-height: 100vh;
   height: 100%;
 }
+
+::ng-deep mat-dialog-container {
+  border-radius: 20px !important;
+}

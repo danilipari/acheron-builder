@@ -9,13 +9,12 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DialogRenderComponent } from './components/dialog-render/dialog-render.component';
-import { DialogAlertMessagesComponent } from './components/dialog-alert-messages/dialog-alert-messages.component';
 
+import { DialogAlertMessagesModule } from './components/dialog-alert-messages/dialog-alert-messages.module';
+import { DialogRenderModule } from './components/dialog-render/dialog-render.module';
 
 const components: Array<any> = [
-  DialogRenderComponent,
-  DialogAlertMessagesComponent,
+  /*  */
 ];
 
 @NgModule({
@@ -28,6 +27,8 @@ const components: Array<any> = [
     AppRoutingModule,
     FormsModule,
     SharedModule,
+    DialogRenderModule,
+    DialogAlertMessagesModule,
     BrowserAnimationsModule
   ],
   providers: [],

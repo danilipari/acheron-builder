@@ -1,14 +1,27 @@
 <!-- <pre>{{ data | json }}</pre> -->
-<h4>{{ data.title }}</h4>
+<!-- <h4 mat-dialog-title>{{ data.title }}</h4> -->
 
-<div class="container-fluid text-center h-100">
-  <div class="">
-    <h3 class="">{{ data.message }}</h3>
+<div class="container-fluid text-center">
+
+  <div id="header" class="d-flex">
+    <div class="icon-box">
+      <i-bs
+        [name]="data.icon"
+        width="24px"
+        height="24px"
+      >
+      </i-bs>
+    </div>
+    <h2 class="my-auto mx-3">{{ data.title }}</h2>
   </div>
-  <div class="d-flex justify-content-around">
+
+  <div id="body" class="mt-4 pt-4">
+    <p class="my-3">{{ data.message }}</p>
+  </div>
+
+  <div id="actions" class="d-flex justify-content-around mt-5 pt-5">
     <div *ngFor="let option of data.options; let iO = index" (click)="option.action === 'close' ? onNoClick() : onSaveClick()">
-      <button [ngClass]="' btn btn-' + option.color + ' btn-lg w-100'">
-        <!-- {{ option | json }} -->
+      <button [ngClass]="' btn btn-' + (iO === 1 ? 'outline-' : '') + option.color + ' btn-lg w-100'">
         {{ option.label | uppercase }}
       </button>
     </div>

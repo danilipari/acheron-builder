@@ -404,7 +404,16 @@ export class BuilderActionComponent implements OnInit {
    * @visibility Public
    * @returns Void
   */
-  public dialogAlertMessage(title: string = 'AlertMessage', message: string = 'Confrim?', color: string = 'success', options: any[] = [{label: 'No', value: 'no', color: 'danger', action: 'close'}, {label: 'Yes', value: 'yes', color: 'success', action: 'confirm'}]): void {
+  public dialogAlertMessage(
+    title: string = 'AlertMessage',
+    message: string = 'Confrim?',
+    icon: string = 'exclamation-triangle-fill',
+    color: string = 'success',
+    options: any[] = [
+      {label: 'No', value: 'no', color: 'danger', action: 'close'},
+      {label: 'Yes', value: 'yes', color: 'success', action: 'confirm'}
+    ],
+  ): void {
     const config: ConfigurationDialog = {
       width: `${window.innerWidth  - (window.innerWidth / 1.35)}px`,
       height: `${window.innerHeight - 800}px`,
@@ -413,6 +422,7 @@ export class BuilderActionComponent implements OnInit {
         title: title,
         message: message,
         color: color,
+        icon: icon,
         options: options,
       },
     };
@@ -420,6 +430,12 @@ export class BuilderActionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed', result);
+      if (result) {
+        if(result?.action?.confirm === true) {
+          this.rmFromItem(this.formSelected);
+          this.formSelected = '';
+        }
+      }
     });
   }
 
