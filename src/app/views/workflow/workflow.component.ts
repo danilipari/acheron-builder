@@ -556,7 +556,7 @@ export class WorkflowComponent implements OnInit {
 
   forms: Array<Workflow> = [
     {
-      id: 1,
+      id: 0,
       uuid: uuid.v4(),
       title: "Workflow #1",
       description: "Workflow #1 description",
@@ -567,7 +567,7 @@ export class WorkflowComponent implements OnInit {
       deleted_at: null,
     },
     {
-      id: 2,
+      id: 1,
       uuid: uuid.v4(),
       title: "Workflow #2",
       description: "Workflow #2 description",
@@ -578,7 +578,7 @@ export class WorkflowComponent implements OnInit {
       deleted_at: null,
     },
     {
-      id: 3,
+      id: 2,
       uuid: uuid.v4(),
       title: "Workflow #3",
       description: "Workflow #3 description",
@@ -595,7 +595,7 @@ export class WorkflowComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /*  */
+    console.log(this.forms);
   }
 
   /**
