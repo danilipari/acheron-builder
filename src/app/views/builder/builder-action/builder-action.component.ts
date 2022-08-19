@@ -409,7 +409,7 @@ export class BuilderActionComponent implements OnInit {
   public dialogAlertMessage(
     title: string = 'AlertMessage',
     message: string = 'Confrim?',
-    icon: string = 'exclamation-triangle-fill',
+    icon: string = 'check-circle-fill',
     action: string = 'save',
     options: any[] = [
       {label: 'No', value: 'no', color: 'danger', action: 'close'},
@@ -435,6 +435,7 @@ export class BuilderActionComponent implements OnInit {
       if (result) {
         if( result.type === 'delete' && result?.action?.confirm === true) {
           this.rmFromItem(this.formSelected);
+          this.snackBar('Item successfully removed');
           this.formSelected = '';
         } else if (result.type === 'save') {
           this.snackBar();

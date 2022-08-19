@@ -68,12 +68,13 @@
                     <div class="border rounded p-2 mx-3">
                       <i-bs
                         matTooltip="Delete field"
-                        (click)="dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'delete')"
+                        (click)="forms.length >= 2 ? dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'trash', 'delete') : null"
                         name="trash"
-                        class="text-primary-ab"
+                        [ngClass]="forms.length >= 2 ? 'text-primary-ab' : 'text-muted'"
                         width="24px"
                         height="24px"
                       ></i-bs>
+                      <!-- forms -->
                     </div>
                   </div>
                 </div>
