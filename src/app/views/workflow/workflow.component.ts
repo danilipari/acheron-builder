@@ -595,7 +595,7 @@ export class WorkflowComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.forms);
+    /*  */
   }
 
   /**
