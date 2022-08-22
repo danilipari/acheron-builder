@@ -4,8 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'workflows',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [],
   },
   {
     path: 'workflows',
