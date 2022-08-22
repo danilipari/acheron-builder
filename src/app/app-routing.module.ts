@@ -4,22 +4,22 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'workflow',
+    redirectTo: 'workflows',
     pathMatch: 'full'
   },
   {
-    path: 'workflow',
-    loadChildren: () => import('./views/workflow/workflow.module').then((m) => m.WorkflowModule),
+    path: 'workflows',
+    loadChildren: () => import('./views/workflows/workflow.module').then((m) => m.WorkflowModule),
     canActivate: [],
   },
   {
-    path: 'layout',
-    loadChildren: () => import('./views/layout/layout.module').then((m) => m.LayoutModule),
+    path: 'layouts',
+    loadChildren: () => import('./views/layouts/layout.module').then((m) => m.LayoutModule),
     canActivate: [],
   },
   {
-    path: 'form',
-    loadChildren: () => import('./views/form/form.module').then((m) => m.FormModule),
+    path: 'forms',
+    loadChildren: () => import('./views/forms/form.module').then((m) => m.FormModule),
     canActivate: [],
   },
 ];
