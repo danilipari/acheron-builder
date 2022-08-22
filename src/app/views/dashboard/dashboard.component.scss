@@ -1,0 +1,38 @@
+$violet: #712cf9;
+$main-1: #1B172D;
+$main-2: #2E2C48;
+$main-3: #712cf9;
+
+.box-p-ab {
+  background-color: $main-1;
+  width: 400px;
+  height: 400px;
+  border-radius: 22px;
+  position: relative;
+  cursor: pointer;
+
+  & .box-c-ab {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    & p {
+      color: white;
+      margin-top: 50px;
+      font-size: 1.5rem;
+    }
+  }
+
+  &:hover {
+    background-color: $main-3;
+  }
+}
+
+.row-space {
+  margin-top: 280px;
+
+  &:nth-child(1) {
+    margin-top: 150px;
+  }
+}

@@ -1,3 +1,43 @@
-<p class="text-white">
-  dashboard works!
-</p>
+
+<div class="container-fluid">
+  <div class="row row-space text-white text-center">
+    <p class="fs-2">
+      {{ "Welcome to AcheronBuilder!" | uppercase }}
+    </p>
+  </div>
+  <div class="row row-space justify-content-around">
+    <div class="col-4 box-p-ab" [routerLink]="'/workflows'">
+      <div class="box-c-ab text-center">
+        <i-bs
+          name="layer-backward"
+          class="text-white"
+          width="68px"
+          height="68px"
+        ></i-bs>
+        <p>{{ 'Workflows' | uppercase }}</p>
+      </div>
+    </div>
+    <div class="col-4 box-p-ab" [routerLink]="'/forms'">
+      <div class="box-c-ab text-center">
+        <i-bs
+          name="ui-checks"
+          class="text-white"
+          width="68px"
+          height="68px"
+        ></i-bs>
+        <p>{{ 'Forms' | uppercase }}</p>
+      </div>
+    </div>
+    <div class="col-4 box-p-ab" [routerLink]="'/layouts'">
+      <div class="box-c-ab text-center">
+        <i-bs
+          name="layout-wtf"
+          class="text-white"
+          width="68px"
+          height="68px"
+        ></i-bs>
+        <p>{{ 'Layouts' | uppercase }}</p>
+      </div>
+    </div>
+  </div>
+</div>
