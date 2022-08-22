@@ -7,7 +7,7 @@
       </div>
 
       <div id="json" class="card-body position-relative overflow-scroll">
-        <app-json-render [json]="data.form.forms" [in_out]="true"></app-json-render>
+        <app-json-render [json]="renderJsonWorkflow(data.form)" [in_out]="true"></app-json-render>
       </div>
 
       <div class="card-footer d-flex justify-content-around">
@@ -27,7 +27,7 @@
         <p>Deleted: <span class="mb-0 opacity-75">{{ data.form.deleted_at ? true : false }}</span></p> <!-- (data.form.deleted_at | date: 'dd-MM-yyyy HH:mm') -->
       </div>
 
-      <div class="box_config_json">
+      <!-- <div class="box_config_json">
         <div class="d-flex justify-content-between mx-2 mb-4">
           <h2 class="mb-0">Hystory</h2>
           <h3 class="mb-0">Last update</h3>
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-      </div>
+      </div> -->
 
     </div>
   </div>
