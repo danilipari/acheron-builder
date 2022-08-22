@@ -1,0 +1,169 @@
+<div>
+  <ng-container *ngIf="!!(!route_id)">
+    <div class="container-fluid px-0">
+      <div class="d-flex body">
+        <div class="structure col-2 border">
+          <div
+            id="types"
+            class=""
+            cdkDropList
+            [cdkDropListData]="types"
+            cdkDropListConnectedTo="forms"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div
+              *ngFor="let type of types; let iT = index"
+              cdkDrag
+              [cdkDragData]="types"
+              (cdkDragStarted)="dragStart($event, 'types', iT)"
+              class="list-group m-4 shadow-sm"
+            >
+              <div class="list-group-item">
+                {{ type.label }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="structure col border">
+          <div
+            id="forms"
+            class="h-100"
+            cdkDropList
+            [cdkDropListData]="forms"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div
+              *ngFor="let form of forms; trackBy: trackByFn; let iF = index;"
+              cdkDrag
+              (cdkDragStarted)="dragStart($event, 'forms', iF)"
+              class="list-group m-4 shadow-sm"
+            >
+              <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
+                <div class="form-group">
+                  <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
+                  <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="formSelected !== ''">
+          <div class="structure col-4 border p-3" [@enter1]>
+
+            <div class="card">
+              <div class="card-header d-flex justify-content-between">
+                <div class="my-auto">
+                  <div class="d-flex">
+                    <div class="border rounded p-2" matTooltip="Close field" (click)="formSelected = ''">
+                      <i-bs
+                        name="chevron-double-right"
+                        class="text-primary-ab"
+                        width="24px"
+                        height="24px"
+                      ></i-bs>
+                    </div>
+                    <div class="border rounded p-2 mx-3" matTooltip="Delete field" (click)="forms.length >= 2 ? dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'trash', 'delete') : null">
+                      <i-bs
+                        name="trash"
+                        [ngClass]="forms.length >= 2 ? 'text-primary-ab' : 'text-muted'"
+                        width="24px"
+                        height="24px"
+                      ></i-bs>
+                      <!-- forms -->
+                    </div>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <p class="mb-0 my-auto"><span class="text-muted">UUID: </span> <span class="text-primary-ab"> {{ formSelected }} </span></p>
+                </div>
+              </div>
+              <div class="card-body">
+                <p class="text-primary-ab">{{ 'previewing json' | titlecase }}</p>
+                <div class="border rounded w-100 h-25 overflow-scroll">
+                  <div> <!-- style="pointer-events: none;" -->
+                    <ngx-json-viewer [json]="getFormItem(formSelected)" [expanded]="true"></ngx-json-viewer>
+                  </div>
+                </div>
+
+
+                <hr>
+
+                <p class="text-primary-ab">{{ 'edit field/Json properties' | titlecase }}</p>
+
+
+                <div class="row mt-4">
+                  <div class="col-4">
+                    <div class="form-check form-switch form-switch-md">
+                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['enabled']" [(ngModel)]="getFormItem(formSelected)['enabled']">
+                      <label class="mt-2 mx-3" for="switch">Enabled</label>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-check form-switch form-switch-md">
+                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['required']" [(ngModel)]="getFormItem(formSelected)['required']">
+                      <label class="mt-2 mx-3" for="switch">Required</label>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-check form-switch form-switch-md">
+                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['visible']" [(ngModel)]="getFormItem(formSelected)['visible']">
+                      <label class="mt-2 mx-3" for="switch">Visible</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-6 form-group">
+                    <label>Name</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['name']" [(ngModel)]="getFormItem(formSelected)['name']">
+                  </div>
+                  <div class="col-6 form-group">
+                    <label>Label</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['label']" [(ngModel)]="getFormItem(formSelected)['label']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="8" [value]="getFormItem(formSelected)['description']" [(ngModel)]="getFormItem(formSelected)['description']"></textarea>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-6 form-group">
+                    <label>Placeholder</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['placeholder']" [(ngModel)]="getFormItem(formSelected)['placeholder']">
+                  </div>
+                  <div class="col-6 form-group">
+                    <label>Href</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['href']" [(ngModel)]="getFormItem(formSelected)['href']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Validation Pattern</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['validation']" [(ngModel)]="getFormItem(formSelected)['validation']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Value</label>
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['value']" [(ngModel)]="getFormItem(formSelected)['value']">
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-lg btn-outline-success w-100" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save')">SAVE</button>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!!route_id">
+    edit workflow {{ route_id }}
+  </ng-container>
+</div>
