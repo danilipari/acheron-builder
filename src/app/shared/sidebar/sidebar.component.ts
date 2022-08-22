@@ -13,6 +13,11 @@ export class SidebarComponent implements OnInit {
 
   routes: Array<SidebarRoutes> = [
     {
+      name: "Dashboard",
+      path: "/dashboard",
+      visible: true,
+    },
+    {
       name: "Workflows",
       path: "/workflows",
       visible: true,

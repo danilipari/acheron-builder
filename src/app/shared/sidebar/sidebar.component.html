@@ -1,9 +1,9 @@
-<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
+<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark-ab">
   <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
     <span class="fs-5">{{ title }}</span>
   </a>
-  <hr>
+  <hr class="text-white">
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item" *ngFor="let route of routes; let iR = index;">
       <a [routerLink]="route.path" [routerLinkActive]="'active'" class="nav-link text-white text-center" aria-current="page">
@@ -11,6 +11,6 @@
       </a>
     </li>
   </ul>
-  <hr>
-  <p class="text-center">{{ title }} Vs {{ version }}</p>
+  <hr class="text-white">
+  <p class="text-center text-white">{{ title }} Vs {{ version }}</p>
 </div>

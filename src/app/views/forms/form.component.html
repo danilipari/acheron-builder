@@ -1,26 +1,16 @@
 <div class="mt-5 text-center px-5">
   <div class="row">
     <form>
-      <input class="form-control form-control-lg shadow-sm" type="text" placeholder="Search form...">
+      <input class="form-control form-control-lg shadow-sm bg-dark-ab text-white" type="text" placeholder="Search form...">
     </form>
   </div>
 </div>
-<!-- <div class="my-5">
+
+<div class="my-5">
   <div class="list-group w-auto mx-5 shadow-sm">
-    <div *ngFor="let form of forms; let iF = index;" class="list-group-item list-group-item-action d-flex gap-3 py-3 shadow-sm" aria-current="true" (click)="renderDialog(iF)">
-      <img [src]="ea_icon" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h4 class="mb-0">{{ form.title }}</h4>
-          <p class="mb-0 opacity-75">Campaign: {{ form.advertising_campaign | json }}</p>
-          <p class="mb-0 opacity-75">{{ form.description | json }}</p>
-          <p class="mb-0 opacity-75">User: {{ form.user | json }}</p>
-        </div>
-        <small class="opacity-50 text-nowrap">{{ form.updated_at | date: 'dd-MM-yyyy HH:mm' }}</small>
-      </div>
-    </div>
+    <!--  -->
   </div>
-</div> -->
+</div>
 
 <div id="json_action" routerLink="/forms/action">
   <button mat-mini-fab class="shadow-lg" aria-label="add_json">+</button>

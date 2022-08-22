@@ -35,6 +35,7 @@ const components: Array<any> = [
     MatSnackBarModule,
     SharedModule,
     MatTooltipModule,
+    MatButtonModule,
     NgxJsonViewerModule,
   ],
   exports: [
