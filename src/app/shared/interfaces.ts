@@ -27,12 +27,12 @@ export interface Workflow {
   uuid: string;
   title: string;
   created_at: string | null;
-  forms: Array<FormStructure>;
+  forms: Array<number>;
   layout_id: number; // Need to assign default value 0
 
   //! Not required
-  error_form?: Array<FormStructure>;
-  unavailable_form?: Array<FormStructure>;
+  error_form?: Array<number>;
+  unavailable_form?: Array<number>;
   description?: string;
   updated_at?: string | null;
   deleted_at?: string | null;
@@ -40,6 +40,7 @@ export interface Workflow {
 
 export interface FormStructure {
   // Required
+  id: number;
   form_name: string;
   form_special: boolean;
   forms: Array<FormItem>;

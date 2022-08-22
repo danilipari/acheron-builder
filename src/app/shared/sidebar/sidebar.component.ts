@@ -18,13 +18,13 @@ export class SidebarComponent implements OnInit {
       visible: true,
     },
     {
-      name: "Layout",
-      path: "/layout",
+      name: "Form",
+      path: "/form",
       visible: true,
     },
     {
-      name: "Form",
-      path: "/form",
+      name: "Layout",
+      path: "/layout",
       visible: true,
     },
   ];
@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    /*  */
   }
 
 }
