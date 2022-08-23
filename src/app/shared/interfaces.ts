@@ -45,9 +45,12 @@ export interface FormStructure {
   form_special: boolean;
   forms: Array<FormItem>;
   actions: Array<FormItem>;
+  created_at: string | null;
 
   //! Not required
   form_text?: string;
+  updated_at?: string | null;
+  deleted_at?: string | null;
 }
 
 export interface FormItem {

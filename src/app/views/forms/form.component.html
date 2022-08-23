@@ -8,7 +8,17 @@
 
 <div class="my-5">
   <div class="list-group w-auto mx-5 shadow-sm">
-    <!--  -->
+    <div *ngFor="let form of forms; let iF = index;" class="list-group-item list-group-item-action d-flex gap-3 py-3 shadow-sm" [routerLink]="'/forms/action/' + form.id" aria-current="true">
+      <img [src]="ea_icon" alt="twbs" width="32" height="32" class="border rounded p-1 rounded-circle flex-shrink-0 " [ngClass]="form.form_special ? 'border-warning' : ''">
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h4 class="mb-0">{{ form.form_name }}</h4>
+          <p class="mb-0 opacity-75">{{ form.form_text | json }}</p>
+        </div>
+        <small class="opacity-50 text-nowrap">items: {{ sumListLength([form.forms, form.actions]) }}</small>
+      </div>
+      <!-- <p>{{ form | json }}</p> -->
+    </div>
   </div>
 </div>
 

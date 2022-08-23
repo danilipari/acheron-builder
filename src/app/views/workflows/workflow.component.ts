@@ -347,6 +347,8 @@ export class WorkflowComponent implements OnInit {
         "href":""
       },
     ],
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
   }
 
 
@@ -557,7 +559,7 @@ export class WorkflowComponent implements OnInit {
   ];
 
   workflows: Array<Workflow> = [
-    /* {
+    {
       id: 0,
       uuid: uuid.v4(),
       title: "Workflow #1",
@@ -568,8 +570,7 @@ export class WorkflowComponent implements OnInit {
       unavailable_form: [],
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-      deleted_at: null,
-    }, */
+    },
   ];
 
   constructor(
