@@ -11,6 +11,7 @@ import * as uuid from "uuid";
 })
 export class WorkflowComponent implements OnInit {
   ea_icon: string = 'https://static.escort-advisor.com/favicon.ico';
+  _db!: any;
 
   types: Array<typeStructure> = [
     {
@@ -555,8 +556,8 @@ export class WorkflowComponent implements OnInit {
     },
   ];
 
-  forms: Array<Workflow> = [
-    {
+  workflows: Array<Workflow> = [
+    /* {
       id: 0,
       uuid: uuid.v4(),
       title: "Workflow #1",
@@ -568,33 +569,7 @@ export class WorkflowComponent implements OnInit {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
       deleted_at: null,
-    },
-    {
-      id: 1,
-      uuid: uuid.v4(),
-      title: "Workflow #2",
-      description: "Workflow #2 description",
-      forms: [this.forms_structure.id],
-      layout_id: 2,
-      error_form: [],
-      unavailable_form: [],
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      deleted_at: null,
-    },
-    {
-      id: 2,
-      uuid: uuid.v4(),
-      title: "Workflow #3",
-      description: "Workflow #3 description",
-      forms: [this.forms_structure.id],
-      layout_id: 3,
-      error_form: [],
-      unavailable_form: [],
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      deleted_at: null,
-    },
+    }, */
   ];
 
   constructor(
@@ -602,7 +577,16 @@ export class WorkflowComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /*  */
+    this.init();
+  }
+
+  init(): void {
+    if(localStorage.getItem('_local_db_workflows')) {
+      this._db = localStorage.getItem('_local_db_workflows');
+      this.workflows = JSON.parse(this._db);
+    } else {
+      localStorage.setItem('_local_db_workflows', JSON.stringify(this.workflows));
+    }
   }
 
   /**
@@ -618,8 +602,8 @@ export class WorkflowComponent implements OnInit {
       width: `${window.innerWidth  - (window.innerWidth / 2)}px`,
       height: `${window.innerHeight - 150}px`,
       data: {
-        title: this.forms[id]?.title,
-        form : this.forms[id]
+        title: this.workflows[id]?.title,
+        form : this.workflows[id]
       },
     };
     const dialogRef = this.dialog.open(DialogRenderComponent, config);

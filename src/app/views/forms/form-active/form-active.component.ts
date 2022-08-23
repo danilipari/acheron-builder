@@ -341,11 +341,11 @@ export class FormActiveComponent implements OnInit {
 
   init(): void {
     this.indexFormRefresh();
-    if(localStorage.getItem('_local_db')) {
-      this._db = localStorage.getItem('_local_db');
+    if(localStorage.getItem('_local_db_form')) {
+      this._db = localStorage.getItem('_local_db_form');
       this.forms = JSON.parse(this._db);
     } else {
-      localStorage.setItem('_local_db', JSON.stringify(this.forms));
+      localStorage.setItem('_local_db_form', JSON.stringify(this.forms));
     }
   }
 
@@ -374,7 +374,7 @@ export class FormActiveComponent implements OnInit {
     this.forms = this.forms.filter((form: any) => form.uuid !== uuid);
 
     if (this.forms.length > 0) {
-      localStorage.setItem('_local_db', JSON.stringify(this.forms));
+      localStorage.setItem('_local_db_form', JSON.stringify(this.forms));
     } else {
       this.init();
     }
@@ -411,7 +411,7 @@ export class FormActiveComponent implements OnInit {
       this.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.types[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
       this.indexFormRefresh();
 
-      localStorage.setItem('_local_db', JSON.stringify(this.forms));
+      localStorage.setItem('_local_db_form', JSON.stringify(this.forms));
     } else {
       moveItemInArray(
         event.container.data,
