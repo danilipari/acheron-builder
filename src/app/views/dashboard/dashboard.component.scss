@@ -22,10 +22,33 @@ $main-3: #712cf9;
       margin-top: 50px;
       font-size: 1.5rem;
     }
+
+    & .box-counter {
+      position: relative;
+      font-size: 2rem;
+      margin-top: 50px;
+      width: 65px;
+      height: 65px;
+      border-radius: 25%;
+      background-color: #712cf9;
+
+      & p {
+        position: absolute;
+        top: -17px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 1.5rem;
+      }
+    }
   }
 
   &:hover {
     background-color: $main-3;
+
+    .box-counter {
+      background-color: $main-2 !important;
+    }
   }
 }
 

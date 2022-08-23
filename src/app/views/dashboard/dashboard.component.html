@@ -15,28 +15,37 @@
           height="68px"
         ></i-bs>
         <p>{{ 'Workflows' | uppercase }}</p>
+        <div class="box-counter mx-auto">
+          <p>{{ countResurces[0]['workflows']?.length }}</p>
+        </div>
       </div>
     </div>
     <div class="col-4 box-p-ab" [routerLink]="'/forms'">
       <div class="box-c-ab text-center">
         <i-bs
-          name="ui-checks"
-          class="text-white"
-          width="68px"
-          height="68px"
+        name="ui-checks"
+        class="text-white"
+        width="68px"
+        height="68px"
         ></i-bs>
         <p>{{ 'Forms' | uppercase }}</p>
+        <div class="box-counter mx-auto">
+          <p>{{ countResurces[1]['forms']?.length }}</p>
+        </div>
       </div>
     </div>
     <div class="col-4 box-p-ab" [routerLink]="'/layouts'">
       <div class="box-c-ab text-center">
         <i-bs
-          name="layout-wtf"
-          class="text-white"
-          width="68px"
-          height="68px"
+        name="layout-wtf"
+        class="text-white"
+        width="68px"
+        height="68px"
         ></i-bs>
         <p>{{ 'Layouts' | uppercase }}</p>
+        <div class="box-counter mx-auto">
+          <p>{{ countResurces[2]['layouts']?.length }}</p>
+        </div>
       </div>
     </div>
   </div>
