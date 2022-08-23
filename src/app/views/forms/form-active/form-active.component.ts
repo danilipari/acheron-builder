@@ -337,6 +337,11 @@ export class FormActiveComponent implements OnInit {
   ngOnInit(): void {
     console.log('routeID Workflow', this.route_id);
     this.init();
+
+    if (this.route_id !== '') {
+      const xx: any = localStorage.getItem('_local_db_forms');
+      this.forms = xx?.length ? JSON.parse(xx).filter((element: any) => element.id === +this.route_id)[0]?.forms : [];
+    }
   }
 
   init(): void {
