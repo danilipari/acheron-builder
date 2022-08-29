@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigurationDialog, Workflow, FormStructure, FormItem, typeStructure } from '../../shared/interfaces';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
+import { WorkflowService } from '../../services/workflow.service';
+import { forkJoin, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import * as uuid from "uuid";
 
 @Component({
@@ -9,9 +12,14 @@ import * as uuid from "uuid";
   templateUrl: './workflow.component.html',
   styleUrls: ['./workflow.component.scss']
 })
-export class WorkflowComponent implements OnInit {
+export class WorkflowComponent implements OnInit, OnDestroy {
+  unsubscribe$: Subject<boolean> = new Subject<boolean>();
+
   ea_icon: string = 'https://static.escort-advisor.com/favicon.ico';
   _db!: any;
+
+  ws: Array<Workflow> = [];
+  wsRender: Array<Workflow> = [];
 
   types: Array<typeStructure> = [
     {
@@ -575,10 +583,19 @@ export class WorkflowComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private workflowService: WorkflowService
   ) {}
 
   ngOnInit(): void {
     this.init();
+
+    this.workflowService.getWorkflows('render').pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+      this.wsRender = responseData;
+    }, (error) => {
+      if (error){
+        console.log(error);
+      }
+    });
   }
 
   init(): void {
@@ -612,6 +629,11 @@ export class WorkflowComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed', result);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.unsubscribe();
   }
 
 }

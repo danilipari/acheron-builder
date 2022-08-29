@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { SharedModule } from './shared/shared.module';
+
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -28,10 +36,23 @@ const components: Array<any> = [
     SharedModule,
     DialogRenderModule,
     FormsModule,
+    HttpClientModule,
     DialogAlertMessagesModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
   ],
-  providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'it-IT' },
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [
     AppComponent,
   ]
