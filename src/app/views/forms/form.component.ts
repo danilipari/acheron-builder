@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormService } from './../../services/form.service';
 import { FormStructure, FormItem } from '././../../shared/interfaces';
+import { forkJoin, Subject, pipe } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import * as uuid from "uuid";
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
-  _db!: any;
-  forms: Array<FormStructure> = [];
+export class FormComponent implements OnInit, OnDestroy {
+  forms!: any;
+  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
   ea_icon: string = 'https://static.escort-advisor.com/favicon.ico';
 
   form_default = {
@@ -22,24 +26,27 @@ export class FormComponent implements OnInit {
     updated_at: new Date().toISOString()
   };
 
-  constructor() { }
+  constructor(
+    private formService: FormService
+  ) {}
 
   ngOnInit(): void {
-    this.init();
-  }
-
-  init(): void {
-    if(localStorage.getItem('_local_db_forms')) {
-      this._db = localStorage.getItem('_local_db_forms');
-      this.forms = JSON.parse(this._db);
-    } else {
-      this.forms = [this.form_default];
-      localStorage.setItem('_local_db_forms', JSON.stringify(this.forms));
-    }
+    this.forms = this.formService.getForms().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+      this.forms = responseData;
+    }, (error) => {
+      if (error){
+        console.log(error);
+      }
+    });
   }
 
   sumListLength(array: Array<any>): number {
     return array.map((element: any[]) => (element.length)).reduce((a, b) => a + b, 0);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.unsubscribe();
   }
 
 }

@@ -17,12 +17,8 @@ const httpOptions = {
 export class FormService {
   constructor(private http: HttpClient) {}
 
-  /* getWorkflows(type: string) {
-    if (type === 'render') {
-      return this.http.get(`${API}/workflows/render`, httpOptions);
-    } else {
-      return this.http.get(`${API}/workflows`, httpOptions);
-    }
-  } */
+  getForms() {
+    return this.http.get(`${API}form`, httpOptions);
+  }
 
 }
