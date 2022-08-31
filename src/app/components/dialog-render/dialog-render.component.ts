@@ -236,7 +236,10 @@ export class DialogRenderComponent implements OnInit {
   }
 
   public renderJsonWorkflow(data: Workflow): any {
-    const res = { ...data, forms: data.forms?.map((form: any) => (this.forms.filter(el => form === el.id)[0])) };
+    const res = {
+      ...data,
+      // forms: data.forms?.map((form: any) => (this.forms.filter(el => form === el.id)[0]))
+    };
     return res;
   }
 
