@@ -8,7 +8,7 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, pipe } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { SpinnerService } from './spinner.service';
 

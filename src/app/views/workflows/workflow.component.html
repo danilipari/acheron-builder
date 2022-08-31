@@ -24,21 +24,3 @@
 <div id="json_action" routerLink="/workflows/action">
   <button mat-mini-fab class="shadow-lg" aria-label="add_json">+</button>
 </div>
-
-
-<div class="d-none">
-  <p>{{ items | json }} <span class="text-danger">{{ items.length }}</span></p>
-  <p>{{ types | json }} <span class="text-danger">{{ types.length }}</span></p>
-</div>
-
-
-<div class="d-none">
-  <div class="my-2 px-5" *ngFor="let typeInput of types; let iT = index;">
-    <label [for]="typeInput.label">{{ typeInput.label }}</label>
-    <hr>
-    <small class="text-muted">Value: {{ typeInput.value ? typeInput.value : 'Empty' }}</small>
-    <hr>
-    <input class="form-control" [(ngModel)]="typeInput.value" [type]="typeInput.type" [placeholder]="typeInput.label">
-    <br>
-  </div>
-</div>

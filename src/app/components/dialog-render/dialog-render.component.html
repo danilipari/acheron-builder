@@ -22,9 +22,11 @@
         <h2>Configs Json</h2>
         <p>Title: <span class="mb-0 opacity-75">{{ data.form.title }}</span></p>
         <p>Description: <span class="mb-0 opacity-75">{{ data.form.description }}</span></p>
-        <p>Created: <span class="mb-0 opacity-75">{{ data.form.created_at | date: 'dd-MM-yyyy HH:mm' }}</span></p>
-        <p>Updated: <span class="mb-0 opacity-75">{{ data.form.updated_at | date: 'dd-MM-yyyy HH:mm' }}</span></p>
-        <p>Deleted: <span class="mb-0 opacity-75">{{ data.form.deleted_at ? true : false }}</span></p> <!-- (data.form.deleted_at | date: 'dd-MM-yyyy HH:mm') -->
+        <div class="d-flex flex-row justify-content-between">
+          <p>Created: <span class="mb-0 opacity-75">{{ data.form.created_at | date: 'dd-MM-yyyy HH:mm' }}</span></p>
+          <p>Updated: <span class="mb-0 opacity-75">{{ data.form.updated_at | date: 'dd-MM-yyyy HH:mm' }}</span></p>
+        </div>
+        <p>Deleted: <span class="mb-0 opacity-75">{{ data.form.deleted_at ? true : false }}</span></p>
       </div>
 
       <!-- <div class="box_config_json">

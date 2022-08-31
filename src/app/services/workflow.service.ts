@@ -17,12 +17,16 @@ const httpOptions = {
 export class WorkflowService {
   constructor(private http: HttpClient) {}
 
-  getWorkflows(type: string) {
+  getWorkflows(type?: string) {
     if (type === 'render') {
-      return this.http.get(`${API}/workflows/render`, httpOptions);
+      return this.http.get(`${API}workflow/render`, httpOptions);
     } else {
-      return this.http.get(`${API}/workflows`, httpOptions);
+      return this.http.get(`${API}workflow`, httpOptions);
     }
+  }
+
+  getWorkflow(id: number | string) {
+    return this.http.get(`${API}workflow/${id}`, httpOptions);
   }
 
 }

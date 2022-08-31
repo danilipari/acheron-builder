@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { resInfo } from 'src/app/shared/interfaces';
 import { DashbordService } from 'src/app/services/dashbord.service';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
