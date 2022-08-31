@@ -4,5 +4,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'
+  apiUrl_local: 'http://localhost:8080',
+  apiUrl: 'https://st-sti.escort-advisor.com/api/v1/'
 };

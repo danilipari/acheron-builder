@@ -1,25 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DashbordService } from 'src/app/services/dashbord.service';
+import { forkJoin, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
-  countResurces: any = []
+export class DashboardComponent implements OnInit, OnDestroy {
+  countResurces!: any;
+  unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
-  constructor() { }
+  constructor(
+    private dashboardService: DashbordService,
+  ) {}
 
-  ngOnInit() {
-    this.countResurces = [
-      { "workflows": localStorage.getItem('_local_db_workflows') ? localStorage.getItem('_local_db_workflows') : 0 },
-      { "forms": localStorage.getItem('_local_db_forms') ? localStorage.getItem('_local_db_forms') : 0 },
-      { "layouts": localStorage.getItem('_local_db_layouts') ? localStorage.getItem('_local_db_layouts') : 0 },
-    ];
+  ngOnInit(): void {
+    this.dashboardService.getInfo().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+      this.countResurces = responseData;
+    }, (error) => {
+      if (error){
+        console.log(error);
+      }
+    });
+  }
 
-    this.countResurces = this.countResurces.map((element: string) => (
-      { [Object.keys(element)[0]]: JSON.parse(Object.values(element)[0]) }
-    ));
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
 }

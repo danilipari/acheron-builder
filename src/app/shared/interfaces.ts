@@ -80,7 +80,6 @@ export interface OptionsFormStructure {
   value: boolean | string | null;
 }
 
-
 export interface typeStructure {
   uuid: string;
   type: string;

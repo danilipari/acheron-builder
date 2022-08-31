@@ -14,15 +14,11 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class FormService {
+export class DashbordService {
   constructor(private http: HttpClient) {}
 
-  /* getWorkflows(type: string) {
-    if (type === 'render') {
-      return this.http.get(`${API}/workflows/render`, httpOptions);
-    } else {
-      return this.http.get(`${API}/workflows`, httpOptions);
-    }
-  } */
+  getInfo() {
+    return this.http.get(`${API}info`, httpOptions);
+  }
 
 }

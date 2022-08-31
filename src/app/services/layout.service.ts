@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class FormService {
+export class LayoutService {
   constructor(private http: HttpClient) {}
 
   /* getWorkflows(type: string) {
