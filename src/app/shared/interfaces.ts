@@ -31,8 +31,8 @@ export interface Workflow {
   layout_id: number; // Need to assign default value 0
 
   //! Not required
-  error_form?: Array<number>;
-  unavailable_form?: Array<number>;
+  error_form?: number;
+  unavailable_form?: number;
   description?: string;
   updated_at?: string | null;
   deleted_at?: string | null;
