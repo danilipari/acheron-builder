@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { resInfo } from 'src/app/shared/interfaces';
 import { DashbordService } from 'src/app/services/dashbord.service';
 import { forkJoin, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -9,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  countResurces!: any;
+  countResurces!: resInfo;
   unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   constructor(

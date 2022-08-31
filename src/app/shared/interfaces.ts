@@ -86,3 +86,10 @@ export interface typeStructure {
   label: string;
   value: string | null;
 }
+
+
+export interface resInfo {
+  quantity_workflows: number;
+  quantity_forms: number;
+  /* quantity_layouts: number; */
+}
