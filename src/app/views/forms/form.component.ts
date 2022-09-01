@@ -31,7 +31,7 @@ export class FormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.forms = this.formService.getForms().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+    this.formService.getForms().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.forms = responseData;
     }, (error) => {
       if (error){

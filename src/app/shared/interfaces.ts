@@ -40,7 +40,7 @@ export interface Workflow {
 
 export interface FormStructure {
   // Required
-  id: number;
+  id?: number;
   form_name: string;
   form_special: boolean;
   forms: Array<FormItem>;
