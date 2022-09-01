@@ -334,7 +334,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         .subscribe((res: any) => {
           this.formBody = {
             ...res,
-            form_special: Boolean(res.form_special),
+            form_special: Boolean(Number(res.form_special)),
           };
         }), (error: any) => {
         console.log(error);
@@ -366,13 +366,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   getFormItem(uuid: string): any {
     const element = this.formBody.forms.filter((form: any) => form.uuid === uuid)[0];
-    let clean_element = element;
+    let clean_element = {...element};
 
     // here delete key on render inside field previewing json
     delete clean_element.id;
 
     const res = {
-      id: element.id ? element.id : null,
+      id: element.id !== null ? element.id : null,
       full_element: element,
       clean_element: clean_element,
     }
@@ -490,8 +490,26 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           this.rmFromItem(this.formSelected);
           this.snackBar('Item successfully removed');
           this.formSelected = '';
-        } else if (result.type === 'save') {
-          this.snackBar();
+        } else if (result.type === 'save-form') {
+          this.formService.saveForm(this.formBody, this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+            this.snackBar();
+          }, (error: any) => {
+            console.log(error);
+          });
+        } else if (result.type === 'save-field') {
+          const form_id = this.route_id;
+          const form_detail_id = this.getFormItem(this.formSelected).id;
+          const data = {
+            "form": {
+              ...this.getFormItem(this.formSelected).full_element
+            }
+          };
+
+          this.formService.saveFormField(form_id, form_detail_id, data).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+            this.snackBar('Field successfully saved');
+          }, (error: any) => {
+            console.log(error);
+          });
         }
       }
     });

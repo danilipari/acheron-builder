@@ -3,7 +3,7 @@
     <!-- {{ formBody | json }} -->
     <div class="container-fluid px-0">
       <div class="d-flex body">
-        <div class="structure col-4 border">
+        <div class="structure col-3 border">
           <!--  -->
           <p class="text-primary-ab px-4 mt-4">{{ "Infroamtion" | titlecase }}</p>
           <div class="m-4 p-2">
@@ -40,6 +40,7 @@
           </div>
           <hr>
           <!--  -->
+          <p class="text-primary-ab px-4 mt-4">{{ "Form Types" | titlecase }}</p>
           <div
             id="types"
             class=""
@@ -60,14 +61,20 @@
               </div>
             </div>
           </div>
-
+          <!--  -->
+          <hr>
+          <!--  -->
+          <div class="px-4 d-flex" style="height: 250px;">
+            <button class="btn btn-lg btn-success w-100 mt-auto" (click)="dialogAlertMessage('Save Form', 'Are you sure you want to save this form?', 'check-circle-fill', 'save-form')">SAVE FORM</button>
+          </div>
+          <!--  -->
         </div>
         <div class="structure col border">
           <div
             id="forms"
             class="h-100"
             cdkDropList
-            [cdkDropListData]="forms"
+            [cdkDropListData]="[forms, actions]"
             (cdkDropListDropped)="drop($event)"
           >
             <div
@@ -188,10 +195,9 @@
                   </div>
                 </div>
 
-
               </div>
               <div class="card-footer">
-                <button class="btn btn-lg btn-outline-success w-100" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save')">SAVE FIELD</button>
+                <button class="btn btn-lg btn-outline-success w-100" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save-field')">SAVE FIELD</button>
               </div>
             </div>
 

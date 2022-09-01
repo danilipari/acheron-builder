@@ -25,4 +25,16 @@ export class FormService {
     return this.http.get(`${API}form/${id}`, httpOptions);
   }
 
+  saveForm(data: any, form_id?: number | string) {
+    if (form_id) {
+      return this.http.post(`${API}form/${form_id}`, data, httpOptions);
+    } else {
+      return this.http.post(`${API}form`, data, httpOptions);
+    }
+  }
+
+  saveFormField(form_id: number | string, form_detail_id: number | string, data: any) {
+    return this.http.post(`${API}form/${form_id}/${form_detail_id}`, data, httpOptions);
+  }
+
 }
