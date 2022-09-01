@@ -57,6 +57,19 @@ $violet: #712cf9;
   border-radius: 3rem;
 }
 
+.box_action {
+  height: 350px;
+  margin: 0 155px;
+
+  &_active {
+    height: 350px;
+    &:nth-child(2) {
+      margin: 0 24px;
+    }
+  }
+
+}
+
 
 /* .col-4 {
   -webkit-transition: all 2s ease-in-out !important;

@@ -54,6 +54,8 @@ export interface FormStructure {
 }
 
 export interface FormItem {
+  index: number | null;
+  uuid: string;
   inputType: string;
   component: string;
   enabled: boolean;
@@ -68,10 +70,6 @@ export interface FormItem {
   options: Array<OptionsFormStructure>;
   required: boolean;
   validation: string;
-
-  //! Not required
-  index?: number | null;
-  uuid?: string;
 }
 
 export interface OptionsFormStructure {

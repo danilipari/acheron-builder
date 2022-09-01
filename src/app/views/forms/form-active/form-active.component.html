@@ -3,91 +3,116 @@
     <!-- {{ formBody | json }} -->
     <div class="container-fluid px-0">
       <div class="d-flex body">
+
+
+
+
+
+
+
         <div class="structure col-3 border">
-          <!--  -->
-          <p class="text-primary-ab px-4 mt-4">{{ "Infroamtion" | titlecase }}</p>
-          <div class="m-4 p-2">
-            <div class="d-flex flex-column">
-              <label class="text-primary-ab" for="uuid">UUID</label>
-              <div class="input-group">
-                <input type="text" for="uuid" class="form-control shadow-sm mb-3" disabled [(ngModel)]="formBody.uuid" placeholder="uuid">
-                <div class="input-group-append">
-                  <span class="input-group-text bg-light" (click)="generateUUID('formBody.uuid')">
-                    <i-bs
-                      name="arrow-clockwise"
-                      class="text-primary-ab"
-                      width="24px"
-                      height="24px"
-                    ></i-bs>
-                  </span>
+          <div class="card">
+            <div class="card-header">
+              <p class="text-primary-ab px-4 mt-4">{{ "Infroamtion" | titlecase }}</p>
+              <div class="m-4 p-2">
+                <div class="d-flex flex-column">
+                  <label class="text-primary-ab" for="uuid">UUID</label>
+                  <div class="input-group">
+                    <input type="text" for="uuid" class="form-control shadow-sm mb-3" disabled [(ngModel)]="formBody.uuid" placeholder="uuid">
+                    <div class="input-group-append">
+                      <span class="input-group-text bg-light" (click)="generateUUID('formBody.uuid')">
+                        <i-bs
+                          name="arrow-clockwise"
+                          class="text-primary-ab"
+                          width="24px"
+                          height="24px"
+                        ></i-bs>
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="text-primary-ab" for="title">Title</label>
+                    <input type="text" for="title" class="form-control shadow-sm mb-3" [(ngModel)]="formBody.form_name" placeholder="Nome del form">
+                  </div>
+                  <div>
+                    <label class="text-primary-ab" for="description">Description</label>
+                    <textarea class="form-control shadow-sm mb-3" for="description" rows="5" [(ngModel)]="formBody.form_text" placeholder="Nome del form"></textarea>
+                  </div>
+                  <div>
+                    <label class="text-primary-ab" for="form_special">Special form</label>
+                    <div class="rounded p-3 text-center" for="form_special" [ngClass]="formBody.form_special ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="formBody.form_special = !formBody.form_special">
+                      Special form
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div>
-                <label class="text-primary-ab" for="title">Title</label>
-                <input type="text" for="title" class="form-control shadow-sm mb-3" [(ngModel)]="formBody.form_name" placeholder="Nome del form">
-              </div>
-              <div>
-                <label class="text-primary-ab" for="description">Description</label>
-                <textarea class="form-control shadow-sm mb-3" for="description" rows="5" [(ngModel)]="formBody.form_text" placeholder="Nome del form"></textarea>
-              </div>
-              <div>
-                <label class="text-primary-ab" for="form_special">Special form</label>
-                <div class="rounded p-3 text-center" for="form_special" [ngClass]="formBody.form_special ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="formBody.form_special = !formBody.form_special">
-                  Special form
+              <hr>
+            </div>
+            <!--  -->
+            <div class="card-body">
+              <p class="text-primary-ab px-4 mt-4">{{ "Form Types" | titlecase }}</p>
+              <div
+                id="types"
+                class=""
+                cdkDropList
+                [cdkDropListData]="types"
+                cdkDropListConnectedTo="forms"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div
+                  *ngFor="let type of typesForms; let iT = index"
+                  cdkDrag
+                  [cdkDragData]="types"
+                  (cdkDragStarted)="dragStart($event, 'types', type.uuid, iT)"
+                  class="list-group m-4 shadow-sm"
+                >
+                  <div class="list-group-item">
+                    {{ type.label }}
+                  </div>
                 </div>
               </div>
+              <hr>
+            </div>
+            <!--  -->
+            <div class="card-footer px-4 mb-5 pb-2">
+              <button class="btn btn-lg btn-success w-100 mt-auto" (click)="dialogAlertMessage('Save Form', 'Are you sure you want to save this form?', 'check-circle-fill', 'save-form')">SAVE FORM</button>
             </div>
           </div>
-          <hr>
-          <!--  -->
-          <p class="text-primary-ab px-4 mt-4">{{ "Form Types" | titlecase }}</p>
-          <div
-            id="types"
-            class=""
-            cdkDropList
-            [cdkDropListData]="types"
-            cdkDropListConnectedTo="forms"
-            (cdkDropListDropped)="drop($event)"
-          >
-            <div
-              *ngFor="let type of typesForms; let iT = index"
-              cdkDrag
-              [cdkDragData]="types"
-              (cdkDragStarted)="dragStart($event, 'types', type.uuid, iT)"
-              class="list-group m-4 shadow-sm"
-            >
-              <div class="list-group-item">
-                {{ type.label }}
-              </div>
-            </div>
-          </div>
-          <!--  -->
-          <hr>
-          <!--  -->
-          <div class="px-4 d-flex" style="height: 250px;">
-            <button class="btn btn-lg btn-success w-100 mt-auto" (click)="dialogAlertMessage('Save Form', 'Are you sure you want to save this form?', 'check-circle-fill', 'save-form')">SAVE FORM</button>
-          </div>
-          <!--  -->
         </div>
         <div class="structure col border">
-          <div
-            id="forms"
-            class="h-100"
-            cdkDropList
-            [cdkDropListData]="[forms, actions]"
-            (cdkDropListDropped)="drop($event)"
-          >
-            <div
-              *ngFor="let form of formBody.forms; trackBy: trackByFn; let iF = index;"
-              cdkDrag
-              (cdkDragStarted)="dragStart($event, 'forms', form.uuid, iF)"
-              class="list-group m-4 shadow-sm"
-            >
-              <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
-                <div class="form-group">
-                  <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
-                  <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
+          <div class="card">
+            <div class="card-body">
+              <div
+                id="forms"
+                class="h-100"
+                cdkDropList
+                [cdkDropListData]="[forms, actions]"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div
+                  *ngFor="let form of formBody.forms; trackBy: trackByFn; let iF = index;"
+                  cdkDrag
+                  (cdkDragStarted)="dragStart($event, 'forms', form.uuid, iF)"
+                  class="list-group m-4 shadow-sm"
+                >
+                  <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
+                    <div class="form-group">
+                      <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
+                      <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between px-4 mb-5 pb-2">
+              <div class="col border rounded shadow-sm" [ngClass]="formSelected === '' ? 'box_action' : 'box_action_active'">
+                {{ formBody?.actions[0] | json }}
+              </div>
+              <div class="col border rounded shadow-sm" [ngClass]="formSelected === '' ? 'box_action' : 'box_action_active'">
+                {{ formBody?.actions[1] | json }}
+              </div>
+              <div class="col border rounded shadow-sm" [ngClass]="formSelected === '' ? 'box_action' : 'box_action_active'">
+                {{ formBody?.actions[2] | json }}
               </div>
             </div>
           </div>
@@ -196,8 +221,8 @@
                 </div>
 
               </div>
-              <div class="card-footer">
-                <button class="btn btn-lg btn-outline-success w-100" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save-field')">SAVE FIELD</button>
+              <div class="card-footer mb-5 pb-2">
+                <button class="btn btn-lg btn-outline-success w-100" [disabled]="getFormItem(formSelected).id === undefined" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save-field')">SAVE FIELD</button>
               </div>
             </div>
 
@@ -206,7 +231,4 @@
       </div>
     </div>
   </ng-container>
-  <!-- <ng-container *ngIf="!!route_id">
-    edit form {{ route_id }}
-  </ng-container> -->
 </div>
