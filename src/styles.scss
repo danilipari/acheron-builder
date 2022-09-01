@@ -47,6 +47,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 $violet: #712cf9;
 $main-1: #1B172D;
 $main-2: #2E2C48;
+$main-3: #d1c8f9;
 
 .snake-success {
   background-color: #198754;
@@ -62,4 +63,12 @@ $main-2: #2E2C48;
 
 .bg-dark-ab {
   background-color: $main-1 !important;
+}
+
+.border.border-primary {
+  border-color: $violet !important;
+}
+
+.bg-dark-light-ab {
+  background-color: $main-3 !important;
 }

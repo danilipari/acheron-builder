@@ -1,8 +1,45 @@
 <div class="bg-white">
-  <ng-container > <!-- *ngIf="!!(!route_id)" -->
+  <ng-container>
+    <!-- {{ formBody | json }} -->
     <div class="container-fluid px-0">
       <div class="d-flex body">
-        <div class="structure col-2 border">
+        <div class="structure col-4 border">
+          <!--  -->
+          <p class="text-primary-ab px-4 mt-4">{{ "Infroamtion" | titlecase }}</p>
+          <div class="m-4 p-2">
+            <div class="d-flex flex-column">
+              <label class="text-primary-ab" for="uuid">UUID</label>
+              <div class="input-group">
+                <input type="text" for="uuid" class="form-control shadow-sm mb-3" disabled [(ngModel)]="formBody.uuid" placeholder="uuid">
+                <div class="input-group-append">
+                  <span class="input-group-text bg-light" (click)="generateUUID('formBody.uuid')">
+                    <i-bs
+                      name="arrow-clockwise"
+                      class="text-primary-ab"
+                      width="24px"
+                      height="24px"
+                    ></i-bs>
+                  </span>
+                </div>
+              </div>
+              <div>
+                <label class="text-primary-ab" for="title">Title</label>
+                <input type="text" for="title" class="form-control shadow-sm mb-3" [(ngModel)]="formBody.form_name" placeholder="Nome del form">
+              </div>
+              <div>
+                <label class="text-primary-ab" for="description">Description</label>
+                <textarea class="form-control shadow-sm mb-3" for="description" rows="5" [(ngModel)]="formBody.form_text" placeholder="Nome del form"></textarea>
+              </div>
+              <div>
+                <label class="text-primary-ab" for="form_special">Special form</label>
+                <div class="rounded p-3 text-center" for="form_special" [ngClass]="formBody.form_special ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="formBody.form_special = !formBody.form_special">
+                  Special form
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <!--  -->
           <div
             id="types"
             class=""
@@ -12,10 +49,10 @@
             (cdkDropListDropped)="drop($event)"
           >
             <div
-              *ngFor="let type of types; let iT = index"
+              *ngFor="let type of typesForms; let iT = index"
               cdkDrag
               [cdkDragData]="types"
-              (cdkDragStarted)="dragStart($event, 'types', iT)"
+              (cdkDragStarted)="dragStart($event, 'types', type.uuid, iT)"
               class="list-group m-4 shadow-sm"
             >
               <div class="list-group-item">
@@ -34,9 +71,9 @@
             (cdkDropListDropped)="drop($event)"
           >
             <div
-              *ngFor="let form of forms; trackBy: trackByFn; let iF = index;"
+              *ngFor="let form of formBody.forms; trackBy: trackByFn; let iF = index;"
               cdkDrag
-              (cdkDragStarted)="dragStart($event, 'forms', iF)"
+              (cdkDragStarted)="dragStart($event, 'forms', form.uuid, iF)"
               class="list-group m-4 shadow-sm"
             >
               <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
@@ -63,14 +100,14 @@
                         height="24px"
                       ></i-bs>
                     </div>
-                    <div class="border rounded p-2 mx-3" matTooltip="Delete field" (click)="forms.length >= 2 ? dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'trash', 'delete') : null">
+                    <div class="border rounded p-2 mx-3" matTooltip="Delete field" (click)="formBody?.forms.length >= 2 ? dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'trash', 'delete') : null">
                       <i-bs
                         name="trash"
-                        [ngClass]="forms.length >= 2 ? 'text-primary-ab' : 'text-muted'"
+                        [ngClass]="formBody?.forms.length >= 2 ? 'text-primary-ab' : 'text-muted'"
                         width="24px"
                         height="24px"
                       ></i-bs>
-                      <!-- forms -->
+                      <!-- formBody.forms -->
                     </div>
                   </div>
                 </div>
@@ -82,7 +119,7 @@
                 <p class="text-primary-ab">{{ 'previewing json' | titlecase }}</p>
                 <div class="border rounded w-100 h-25 overflow-scroll">
                   <div> <!-- style="pointer-events: none;" -->
-                    <ngx-json-viewer [json]="getFormItem(formSelected)" [expanded]="true"></ngx-json-viewer>
+                    <ngx-json-viewer [json]="getFormItem(formSelected).clean_element" [expanded]="true"></ngx-json-viewer>
                   </div>
                 </div>
 
@@ -95,66 +132,66 @@
                 <div class="row mt-4">
                   <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['enabled']" [(ngModel)]="getFormItem(formSelected)['enabled']">
-                      <label class="mt-2 mx-3" for="switch">Enabled</label>
+                      <input class="form-check-input" type="checkbox" id="switchE" [value]="getFormItem(formSelected).full_element['enabled']" [(ngModel)]="getFormItem(formSelected).full_element['enabled']">
+                      <label class="mt-2 mx-3" for="switchE">Enabled</label>
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['required']" [(ngModel)]="getFormItem(formSelected)['required']">
-                      <label class="mt-2 mx-3" for="switch">Required</label>
+                      <input class="form-check-input" type="checkbox" id="switchR" [value]="getFormItem(formSelected).full_element['required']" [(ngModel)]="getFormItem(formSelected).full_element['required']">
+                      <label class="mt-2 mx-3" for="switchR">Required</label>
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switch" [value]="getFormItem(formSelected)['visible']" [(ngModel)]="getFormItem(formSelected)['visible']">
-                      <label class="mt-2 mx-3" for="switch">Visible</label>
+                      <input class="form-check-input" type="checkbox" id="switchV" [value]="getFormItem(formSelected).full_element['visible']" [(ngModel)]="getFormItem(formSelected).full_element['visible']">
+                      <label class="mt-2 mx-3" for="switchV">Visible</label>
                     </div>
                   </div>
                 </div>
                 <div class="row mt-3">
                   <div class="col-6 form-group">
                     <label>Name</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['name']" [(ngModel)]="getFormItem(formSelected)['name']">
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['name']" [(ngModel)]="getFormItem(formSelected).full_element['name']">
                   </div>
                   <div class="col-6 form-group">
                     <label>Label</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['label']" [(ngModel)]="getFormItem(formSelected)['label']">
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['label']" [(ngModel)]="getFormItem(formSelected).full_element['label']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
                     <label>Description</label>
-                    <textarea class="form-control" rows="8" [value]="getFormItem(formSelected)['description']" [(ngModel)]="getFormItem(formSelected)['description']"></textarea>
+                    <textarea class="form-control" rows="8" [value]="getFormItem(formSelected).full_element['description']" [(ngModel)]="getFormItem(formSelected).full_element['description']"></textarea>
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-6 form-group">
                     <label>Placeholder</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['placeholder']" [(ngModel)]="getFormItem(formSelected)['placeholder']">
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['placeholder']" [(ngModel)]="getFormItem(formSelected).full_element['placeholder']">
                   </div>
                   <div class="col-6 form-group">
                     <label>Href</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['href']" [(ngModel)]="getFormItem(formSelected)['href']">
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['href']" [(ngModel)]="getFormItem(formSelected).full_element['href']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
                     <label>Validation Pattern</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['validation']" [(ngModel)]="getFormItem(formSelected)['validation']">
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['validation']" [(ngModel)]="getFormItem(formSelected).full_element['validation']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
                     <label>Value</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected)['value']" [(ngModel)]="getFormItem(formSelected)['value']">
+                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['value']" [(ngModel)]="getFormItem(formSelected).full_element['value']">
                   </div>
                 </div>
 
 
               </div>
               <div class="card-footer">
-                <button class="btn btn-lg btn-outline-success w-100" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save')">SAVE</button>
+                <button class="btn btn-lg btn-outline-success w-100" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save')">SAVE FIELD</button>
               </div>
             </div>
 

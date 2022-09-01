@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin, Subject, pipe } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ConfigurationDialog, typeStructure, FormStructure, FormItem } from '../../../shared/interfaces';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
 import { DialogAlertMessagesComponent } from '../../../components/dialog-alert-messages/dialog-alert-messages.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormService } from '../../../services/form.service';
 import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation } from 'angular-animations';
 import * as uuid from "uuid";
 
@@ -20,8 +23,9 @@ import * as uuid from "uuid";
     bounceOutRightOnLeaveAnimation(),
   ],
 })
-export class FormActiveComponent implements OnInit {
+export class FormActiveComponent implements OnInit, OnDestroy {
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
+  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   private _verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -236,7 +240,7 @@ export class FormActiveComponent implements OnInit {
     },
   ];
 
-  public types: Array<typeStructure> = [
+  public typesForms: Array<typeStructure> = [
     {
       uuid: uuid.v4(),
       type: "text",
@@ -297,6 +301,9 @@ export class FormActiveComponent implements OnInit {
       label: "month",
       value: null,
     },
+  ];
+
+  public typesActions: Array<typeStructure> = [
     {
       uuid: uuid.v4(),
       type: "button",
@@ -305,53 +312,39 @@ export class FormActiveComponent implements OnInit {
     },
   ];
 
-  private _db: any;
-
-  public forms: Array<typeStructure | FormItem> = [
-    {
-      "index":0,
-      "uuid": uuid.v4(),
-      "inputType":"text",
-      "component":"",
-      "enabled":true,
-      "name":"text",
-      "label":"text",
-      "error":"",
-      "description":"description",
-      "placeholder":"Insert your text",
-      "options":[],
-      "required":false,
-      "validation":"/.*/",
-      "value": "",
-      "visible":true,
-      "href":""
-    },
-  ];
+  public formBody: any = {
+    uuid: uuid.v4(),
+    form_special: false,
+    forms: [],
+    actions: [],
+  };
 
   constructor(
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
+    public formService: FormService,
   ) {}
 
   ngOnInit(): void {
-    console.log('routeID Workflow', this.route_id);
-    this.init();
+    console.log('routeID Form', this.route_id, this.route_id === '');
 
     if (this.route_id !== '') {
-      const xx: any = localStorage.getItem('_local_db_forms');
-      this.forms = xx?.length ? JSON.parse(xx).filter((element: any) => element.id === +this.route_id)[0]?.forms : [];
+      this.formService.getForm(this.route_id).pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: any) => {
+          this.formBody = {
+            ...res,
+            form_special: Boolean(res.form_special),
+          };
+        }), (error: any) => {
+        console.log(error);
+      };
     }
+    this.init();
   }
 
   init(): void {
     this.indexFormRefresh();
-    if(localStorage.getItem('_local_db_form')) {
-      this._db = localStorage.getItem('_local_db_form');
-      this.forms = JSON.parse(this._db);
-    } else {
-      localStorage.setItem('_local_db_form', JSON.stringify(this.forms));
-    }
   }
 
   dragStart($event: any, type: string, uuid: string, index: number): void {
@@ -372,17 +365,23 @@ export class FormActiveComponent implements OnInit {
   }
 
   getFormItem(uuid: string): any {
-    return this.forms.filter((form: any) => form.uuid === uuid)[0];
+    const element = this.formBody.forms.filter((form: any) => form.uuid === uuid)[0];
+    let clean_element = element;
+
+    // here delete key on render inside field previewing json
+    delete clean_element.id;
+
+    const res = {
+      id: element.id ? element.id : null,
+      full_element: element,
+      clean_element: clean_element,
+    }
+    return res;
   }
 
   rmFromItem(uuid: string): void {
-    this.forms = this.forms.filter((form: any) => form.uuid !== uuid);
-
-    if (this.forms.length > 0) {
-      localStorage.setItem('_local_db_form', JSON.stringify(this.forms));
-    } else {
-      this.init();
-    }
+    this.formBody.forms = this.formBody.forms.filter((form: any) => form.uuid !== uuid);
+    this.init();
   }
 
   public snackBar(message: string = 'Done!', color: string = 'default'): void {
@@ -395,37 +394,57 @@ export class FormActiveComponent implements OnInit {
   }
 
   indexFormRefresh(): void {
-    this.forms?.forEach((form: any, index: number) => { form.index = index });
+    if (this.formBody?.forms.length > 0) {
+      this.formBody.forms.forEach((form: any, index: number) => {
+        form.index = index;
+      });
+    }
   }
 
   trackByFn(index: number, item: any) {
     return item.uuid;
   }
 
-  drop(event: CdkDragDrop<number[]>) {
-    const fromIndex = event.previousIndex;
-    const leaveIndex = event.currentIndex;
+  drop($event: CdkDragDrop<number[]>) {
+    const fromIndex = $event.previousIndex;
+    const leaveIndex = $event.currentIndex;
     if (this.type.type === 'types') {
+      /* console.log(this.type, {
+        1: $event.previousContainer.data,
+        // 11: this.typesForms,
+        2: this.formBody.forms,
+        // 22: $event.container.data,
+        3: $event.previousIndex,
+        4: $event.currentIndex,
+        5: $event.container,
+      }); */
       copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
+        // $event.previousContainer.data, --> generic
+        // $event.container.data, --> generic
+        this.typesForms,
+        this.formBody.forms,
+        $event.previousIndex,
+        $event.currentIndex,
       );
 
-      this.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.types[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
+      this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesForms[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
       this.indexFormRefresh();
-
-      localStorage.setItem('_local_db_form', JSON.stringify(this.forms));
     } else {
       moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
+        // $event.container.data, --> generic
+        this.formBody.forms,
+        $event.previousIndex,
+        $event.currentIndex,
       );
       this.indexFormRefresh();
     }
-    this.types = this.types.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
+    this.typesForms = this.typesForms.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
+  }
+
+  public generateUUID(who: string): any {
+    if (who === 'formBody.uuid') {
+      this.formBody.uuid = uuid.v4();
+    }
   }
 
 
@@ -476,6 +495,11 @@ export class FormActiveComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.unsubscribe();
   }
 
 }

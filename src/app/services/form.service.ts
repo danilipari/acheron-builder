@@ -21,4 +21,8 @@ export class FormService {
     return this.http.get(`${API}form`, httpOptions);
   }
 
+  getForm(id: string) {
+    return this.http.get(`${API}form/${id}`, httpOptions);
+  }
+
 }
