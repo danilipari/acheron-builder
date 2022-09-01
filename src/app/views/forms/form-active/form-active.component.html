@@ -4,12 +4,6 @@
     <div class="container-fluid px-0">
       <div class="d-flex body">
 
-
-
-
-
-
-
         <div class="structure col-3 border">
           <div class="card">
             <div class="card-header">
@@ -52,10 +46,10 @@
             <div class="card-body">
               <p class="text-primary-ab px-4 mt-4">{{ "Form Types" | titlecase }}</p>
               <div
-                id="types"
+                id="typesF"
                 class=""
                 cdkDropList
-                [cdkDropListData]="types"
+                [cdkDropListData]="typesF"
                 cdkDropListConnectedTo="forms"
                 (cdkDropListDropped)="drop($event)"
               >
@@ -63,7 +57,7 @@
                   *ngFor="let type of typesForms; let iT = index"
                   cdkDrag
                   [cdkDragData]="types"
-                  (cdkDragStarted)="dragStart($event, 'types', type.uuid, iT)"
+                  (cdkDragStarted)="dragStart($event, 'typesF', type.uuid, iT)"
                   class="list-group m-4 shadow-sm"
                 >
                   <div class="list-group-item">
@@ -72,6 +66,27 @@
                 </div>
               </div>
               <hr>
+              <p class="text-primary-ab px-4 mt-4">{{ "Action Types" | titlecase }}</p>
+              <div
+                id="typesA"
+                class=""
+                cdkDropList
+                [cdkDropListData]="typesA"
+                cdkDropListConnectedTo="actions"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div
+                  *ngFor="let type of typesActions; let iA = index"
+                  cdkDrag
+                  [cdkDragData]="typesA"
+                  (cdkDragStarted)="dragStart($event, 'typesA', type.uuid, iA)"
+                  class="list-group m-4 shadow-sm"
+                >
+                  <div class="list-group-item">
+                    {{ type.label }}
+                  </div>
+                </div>
+              </div>
             </div>
             <!--  -->
             <div class="card-footer px-4 mb-5 pb-2">
@@ -84,9 +99,9 @@
             <div class="card-body">
               <div
                 id="forms"
-                class="h-100"
+                class="h-50"
                 cdkDropList
-                [cdkDropListData]="[forms, actions]"
+                [cdkDropListData]="forms"
                 (cdkDropListDropped)="drop($event)"
               >
                 <div
@@ -95,7 +110,7 @@
                   (cdkDragStarted)="dragStart($event, 'forms', form.uuid, iF)"
                   class="list-group m-4 shadow-sm"
                 >
-                  <div class="list-group-item " (click)="setFormItem(form.uuid)" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
+                  <div class="list-group-item" (click)="setSelectedItem(form.uuid, 'form')" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
                     <div class="form-group">
                       <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
                       <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
@@ -103,21 +118,32 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card-footer d-flex justify-content-between px-4 mb-5 pb-2">
-              <div class="col border rounded shadow-sm" [ngClass]="formSelected === '' ? 'box_action' : 'box_action_active'">
-                {{ formBody?.actions[0] | json }}
-              </div>
-              <div class="col border rounded shadow-sm" [ngClass]="formSelected === '' ? 'box_action' : 'box_action_active'">
-                {{ formBody?.actions[1] | json }}
-              </div>
-              <div class="col border rounded shadow-sm" [ngClass]="formSelected === '' ? 'box_action' : 'box_action_active'">
-                {{ formBody?.actions[2] | json }}
+              <hr>
+              <div
+                id="actions"
+                class="h-50"
+                cdkDropList
+                [cdkDropListData]="actions"
+                (cdkDropListDropped)="drop($event)"
+              >
+                <div
+                  *ngFor="let action of formBody.actions; trackBy: trackByFn; let iF = index;"
+                  cdkDrag
+                  (cdkDragStarted)="dragStart($event, 'actions', action.uuid, iF)"
+                  class="list-group m-4 shadow-sm"
+                >
+                  <div class="list-group-item " (click)="setSelectedItem(action.uuid, 'action')" [ngClass]="action.uuid === formSelected ? ' border border-primary ' : ''">
+                    <div class="form-group">
+                      <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action.inputType | titlecase }}</span></p>
+                      <input class="form-control" [type]="action.type" [disabled]="true" [placeholder]="action.placeholder ? action.placeholder : ('Placeholder... ' + action.inputType)" [value]="action.value">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <ng-container *ngIf="formSelected !== ''">
+        <ng-container *ngIf="(formSelected !== '') || (actionSelected !== '')">
           <div class="structure col-4 border p-3" [@enter1]>
 
             <div class="card">
@@ -151,32 +177,27 @@
                 <p class="text-primary-ab">{{ 'previewing json' | titlecase }}</p>
                 <div class="border rounded w-100 h-25 overflow-scroll">
                   <div> <!-- style="pointer-events: none;" -->
-                    <ngx-json-viewer [json]="getFormItem(formSelected).clean_element" [expanded]="true"></ngx-json-viewer>
+                    <ngx-json-viewer [json]="getItem(formSelected, 'forms').clean_element" [expanded]="true"></ngx-json-viewer>
                   </div>
                 </div>
-
-
                 <hr>
-
                 <p class="text-primary-ab">{{ 'edit field/Json properties' | titlecase }}</p>
-
-
                 <div class="row mt-4">
                   <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switchE" [value]="getFormItem(formSelected).full_element['enabled']" [(ngModel)]="getFormItem(formSelected).full_element['enabled']">
+                      <input class="form-check-input" type="checkbox" id="switchE" [value]="getItem(formSelected, 'forms').full_element['enabled']" [(ngModel)]="getItem(formSelected, 'forms').full_element['enabled']">
                       <label class="mt-2 mx-3" for="switchE">Enabled</label>
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switchR" [value]="getFormItem(formSelected).full_element['required']" [(ngModel)]="getFormItem(formSelected).full_element['required']">
+                      <input class="form-check-input" type="checkbox" id="switchR" [value]="getItem(formSelected, 'forms').full_element['required']" [(ngModel)]="getItem(formSelected, 'forms').full_element['required']">
                       <label class="mt-2 mx-3" for="switchR">Required</label>
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switchV" [value]="getFormItem(formSelected).full_element['visible']" [(ngModel)]="getFormItem(formSelected).full_element['visible']">
+                      <input class="form-check-input" type="checkbox" id="switchV" [value]="getItem(formSelected, 'forms').full_element['visible']" [(ngModel)]="getItem(formSelected, 'forms').full_element['visible']">
                       <label class="mt-2 mx-3" for="switchV">Visible</label>
                     </div>
                   </div>
@@ -184,45 +205,45 @@
                 <div class="row mt-3">
                   <div class="col-6 form-group">
                     <label>Name</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['name']" [(ngModel)]="getFormItem(formSelected).full_element['name']">
+                    <input class="form-control" type="text" [value]="getItem(formSelected, 'forms').full_element['name']" [(ngModel)]="getItem(formSelected, 'forms').full_element['name']">
                   </div>
                   <div class="col-6 form-group">
                     <label>Label</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['label']" [(ngModel)]="getFormItem(formSelected).full_element['label']">
+                    <input class="form-control" type="text" [value]="getItem(formSelected, 'forms').full_element['label']" [(ngModel)]="getItem(formSelected, 'forms').full_element['label']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
                     <label>Description</label>
-                    <textarea class="form-control" rows="8" [value]="getFormItem(formSelected).full_element['description']" [(ngModel)]="getFormItem(formSelected).full_element['description']"></textarea>
+                    <textarea class="form-control" rows="8" [value]="getItem(formSelected, 'forms').full_element['description']" [(ngModel)]="getItem(formSelected, 'forms').full_element['description']"></textarea>
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-6 form-group">
                     <label>Placeholder</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['placeholder']" [(ngModel)]="getFormItem(formSelected).full_element['placeholder']">
+                    <input class="form-control" type="text" [value]="getItem(formSelected, 'forms').full_element['placeholder']" [(ngModel)]="getItem(formSelected, 'forms').full_element['placeholder']">
                   </div>
                   <div class="col-6 form-group">
                     <label>Href</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['href']" [(ngModel)]="getFormItem(formSelected).full_element['href']">
+                    <input class="form-control" type="text" [value]="getItem(formSelected, 'forms').full_element['href']" [(ngModel)]="getItem(formSelected, 'forms').full_element['href']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
                     <label>Validation Pattern</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['validation']" [(ngModel)]="getFormItem(formSelected).full_element['validation']">
+                    <input class="form-control" type="text" [value]="getItem(formSelected, 'forms').full_element['validation']" [(ngModel)]="getItem(formSelected, 'forms').full_element['validation']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
                     <label>Value</label>
-                    <input class="form-control" type="text" [value]="getFormItem(formSelected).full_element['value']" [(ngModel)]="getFormItem(formSelected).full_element['value']">
+                    <input class="form-control" type="text" [value]="getItem(formSelected, 'forms').full_element['value']" [(ngModel)]="getItem(formSelected, 'forms').full_element['value']">
                   </div>
                 </div>
 
               </div>
               <div class="card-footer mb-5 pb-2">
-                <button class="btn btn-lg btn-outline-success w-100" [disabled]="getFormItem(formSelected).id === undefined" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save-field')">SAVE FIELD</button>
+                <button class="btn btn-lg btn-outline-success w-100" [disabled]="getItem(formSelected, 'forms').id === undefined" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save-field')">SAVE FIELD</button>
               </div>
             </div>
 

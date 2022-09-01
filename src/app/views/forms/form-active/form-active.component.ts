@@ -31,6 +31,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   private _verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   public formSelected: string = '';
+  public actionSelected: string = '';
 
   public type!: any;
 
@@ -344,7 +345,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   }
 
   init(): void {
-    this.indexFormRefresh();
+    this.indexRefresh();
   }
 
   dragStart($event: any, type: string, uuid: string, index: number): void {
@@ -354,18 +355,18 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     };
   }
 
-  setFormItem(uuid: string): void {
-    if (this.formSelected === '') {
+  setSelectedItem(uuid: string, who: string): void {
+    if (who === 'form' ? (this.formSelected === '') : (this.actionSelected === '')) {
       setTimeout(() => {
-        this.formSelected = uuid;
+        who === 'form' ? (this.formSelected = uuid) : (this.actionSelected = uuid);
       }, 150);
     } else {
-      this.formSelected = uuid;
+      who === 'form' ? (this.formSelected = uuid) : (this.actionSelected = uuid);
     }
   }
 
-  getFormItem(uuid: string): any {
-    const element = this.formBody.forms.filter((form: any) => form.uuid === uuid)[0];
+  getItem(uuid: string, who: string): any {
+    const element = this.formBody[who].filter((el: any) => el.uuid === uuid)[0];
     let clean_element = {...element};
 
     // here delete key on render inside field previewing json
@@ -379,7 +380,14 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     return res;
   }
 
-  rmFromItem(uuid: string): void {
+  /**
+   * @author Dani Lipari
+   * @description this function remove item from formBody.forms field
+   * @param {String} uuid
+   * @visibility Private
+   * @returns Void
+   */
+  private rmFromItem(uuid: string): void {
     this.formBody.forms = this.formBody.forms.filter((form: any) => form.uuid !== uuid);
     this.init();
   }
@@ -393,42 +401,57 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     });
   }
 
-  indexFormRefresh(): void {
-    if (this.formBody?.forms.length > 0) {
-      this.formBody.forms.forEach((form: any, index: number) => {
+  /**
+   * @author Dani Lipari
+   * @description Function order index of array
+   * @visibility Private
+   * @returns Void
+  */
+  private indexRefresh(): void {
+    if (this.formBody?.forms.length > 0 || this.formBody?.actions.length > 0) {
+      this.formBody.forms?.forEach((form: any, index: number) => {
         form.index = index;
+      });
+      this.formBody.actions?.forEach((action: any, index: number) => {
+        action.index = index;
       });
     }
   }
 
-  trackByFn(index: number, item: any) {
+  /**
+   * @author Dani Lipari
+   * @description Function set unic item in array listener
+   * @visibility Public
+   * @returns Void
+  */
+  public trackByFn(index: number, item: any): void {
     return item.uuid;
   }
 
   drop($event: CdkDragDrop<number[]>) {
     const fromIndex = $event.previousIndex;
     const leaveIndex = $event.currentIndex;
-    if (this.type.type === 'types') {
-      /* console.log(this.type, {
-        1: $event.previousContainer.data,
-        // 11: this.typesForms,
-        2: this.formBody.forms,
-        // 22: $event.container.data,
-        3: $event.previousIndex,
-        4: $event.currentIndex,
-        5: $event.container,
-      }); */
-      copyArrayItem(
-        // $event.previousContainer.data, --> generic
-        // $event.container.data, --> generic
-        this.typesForms,
-        this.formBody.forms,
-        $event.previousIndex,
-        $event.currentIndex,
-      );
+    if (this.type.type === 'typesF' || this.type.type === 'typesA') {
+      if (this.type.type === 'typesF') {
+        copyArrayItem(
+          this.typesForms,
+          this.formBody.forms,
+          $event.previousIndex,
+          $event.currentIndex,
+        );
 
-      this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesForms[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
-      this.indexFormRefresh();
+        this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesForms[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
+        this.indexRefresh();
+      } else if (this.type.type === 'typesA') {
+        copyArrayItem(
+          this.typesActions,
+          this.formBody.actions,
+          $event.previousIndex,
+          $event.currentIndex,
+        );
+        this.formBody.actions[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesActions[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
+        this.indexRefresh();
+      }
     } else {
       moveItemInArray(
         // $event.container.data, --> generic
@@ -436,12 +459,18 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         $event.previousIndex,
         $event.currentIndex,
       );
-      this.indexFormRefresh();
+      this.indexRefresh();
     }
     this.typesForms = this.typesForms.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
   }
 
-  public generateUUID(who: string): any {
+  /**
+   * @author Dani Lipari
+   * @description Function generate UUID
+   * @visibility Public
+   * @returns Void
+  */
+  public generateUUID(who: string): void {
     if (who === 'formBody.uuid') {
       this.formBody.uuid = uuid.v4();
     }
@@ -498,10 +527,10 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           });
         } else if (result.type === 'save-field') {
           const form_id = this.route_id;
-          const form_detail_id = this.getFormItem(this.formSelected).id;
+          const form_detail_id = this.getItem(this.formSelected, 'forms').id;
           const data = {
             "form": {
-              ...this.getFormItem(this.formSelected).full_element
+              ...this.getItem(this.formSelected, 'forms').full_element
             }
           };
 
