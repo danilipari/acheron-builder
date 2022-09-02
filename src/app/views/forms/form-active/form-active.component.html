@@ -99,46 +99,50 @@
           <div class="card">
             <div class="card-body">
               <p class="text-primary-ab px-4 mt-2">{{ "Form Items" | titlecase }}</p>
-              <div
-                id="forms"
-                class="h-50"
-                cdkDropList
-                [cdkDropListData]="forms"
-                (cdkDropListDropped)="drop($event)"
-              >
+              <div class="h-45 overflow-scroll">
                 <div
-                  *ngFor="let form of formBody.forms; trackBy: trackByFn; let iF = index;"
-                  cdkDrag
-                  (cdkDragStarted)="dragStart($event, 'forms', form.uuid, iF)"
-                  class="list-group m-4 shadow-sm"
+                  id="forms"
+                  class=""
+                  cdkDropList
+                  [cdkDropListData]="forms"
+                  (cdkDropListDropped)="drop($event)"
                 >
-                  <div class="list-group-item" (click)="setSelectedItem(form.uuid, 'form')" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
-                    <div class="form-group">
-                      <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
-                      <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
+                  <div
+                    *ngFor="let form of formBody.forms; trackBy: trackByFn; let iF = index;"
+                    cdkDrag
+                    (cdkDragStarted)="dragStart($event, 'forms', form.uuid, iF)"
+                    class="list-group m-4 shadow-sm"
+                  >
+                    <div class="list-group-item" (click)="setSelectedItem(form.uuid, 'form')" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
+                      <div class="form-group">
+                        <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
+                        <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <hr>
               <p class="text-primary-ab px-4 mt-4">{{ "Action Items" | titlecase }}</p>
-              <div
-                id="actions"
-                class="h-50"
-                cdkDropList
-                [cdkDropListData]="actions"
-                (cdkDropListDropped)="drop($event)"
-              >
+              <div class="h-45 overflow-scroll">
                 <div
-                  *ngFor="let action of formBody.actions; trackBy: trackByFn; let iF = index;"
-                  cdkDrag
-                  (cdkDragStarted)="dragStart($event, 'actions', action.uuid, iF)"
-                  class="list-group m-4 shadow-sm"
+                  id="actions"
+                  class=""
+                  cdkDropList
+                  [cdkDropListData]="actions"
+                  (cdkDropListDropped)="drop($event)"
                 >
-                  <div class="list-group-item " (click)="setSelectedItem(action.uuid, 'action')" [ngClass]="action.uuid === actionSelected ? ' border border-primary ' : ''">
-                    <div class="form-group">
-                      <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action.inputType | titlecase }}</span></p>
-                      <input class="form-control" [type]="action.type" [disabled]="true" [placeholder]="action.placeholder ? action.placeholder : ('Placeholder... ' + action.inputType)" [value]="action.value">
+                  <div
+                    *ngFor="let action of formBody.actions; trackBy: trackByFn; let iF = index;"
+                    cdkDrag
+                    (cdkDragStarted)="dragStart($event, 'actions', action.uuid, iF)"
+                    class="list-group m-4 shadow-sm"
+                  >
+                    <div class="list-group-item " (click)="setSelectedItem(action.uuid, 'action')" [ngClass]="action.uuid === actionSelected ? ' border border-primary ' : ''">
+                      <div class="form-group">
+                        <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action.inputType | titlecase }}</span></p>
+                        <input class="form-control" [type]="action.type" [disabled]="true" [placeholder]="action.placeholder ? action.placeholder : ('Placeholder... ' + action.inputType)" [value]="action.value">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -173,7 +177,7 @@
                   </div>
                 </div>
                 <div class="my-auto">
-                  <p class="mb-0 my-auto"><span class="text-muted">UUID: </span> <span class="text-primary-ab"> {{ formSelected }} </span></p>
+                  <p class="mb-0 my-auto"><span class="text-muted">UUID: </span> <span class="text-primary-ab"> {{ formSelected !== '' ? formSelected : actionSelected }} </span></p>
                 </div>
               </div>
               <div class="card-body">
