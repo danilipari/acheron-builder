@@ -230,6 +230,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "options":[
         {
           "optionType": "submit",
+          "typeValue": "boolean",
           "value": false,
         }
       ],
@@ -366,7 +367,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   }
 
   getItem(): any {
-    let who = {
+    const who = {
       type: this.formSelected !== '' ? 'forms' : 'actions',
       uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
     };
@@ -476,6 +477,29 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     if (who === 'formBody.uuid') {
       this.formBody.uuid = uuid.v4();
     }
+  }
+
+  public addOption(): void {
+    const who = {
+      type: this.formSelected !== '' ? 'forms' : 'actions',
+      uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
+    };
+
+    const newOption = {
+      optionType: "",
+      typeValue: "string",
+      value: ""
+    };
+
+    console.log(
+      who,
+      "addOption",
+      this.getItem().full_element,
+      this.formBody[who.type],
+      this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: [...el.options, newOption]} : {...el})),
+    );
+
+    this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: [...el.options, newOption]} : {...el}));
   }
 
 

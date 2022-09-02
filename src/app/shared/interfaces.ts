@@ -75,6 +75,7 @@ export interface FormItem {
 export interface OptionsFormStructure {
   // Required
   optionType: string;
+  typeValue: string;
   value: boolean | string | null;
 }
 

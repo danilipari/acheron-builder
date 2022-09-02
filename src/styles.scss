@@ -45,9 +45,16 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 $violet: #712cf9;
+$danger: #dc3545;
+$success: #28a745;
+$warning: #ffc107;
+$primary: #007bff;
+$secondary: #6c757d;
+
 $main-1: #1B172D;
 $main-2: #2E2C48;
 $main-3: #d1c8f9;
+$danger-2: #f9d1d1;
 
 .snake-success {
   background-color: #198754;
@@ -71,6 +78,18 @@ $main-3: #d1c8f9;
 
 .bg-dark-light-ab {
   background-color: $main-3 !important;
+}
+
+.bg-danger-light-ab {
+  background-color: $danger-2 !important;
+}
+
+/* .list-group-item:hover {
+  cursor: pointer;
+} */
+
+.cursor-p {
+  cursor: pointer;
 }
 
 /* *:not(:hover) {

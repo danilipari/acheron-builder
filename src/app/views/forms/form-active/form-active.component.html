@@ -151,7 +151,7 @@
               <div class="card-header d-flex justify-content-between">
                 <div class="my-auto">
                   <div class="d-flex">
-                    <div class="border rounded p-2" matTooltip="Close field" (click)="formSelected = ''">
+                    <div class="border rounded p-2" matTooltip="Close field" (click)="formSelected = ''; actionSelected = ''">
                       <i-bs
                         name="chevron-double-right"
                         class="text-primary-ab"
@@ -227,6 +227,60 @@
                   <div class="col-6 form-group">
                     <label>Href</label>
                     <input class="form-control" type="text" [value]="getItem().full_element['href']" [(ngModel)]="getItem().full_element['href']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Options</label>
+                    <div class="list-group">
+                      <div class="list-group-item cursor-p border border-primary d-flex justify-content-around" *ngFor="let otpion of getItem().full_element['options']; let iO = index">
+<!--  -->
+                        <div class="w-100">
+                          optionType: {{ otpion.optionType | json }}
+                        </div>
+                        <div class="w-100">
+                          typeValue: {{ otpion.typeValue | json }}
+                        </div>
+                        <div class="w-100 d-flex justify-content-between">
+                          <div>
+                            value: {{ otpion.value | json }}
+                          </div>
+                          <i-bs
+                            name="x-circle"
+                            class="text-danger"
+                            width="22px"
+                            height="22px"
+                          ></i-bs>
+                        </div>
+<!--  -->
+                      </div>
+                      <div class="list-group mt-2" *ngIf="getItem().full_element['options'].length === 0">
+                        <div class="list-group-item border border-danger text-danger bg-danger-light-ab">
+                          <div class="d-flex justify-content-between">
+                            <span class="my-auto">No options</span>
+                            <i-bs
+                              name="bug"
+                              class="my-auto"
+                              width="24px"
+                              height="24px"
+                            ></i-bs>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="list-group mt-2">
+                        <div class="list-group-item cursor-p border border-primary text-primary-ab bg-dark-light-ab" (click)="addOption()">
+                          <div class="d-flex justify-content-between">
+                            <span class="my-auto">Add option</span>
+                            <i-bs
+                              name="node-plus"
+                              class="my-auto"
+                              width="28px"
+                              height="28px"
+                            ></i-bs>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="row mt-4">
