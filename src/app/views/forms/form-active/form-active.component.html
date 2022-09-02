@@ -133,7 +133,7 @@
                   (cdkDragStarted)="dragStart($event, 'actions', action.uuid, iF)"
                   class="list-group m-4 shadow-sm"
                 >
-                  <div class="list-group-item " (click)="setSelectedItem(action.uuid, 'action')" [ngClass]="action.uuid === formSelected ? ' border border-primary ' : ''">
+                  <div class="list-group-item " (click)="setSelectedItem(action.uuid, 'action')" [ngClass]="action.uuid === actionSelected ? ' border border-primary ' : ''">
                     <div class="form-group">
                       <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action.inputType | titlecase }}</span></p>
                       <input class="form-control" [type]="action.type" [disabled]="true" [placeholder]="action.placeholder ? action.placeholder : ('Placeholder... ' + action.inputType)" [value]="action.value">
