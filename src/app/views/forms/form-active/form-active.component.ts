@@ -2,13 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ConfigurationDialog, typeStructure, FormStructure, FormItem } from '../../../shared/interfaces';
+import { ConfigurationDialog, typeStructure, FormStructure, FormItem, Types } from '../../../shared/interfaces';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
 import { DialogAlertMessagesComponent } from '../../../components/dialog-alert-messages/dialog-alert-messages.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormService } from '../../../services/form.service';
 import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation } from 'angular-animations';
+import Utils from '../../../shared/utils';
 import * as uuid from "uuid";
 
 @Component({
@@ -32,6 +33,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   public formSelected: string = '';
   public actionSelected: string = '';
+
+  public typesTypes: any;
 
   public type!: any;
 
@@ -331,6 +334,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log('routeID Form', this.route_id, this.route_id === '');
 
+    this.typesTypes = Utils.convertObjectToArray(Types);
+
     if (this.route_id !== '') {
       this.formService.getForm(this.route_id).pipe(takeUntil(this.unsubscribe$))
         .subscribe((res: any) => {
@@ -479,7 +484,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     }
   }
 
-  public addOption(): void {
+  public optionActions(index?: number): void {
     const who = {
       type: this.formSelected !== '' ? 'forms' : 'actions',
       uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
@@ -487,21 +492,25 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
     const newOption = {
       optionType: "",
-      typeValue: "string",
+      typeValue: Types.string,
       value: ""
     };
 
-    console.log(
+    /* console.log(
+      index,
       who,
       "addOption",
       this.getItem().full_element,
       this.formBody[who.type],
       this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: [...el.options, newOption]} : {...el})),
-    );
+    ); */
 
-    this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: [...el.options, newOption]} : {...el}));
+    if (index === undefined) {
+      this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: [...el.options, newOption]} : {...el}));
+    } else {
+      this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: el.options?.length > 0 ? [...el.options?.splice(index, 1)] : []} : {...el}))
+    }
   }
-
 
   /**
    * @author Dani Lipari

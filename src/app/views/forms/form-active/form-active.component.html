@@ -91,13 +91,14 @@
             </div>
             <!--  -->
             <div class="card-footer px-4 mb-5 pb-2">
-              <button class="btn btn-lg btn-success w-100 mt-auto" (click)="dialogAlertMessage('Save Form', 'Are you sure you want to save this form?', 'check-circle-fill', 'save-form')">SAVE FORM</button>
+              <button class="btn btn-lg border border-success bg-success-light-ab w-100 mt-auto text-success" (click)="dialogAlertMessage('Save Form', 'Are you sure you want to save this form?', 'check-circle-fill', 'save-form')">SAVE FORM</button>
             </div>
           </div>
         </div>
         <div class="structure col border">
           <div class="card">
             <div class="card-body">
+              <p class="text-primary-ab px-4 mt-2">{{ "Form Items" | titlecase }}</p>
               <div
                 id="forms"
                 class="h-50"
@@ -120,6 +121,7 @@
                 </div>
               </div>
               <hr>
+              <p class="text-primary-ab px-4 mt-4">{{ "Action Items" | titlecase }}</p>
               <div
                 id="actions"
                 class="h-50"
@@ -235,22 +237,32 @@
                     <div class="list-group">
                       <div class="list-group-item cursor-p border border-primary d-flex justify-content-around" *ngFor="let otpion of getItem().full_element['options']; let iO = index">
 <!--  -->
-                        <div class="w-100">
-                          optionType: {{ otpion.optionType | json }}
+                        <div class="w-100 my-auto">
+                          <label>Option Type</label>
+                          <input class="form-control" type="text" [value]="otpion.optionType" [(ngModel)]="otpion.optionType">
                         </div>
-                        <div class="w-100">
-                          typeValue: {{ otpion.typeValue | json }}
+                        <div class="w-100 my-auto mx-4">
+                          <label>Type Value</label>
+                          <select class="form-control" name="types" id="types" [value]="otpion.typeValue" [(ngModel)]="otpion.typeValue" (change)="otpion.value = null">
+                            <option [value]="type.value" *ngFor="let type of typesTypes">{{ type.key | titlecase }}</option>
+                          </select>
                         </div>
-                        <div class="w-100 d-flex justify-content-between">
-                          <div>
-                            value: {{ otpion.value | json }}
+                        <div class="w-100 my-auto d-flex justify-content-between">
+                          <div class="my-auto w-75">
+                            <label>Value</label>
+                            <input *ngIf="otpion.typeValue === 'string' || otpion.typeValue === 'number'" class="form-control" [type]="otpion.typeValue" [value]="otpion.value" [(ngModel)]="otpion.value">
+                            <div *ngIf="otpion.typeValue === 'boolean'" class="form-check form-switch form-switch-md mt-2">
+                              <input class="form-check-input" type="checkbox" [id]="'switch' + iO" [value]="otpion.value" [(ngModel)]="otpion.value">
+                            </div>
                           </div>
-                          <i-bs
-                            name="x-circle"
-                            class="text-danger"
-                            width="22px"
-                            height="22px"
-                          ></i-bs>
+                          <div class="my-auto border border-danger rounded p-2 mt-4 mb-1" (click)="optionActions(iO)">
+                            <i-bs
+                              name="x-circle"
+                              class="text-danger"
+                              width="22px"
+                              height="22px"
+                            ></i-bs>
+                          </div>
                         </div>
 <!--  -->
                       </div>
@@ -259,7 +271,7 @@
                           <div class="d-flex justify-content-between">
                             <span class="my-auto">No options</span>
                             <i-bs
-                              name="bug"
+                              name="view-list"
                               class="my-auto"
                               width="24px"
                               height="24px"
@@ -268,7 +280,7 @@
                         </div>
                       </div>
                       <div class="list-group mt-2">
-                        <div class="list-group-item cursor-p border border-primary text-primary-ab bg-dark-light-ab" (click)="addOption()">
+                        <div class="list-group-item cursor-p border border-primary text-primary-ab bg-dark-light-ab" (click)="optionActions()">
                           <div class="d-flex justify-content-between">
                             <span class="my-auto">Add option</span>
                             <i-bs
@@ -298,7 +310,7 @@
 
               </div>
               <div class="card-footer mb-5 pb-2">
-                <button class="btn btn-lg btn-outline-success w-100" [disabled]="getItem().id === undefined" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save-field')">SAVE FIELD</button>
+                <button class="btn btn-lg border border-success w-100 mt-auto text-success" [disabled]="getItem().id === undefined" (click)="dialogAlertMessage('Save Form Item', 'Are you sure you want to save this field?', 'check-circle-fill', 'save-field')">SAVE FORM ITEM DETAIL</button>
               </div>
             </div>
 

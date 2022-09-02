@@ -76,7 +76,7 @@ export interface OptionsFormStructure {
   // Required
   optionType: string;
   typeValue: string;
-  value: boolean | string | null;
+  value: any | null;
 }
 
 export interface typeStructure {
@@ -91,4 +91,22 @@ export interface resInfo {
   quantity_workflows: number;
   quantity_forms: number;
   /* quantity_layouts: number; */
+}
+
+export enum TypesInt {
+  String = "string",
+  Number = "number",
+  Object = "object",
+  Array = "array",
+  Boolean = "boolean",
+  Any = "any",
+}
+
+export enum Types {
+  string = TypesInt.String,
+  number = TypesInt.Number,
+  boolean = TypesInt.Boolean,
+  /* object = TypesInt.Object,
+  array = TypesInt.Array,
+  any = TypesInt.Any */
 }
