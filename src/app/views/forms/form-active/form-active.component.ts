@@ -358,18 +358,20 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   setSelectedItem(uuid: string, who: string): void {
     if (who === 'form' ? (this.formSelected === '') : (this.actionSelected === '')) {
       setTimeout(() => {
-        who === 'form' ? (this.formSelected = uuid) : (this.actionSelected = uuid);
+        who === 'form' ? (this.formSelected = uuid, this.actionSelected = '') : (this.actionSelected = uuid, this.formSelected = '');
       }, 150);
     } else {
-      who === 'form' ? (this.formSelected = uuid) : (this.actionSelected = uuid);
+      who === 'form' ? (this.formSelected = uuid, this.actionSelected = '') : (this.actionSelected = uuid, this.formSelected = '');
     }
   }
 
-  getItem(uuid: string, who: string): any {
-    const element = this.formBody[who].filter((el: any) => el.uuid === uuid)[0];
+  getItem(): any {
+    let who = {
+      type: this.formSelected !== '' ? 'forms' : 'actions',
+      uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
+    };
+    const element = this.formBody[who.type].filter((el: any) => el.uuid === who.uuid)[0];
     let clean_element = {...element};
-
-    // here delete key on render inside field previewing json
     delete clean_element.id;
 
     const res = {
@@ -527,10 +529,10 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           });
         } else if (result.type === 'save-field') {
           const form_id = this.route_id;
-          const form_detail_id = this.getItem(this.formSelected, 'forms').id;
+          const form_detail_id = this.getItem().id;
           const data = {
             "form": {
-              ...this.getItem(this.formSelected, 'forms').full_element
+              ...this.getItem().full_element
             }
           };
 
