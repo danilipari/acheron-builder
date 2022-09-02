@@ -1,26 +1,28 @@
-<div class="mt-5 text-center px-5">
-  <div class="row">
-    <form>
-      <input class="form-control form-control-lg shadow-sm bg-dark-ab text-white" type="text" placeholder="Search workflow...">
-    </form>
+<div id="workflows-w">
+  <div class="mt-5 text-center px-5">
+    <div class="row">
+      <form>
+        <input class="form-control form-control-lg shadow-sm bg-dark-ab text-white" type="text" placeholder="Search workflow...">
+      </form>
+    </div>
   </div>
-</div>
 
-<div class="my-5">
-  <div class="list-group w-auto mx-5 shadow-sm">
-    <div *ngFor="let workflow of workflows; let iF = index;" class="list-group-item list-group-item-action d-flex gap-3 py-3 shadow-sm" aria-current="true" (click)="renderDialog(iF)">
-      <img [src]="ea_icon" alt="twbs" width="32" height="32" class="p-1 rounded-circle flex-shrink-0">
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h4 class="mb-0">{{ workflow.title }}</h4>
-          <p class="mb-0 opacity-75">{{ workflow.description | json }}</p>
+  <div class="my-5">
+    <div class="list-group w-auto mx-5 shadow-sm">
+      <div *ngFor="let workflow of workflows; let iF = index;" class="list-group-item list-group-item-action d-flex gap-3 py-3 shadow-sm" aria-current="true" (click)="renderDialog(iF)">
+        <img [src]="ea_icon" alt="twbs" width="32" height="32" class="p-1 rounded-circle flex-shrink-0">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+          <div>
+            <h4 class="mb-0">{{ workflow.title }}</h4>
+            <p class="mb-0 opacity-75">{{ workflow.description | json }}</p>
+          </div>
+          <small class="opacity-50 text-nowrap">{{ workflow.updated_at | date: 'dd-MM-yyyy HH:mm' }}</small>
         </div>
-        <small class="opacity-50 text-nowrap">{{ workflow.updated_at | date: 'dd-MM-yyyy HH:mm' }}</small>
       </div>
     </div>
   </div>
-</div>
 
-<div id="json_action" routerLink="/workflows/action">
-  <button mat-mini-fab class="shadow-lg" aria-label="add_json">+</button>
+  <div id="json_action" routerLink="/workflows/action">
+    <button mat-mini-fab class="shadow-lg" aria-label="add_json">+</button>
+  </div>
 </div>

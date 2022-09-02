@@ -1,0 +1,64 @@
+/* APP */
+#main {
+  background-color: $main-2;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
+
+::ng-deep mat-dialog-container {
+  border-radius: 20px !important;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 14px;
+}
+/* APP */
+
+.snake-success {
+  background-color: $success;
+}
+
+.snake-default {
+  background-color: $primary !important;
+}
+
+.text-primary-ab {
+  color: $primary !important;
+}
+
+.bg-dark-ab {
+  background-color: $main-1 !important;
+}
+
+.border.border-primary {
+  border-color: $primary !important;
+}
+
+.bg-dark-light-ab {
+  background-color: $main-3 !important;
+}
+
+.bg-danger-light-ab {
+  background-color: $danger-2 !important;
+}
+
+.bg-success-light-ab {
+  background-color: $success-2 !important;
+}
+
+/* .list-group-item:hover {
+  cursor: pointer;
+} */
+
+.cursor-p {
+  cursor: pointer;
+}
+
+.h-45 {
+  height: 45% !important;
+}
+
+/* *:not(:hover) {
+  transition: all 0.65s ease !important;
+} */

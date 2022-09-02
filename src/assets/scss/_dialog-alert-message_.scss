@@ -1,0 +1,35 @@
+#dialog-alert-message {
+  #header {
+    .icon-box {
+      background-color: $main-3;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      position: relative;
+
+      & i-bs {
+        position: absolute;
+        color: $primary;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  #body {
+    & p {
+      color: $primary;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+
+  #actions {
+    & .btn-lg {
+      width: 225px !important;
+      height: 75px !important;
+      border-radius: 22px !important;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+
+
+#dashboard {
+
+  .box-p-ab {
+    background-color: $main-d-1;
+    width: 400px;
+    height: 400px;
+    border-radius: 22px;
+    position: relative;
+    cursor: pointer;
+
+    & .box-c-ab {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      & p {
+        color: white;
+        margin-top: 50px;
+        font-size: 1.5rem;
+      }
+
+      & .box-counter {
+        position: relative;
+        font-size: 2rem;
+        margin-top: 50px;
+        width: 65px;
+        height: 65px;
+        border-radius: 25%;
+        background-color: $primary;
+
+        & p {
+          position: absolute;
+          top: -17px;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: white;
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: $main-d-3;
+
+      .box-counter {
+        background-color: $main-d-2 !important;
+      }
+    }
+  }
+
+  .row-space {
+    margin-top: 280px;
+
+    &:nth-child(1) {
+      margin-top: 150px;
+    }
+  }
+
+}
