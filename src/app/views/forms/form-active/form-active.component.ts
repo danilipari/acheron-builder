@@ -385,6 +385,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       type: type,
       uuid: uuid,
     };
+    console.log(this.type, index, uuid, $event, 'type');
   }
 
   setSelectedItem(uuid: string, who: string): void {
@@ -407,7 +408,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     delete clean_element.id;
 
     const res = {
-      id: element.id !== null ? element.id : null,
+      id: (element.id &&  element.id !== null) ? element.id : null,
       full_element: element,
       clean_element: clean_element,
     }
@@ -442,13 +443,15 @@ export class FormActiveComponent implements OnInit, OnDestroy {
    * @returns Void
   */
   private indexRefresh(): void {
-    if (this.formBody?.forms.length > 0 || this.formBody?.actions.length > 0) {
+    if (this.formBody?.forms.length > 0) {
       this.formBody.forms?.forEach((form: any, index: number) => {
         form.index = index;
-      });
+      })?.filter((element: any) => element.id !== null);
+    }
+    if (this.formBody?.actions.length > 0) {
       this.formBody.actions?.forEach((action: any, index: number) => {
         action.index = index;
-      });
+      })?.filter((element: any) => element.id !== null);
     }
   }
 
@@ -458,8 +461,18 @@ export class FormActiveComponent implements OnInit, OnDestroy {
    * @visibility Public
    * @returns Void
   */
-  public trackByFn(index: number, item: any): void {
-    return item.uuid;
+  public trackByFnF(index: number, item: any): void {
+    return item?.uuid;
+  }
+
+  /**
+   * @author Dani Lipari
+   * @description Function set unic item in array listener
+   * @visibility Public
+   * @returns Void
+  */
+  public trackByFnA(index: number, item: any): void {
+    return item?.uuid;
   }
 
   drop($event: CdkDragDrop<number[]>) {
@@ -467,6 +480,15 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     const leaveIndex = $event.currentIndex;
     if (this.type.type === 'typesF' || this.type.type === 'typesA') {
       if (this.type.type === 'typesF') {
+        console.log(
+          {
+            1: fromIndex,
+            2: leaveIndex,
+            3: $event
+          }
+        );
+        //! TODO: fix this --> error on index --> fill array
+
         copyArrayItem(
           this.typesForms,
           this.formBody.forms,

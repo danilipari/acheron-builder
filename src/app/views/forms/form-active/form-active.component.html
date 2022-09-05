@@ -102,21 +102,22 @@
               <div class="h-45 overflow-scroll">
                 <div
                   id="forms"
-                  class="bg-danger"
+                  class=""
                   cdkDropList
                   [cdkDropListData]="forms"
                   (cdkDropListDropped)="drop($event)"
                 >
                   <div
-                    *ngFor="let form of formBody.forms; trackBy: trackByFn; let iF = index;"
+                    *ngFor="let form of formBody.forms; trackBy: trackByFnF; let iF = index;"
                     cdkDrag
-                    (cdkDragStarted)="dragStart($event, 'forms', form.uuid, iF)"
+                    (cdkDragStarted)="dragStart($event, 'forms', form?.uuid, iF)"
                     class="list-group m-4 shadow-sm"
                   >
-                    <div class="list-group-item" (click)="setSelectedItem(form.uuid, 'form')" [ngClass]="form.uuid === formSelected ? ' border border-primary ' : ''">
+                    <div class="list-group-item" (click)="setSelectedItem(form?.uuid, 'form')" [ngClass]="form?.uuid === formSelected ? ' border border-primary ' : ''">
                       <div class="form-group">
-                        <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form.inputType | titlecase }}</span></p>
-                        <input class="form-control" [type]="form.type" [disabled]="true" [placeholder]="form.placeholder ? form.placeholder : ('Placeholder... ' + form.inputType)" [value]="form.value">
+                        {{ form | json }}
+                        <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form?.inputType | titlecase }}</span></p>
+                        <input class="form-control" [type]="form?.type" [disabled]="true" [placeholder]="form?.placeholder ? form?.placeholder : ('Placeholder... ' + form?.inputType)" [value]="form?.value">
                       </div>
                     </div>
                   </div>
@@ -127,21 +128,22 @@
               <div class="h-45 overflow-scroll">
                 <div
                   id="actions"
-                  class="bg-info"
+                  class=""
                   cdkDropList
                   [cdkDropListData]="actions"
                   (cdkDropListDropped)="drop($event)"
                 >
                   <div
-                    *ngFor="let action of formBody.actions; trackBy: trackByFn; let iF = index;"
+                    *ngFor="let action of formBody.actions; trackBy: trackByFnA; let iA = index;"
                     cdkDrag
-                    (cdkDragStarted)="dragStart($event, 'actions', action.uuid, iF)"
+                    (cdkDragStarted)="dragStart($event, 'actions', action?.uuid, iA)"
                     class="list-group m-4 shadow-sm"
                   >
-                    <div class="list-group-item " (click)="setSelectedItem(action.uuid, 'action')" [ngClass]="action.uuid === actionSelected ? ' border border-primary ' : ''">
+                    <div class="list-group-item " (click)="setSelectedItem(action?.uuid, 'action')" [ngClass]="action?.uuid === actionSelected ? ' border border-primary ' : ''">
                       <div class="form-group">
-                        <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action.inputType | titlecase }}</span></p>
-                        <input class="form-control" [type]="action.type" [disabled]="true" [placeholder]="action.placeholder ? action.placeholder : ('Placeholder... ' + action.inputType)" [value]="action.value">
+                        {{ action | json }}
+                        <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action?.inputType | titlecase }}</span></p>
+                        <input class="form-control" [type]="action?.type" [disabled]="true" [placeholder]="action?.placeholder ? action?.placeholder : ('Placeholder... ' + action?.inputType)" [value]="action?.value">
                       </div>
                     </div>
                   </div>
