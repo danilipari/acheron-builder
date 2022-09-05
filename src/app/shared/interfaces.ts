@@ -110,3 +110,21 @@ export enum Types {
   array = TypesInt.Array,
   any = TypesInt.Any */
 }
+
+/* export enum TypesOptionInt {
+  String = "string",
+  Number = "number",
+  Object = "object",
+  Array = "array",
+  Boolean = "boolean",
+  Any = "any",
+}
+
+export enum TypesOption {
+  string = TypesInt.String,
+  number = TypesInt.Number,
+  boolean = TypesInt.Boolean,
+  object = TypesInt.Object,
+  array = TypesInt.Array,
+  any = TypesInt.Any
+} */
