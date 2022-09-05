@@ -495,10 +495,16 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           $event.previousIndex,
           $event.currentIndex,
         );
-
         this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesForms[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
         this.indexRefresh();
       } else if (this.type.type === 'typesA') {
+        console.log(
+          {
+            1: fromIndex,
+            2: leaveIndex,
+            3: $event
+          }
+        );
         copyArrayItem(
           this.typesActions,
           this.formBody.actions,
