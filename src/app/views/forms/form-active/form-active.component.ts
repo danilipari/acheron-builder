@@ -489,6 +489,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         );
         //! TODO: fix this --> error on index --> fill array
 
+
         copyArrayItem(
           this.typesForms,
           this.formBody.forms,
