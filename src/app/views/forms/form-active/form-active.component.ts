@@ -271,6 +271,35 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     {
       "index": null,
       "uuid": uuid.v4(),
+      "inputType":"textarea",
+      "component":"textarea",
+      "enabled":true,
+      "name":"textarea",
+      "label":"textarea",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your textarea",
+      "options":[
+        {
+          "optionType": "attribute--rows",
+          "typeValue": "string",
+          "value": "5",
+        },
+        {
+          "optionType": "attribute--cols",
+          "typeValue": "string",
+          "value": "25",
+        }
+      ],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
       "inputType":"group",
       "component":"group",
       "enabled":true,
@@ -292,6 +321,59 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "visible":true,
       "href":""
     },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
+      "inputType":"checkbox",
+      "component":"checkbox",
+      "enabled":true,
+      "name":"checkbox",
+      "label":"checkbox",
+      "error":"",
+      "description":"description",
+      "placeholder":"Select your checkbox",
+      "options":[
+        {
+          "optionType": "option",
+          "typeValue": "boolean",
+          "value": "false",
+        }
+      ],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
+      "inputType":"radio",
+      "component":"radio",
+      "enabled":true,
+      "name":"radio",
+      "label":"radio",
+      "error":"",
+      "description":"description",
+      "placeholder":"Select your radio",
+      "options":[
+        {
+          "optionType": "option",
+          "typeValue": "boolean",
+          "value": false,
+        },
+        {
+          "optionType": "option",
+          "typeValue": "boolean",
+          "value": true,
+        },
+      ],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
   ];
 
   public typesForms: Array<typeStructure> = [
@@ -299,60 +381,70 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       uuid: uuid.v4(),
       type: "text",
       label: "text",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "email",
       label: "email",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "password",
       label: "password",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "date",
       label: "date",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "datetime-local",
       label: "datetime-local",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "number",
       label: "number",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "tel",
       label: "tel",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "time",
       label: "time",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "week",
       label: "week",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "month",
       label: "month",
+      length: 1,
       value: null,
     },
     // Special Forms
@@ -360,12 +452,35 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       uuid: uuid.v4(),
       type: "select",
       label: "select",
+      length: 2,
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "textarea",
+      label: "textarea",
+      length: 1,
       value: null,
     },
     {
       uuid: uuid.v4(),
       type: "group",
       label: "group",
+      length: 2,
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "checkbox",
+      label: "checkbox",
+      length: 1,
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
+      type: "radio",
+      label: "radio",
+      length: 2,
       value: null,
     },
   ];
@@ -375,13 +490,35 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       uuid: uuid.v4(),
       type: "button",
       label: "button",
+      length: 1,
       value: null,
     },
   ];
 
+  public typesFormsFiltered: Array<typeStructure> = [];
+  public typesActionsFiltered: Array<typeStructure> = [];
+
   public specialOptions: Array<string> = [
     'select',
-    'group'
+    'group',
+    'radio',
+  ];
+
+  public filterFormTypesSelected: number = 0;
+  public filterActionTypesSelected: number = 0;
+  public filterTypes: Array<any> = [
+    {
+      "label": "All types",
+      "value": 0,
+    },
+    {
+      "label": " with single",
+      "value": 1,
+    },
+    {
+      "label": " with multiple",
+      "value": 2,
+    },
   ];
 
   public hoverForm: boolean = false;
@@ -405,6 +542,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     console.debug('routeID Form', this.route_id, this.route_id === '');
 
     this.typesTypes = Utils.convertObjectToArray(Types);
+    this.typesFormsFiltered = [...this.typesForms];
+    this.typesActionsFiltered = [...this.typesActions];
 
     if (this.route_id !== '') {
       this.formService.getForm(this.route_id).pipe(takeUntil(this.unsubscribe$))
@@ -439,6 +578,15 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       }, 150);
     } else {
       who === 'form' ? (this.formSelected = uuid, this.actionSelected = '') : (this.actionSelected = uuid, this.formSelected = '');
+    }
+  }
+
+  public filterTypesChange(type: string): void {
+    if (type === 'form') {
+      this.typesFormsFiltered = [...this.typesForms.filter((item: any) => item.length == this.filterFormTypesSelected || this.filterFormTypesSelected == 0)];
+    }
+    if (type === 'action') {
+      this.typesActionsFiltered = [...this.typesActions.filter((item: any) => item.length == this.filterActionTypesSelected || this.filterActionTypesSelected == 0)];
     }
   }
 
@@ -528,20 +676,20 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     if (this.type.type === 'typesF' || this.type.type === 'typesA') {
       if (this.type.type === 'typesF' && this.hoverForm === true) {
         copyArrayItem(
-          this.typesForms,
+          this.typesFormsFiltered,
           this.formBody.forms,
           $event.previousIndex,
           $event.currentIndex,
         );
-        this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesForms[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
+        this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesFormsFiltered[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
       } else if (this.type.type === 'typesA' && this.hoverAction === true) {
         copyArrayItem(
-          this.typesActions,
+          this.typesActionsFiltered,
           this.formBody.actions,
           $event.previousIndex,
           $event.currentIndex,
         );
-        this.formBody.actions[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesActions[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
+        this.formBody.actions[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesActionsFiltered[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
       }
       this.indexRefresh();
     } else {
@@ -552,7 +700,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       );
       this.indexRefresh();
     }
-    this.typesForms = this.typesForms.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
+    this.typesFormsFiltered = this.typesFormsFiltered.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
   }
 
   /**

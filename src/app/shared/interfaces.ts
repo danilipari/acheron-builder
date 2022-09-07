@@ -83,6 +83,7 @@ export interface typeStructure {
   uuid: string;
   type: string;
   label: string;
+  length: number;
   value: string | null;
 }
 
