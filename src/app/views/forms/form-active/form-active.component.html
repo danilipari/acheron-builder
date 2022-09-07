@@ -36,7 +36,7 @@
                   <div>
                     <label class="text-primary-ab" for="form_special">Special form</label>
                     <div class="rounded p-3 text-center" for="form_special" [ngClass]="formBody.form_special ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="formBody.form_special = !formBody.form_special">
-                      Special form
+                      {{ formBody.form_special ? 'Special form enabled' : 'Special form disabled' }}
                     </div>
                   </div>
                 </div>
@@ -195,21 +195,21 @@
                 <p class="text-primary-ab">{{ 'edit field/Json properties' | titlecase }}</p>
                 <div class="row mt-4">
                   <div class="col-4">
-                    <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switchE" [value]="getItem().full_element['enabled']" [(ngModel)]="getItem().full_element['enabled']">
-                      <label class="mt-2 mx-3" for="switchE">Enabled</label>
+                    <label class="text-primary-ab" for="enabled">Enabled</label>
+                    <div class="rounded p-3 text-center" for="enabled" [ngClass]="getItem().full_element['enabled'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['enabled'] = !getItem().full_element['enabled']">
+                      {{ getItem().full_element['enabled'] ? 'Enabled' : 'Not eabled' }}
                     </div>
                   </div>
                   <div class="col-4">
-                    <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switchR" [value]="getItem().full_element['required']" [(ngModel)]="getItem().full_element['required']">
-                      <label class="mt-2 mx-3" for="switchR">Required</label>
+                    <label class="text-primary-ab" for="enabled">Required</label>
+                    <div class="rounded p-3 text-center" for="enabled" [ngClass]="getItem().full_element['required'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['required'] = !getItem().full_element['required']">
+                      {{ getItem().full_element['required'] ? 'Required' : 'Not required' }}
                     </div>
                   </div>
                   <div class="col-4">
-                    <div class="form-check form-switch form-switch-md">
-                      <input class="form-check-input" type="checkbox" id="switchV" [value]="getItem().full_element['visible']" [(ngModel)]="getItem().full_element['visible']">
-                      <label class="mt-2 mx-3" for="switchV">Visible</label>
+                    <label class="text-primary-ab" for="enabled">Visible</label>
+                    <div class="rounded p-3 text-center" for="enabled" [ngClass]="getItem().full_element['visible'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['visible'] = !getItem().full_element['visible']">
+                      {{ getItem().full_element['visible'] ? 'Visible' : 'Not visible' }}
                     </div>
                   </div>
                 </div>
@@ -247,11 +247,11 @@
 <!--  -->
                         <div class="w-100 my-auto">
                           <label>Option Type</label>
-                          <input class="form-control" type="text" [value]="otpion.optionType" [(ngModel)]="otpion.optionType">
+                          <input class="form-control" type="text" [disabled]="getItem().special" [value]="otpion.optionType" [(ngModel)]="otpion.optionType">
                         </div>
                         <div class="w-100 my-auto mx-4">
                           <label>Type Value</label>
-                          <select class="form-control" name="types" id="types" [value]="otpion.typeValue" [(ngModel)]="otpion.typeValue" (change)="otpion.value = null">
+                          <select class="form-control" name="types" id="types" [disabled]="getItem().special" [value]="otpion.typeValue" [(ngModel)]="otpion.typeValue" (change)="otpion.value = null">
                             <option [value]="type.value" *ngFor="let type of typesTypes">{{ type.key | titlecase }}</option>
                           </select>
                         </div>
@@ -259,14 +259,16 @@
                           <div class="my-auto w-75">
                             <label>Value</label>
                             <input *ngIf="otpion.typeValue === 'string' || otpion.typeValue === 'number'" class="form-control" [type]="otpion.typeValue" [value]="otpion.value" [(ngModel)]="otpion.value">
-                            <div *ngIf="otpion.typeValue === 'boolean'" class="form-check form-switch form-switch-md mt-2">
-                              <input class="form-check-input" type="checkbox" [id]="'switch' + iO" [value]="otpion.value" [(ngModel)]="otpion.value">
+                            <div class="" *ngIf="otpion.typeValue === 'boolean'">
+                              <div class="rounded p-2 text-center" for="enabled" [ngClass]="otpion.value ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="otpion.value = !otpion.value">
+                                {{ otpion.value ? otpion.value : false }}
+                              </div>
                             </div>
                           </div>
-                          <div class="my-auto border border-danger rounded p-2 mt-4 mb-1" (click)="optionActions(iO)">
+                          <div class="my-auto p-2 mt-4 mb-1 rounded " [ngClass]="getItem().special && getItem().lengthOptions < 2 ? 'border border-muted' : 'border border-danger'" (click)="getItem().special && getItem().lengthOptions < 2 ? null : optionActions(iO)">
                             <i-bs
                               name="x-circle"
-                              class="text-danger"
+                              [ngClass]="getItem().special && getItem().lengthOptions < 2 ? 'text-muted' : 'text-danger'"
                               width="22px"
                               height="22px"
                             ></i-bs>

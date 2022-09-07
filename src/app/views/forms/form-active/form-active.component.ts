@@ -255,7 +255,37 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your otion",
-      "options":[],
+      "options":[
+        {
+          "optionType": "option",
+          "typeValue": "string",
+          "value": "option list item",
+        }
+      ],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
+      "inputType":"group",
+      "component":"group",
+      "enabled":true,
+      "name":"group",
+      "label":"group",
+      "error":"",
+      "description":"description",
+      "placeholder":"Select your otion",
+      "options":[
+        {
+          "optionType": "option",
+          "typeValue": "string",
+          "value": "group item",
+        }
+      ],
       "required":false,
       "validation":"/.*/",
       "value": "",
@@ -332,6 +362,12 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       label: "select",
       value: null,
     },
+    {
+      uuid: uuid.v4(),
+      type: "group",
+      label: "group",
+      value: null,
+    },
   ];
 
   public typesActions: Array<typeStructure> = [
@@ -341,6 +377,11 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       label: "button",
       value: null,
     },
+  ];
+
+  public specialOptions: Array<string> = [
+    'select',
+    'group'
   ];
 
   public hoverForm: boolean = false;
@@ -361,7 +402,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log('routeID Form', this.route_id, this.route_id === '');
+    console.debug('routeID Form', this.route_id, this.route_id === '');
 
     this.typesTypes = Utils.convertObjectToArray(Types);
 
@@ -379,19 +420,19 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     this.init();
   }
 
-  init(): void {
+  private init(): void {
     this.indexRefresh();
   }
 
-  dragStart($event: any, type: string, uuid: string, index: number): void {
+  public dragStart($event: any, type: string, uuid: string, index: number): void {
     this.type = {
       type: type,
       uuid: uuid,
     };
-    console.log(this.type, index, uuid, $event, 'type');
+    console.debug(this.type, index, uuid, $event, 'type');
   }
 
-  setSelectedItem(uuid: string, who: string): void {
+  public setSelectedItem(uuid: string, who: string): void {
     if (who === 'form' ? (this.formSelected === '') : (this.actionSelected === '')) {
       setTimeout(() => {
         who === 'form' ? (this.formSelected = uuid, this.actionSelected = '') : (this.actionSelected = uuid, this.formSelected = '');
@@ -401,7 +442,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     }
   }
 
-  getItem(): any {
+  public getItem(): any {
     const who = {
       type: this.formSelected !== '' ? 'forms' : 'actions',
       uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
@@ -414,6 +455,9 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       id: (element.id &&  element.id !== null) ? element.id : null,
       full_element: element,
       clean_element: clean_element,
+      component: element.component,
+      special: this.specialOptions.includes(element.component),
+      lengthOptions: element.options.length,
     }
     return res;
   }
@@ -527,10 +571,12 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     const who = {
       type: this.formSelected !== '' ? 'forms' : 'actions',
       uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
+      component: this.getItem().component,
+      special: this.getItem().special,
     };
 
     const newOption = {
-      optionType: "",
+      optionType: who.special ? "option" : "",
       typeValue: Types.string,
       value: ""
     };
@@ -538,7 +584,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     if (index === undefined) {
       this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: [...el.options, newOption]} : {...el}));
     } else {
-      this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: el.options?.length > 0 ? [...el.options?.splice(index, 1)] : []} : {...el}))
+      this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, options: el.options?.length > 0 ? [...el.options?.splice(index, 1)] : []} : {...el}));
     }
   }
 
@@ -578,7 +624,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogAlertMessagesComponent, config);
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed', result);
+      console.debug('The dialog was closed', result);
       if (result) {
         if( result.type === 'delete' && result?.action?.confirm === true) {
           this.rmFromItem(this.formSelected);
