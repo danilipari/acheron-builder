@@ -343,6 +343,9 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     },
   ];
 
+  public hoverForm: boolean = false;
+  public hoverAction: boolean = false;
+
   public formBody: any = {
     uuid: uuid.v4(),
     form_special: false,
@@ -479,17 +482,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     const fromIndex = $event.previousIndex;
     const leaveIndex = $event.currentIndex;
     if (this.type.type === 'typesF' || this.type.type === 'typesA') {
-      if (this.type.type === 'typesF') {
-        console.log(
-          {
-            1: fromIndex,
-            2: leaveIndex,
-            3: $event
-          }
-        );
-        //! TODO: fix this --> error on index --> fill array
-
-
+      if (this.type.type === 'typesF' && this.hoverForm === true) {
         copyArrayItem(
           this.typesForms,
           this.formBody.forms,
@@ -497,15 +490,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           $event.currentIndex,
         );
         this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesForms[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
-        this.indexRefresh();
-      } else if (this.type.type === 'typesA') {
-        console.log(
-          {
-            1: fromIndex,
-            2: leaveIndex,
-            3: $event
-          }
-        );
+      } else if (this.type.type === 'typesA' && this.hoverAction === true) {
         copyArrayItem(
           this.typesActions,
           this.formBody.actions,
@@ -513,11 +498,10 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           $event.currentIndex,
         );
         this.formBody.actions[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesActions[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
-        this.indexRefresh();
       }
+      this.indexRefresh();
     } else {
       moveItemInArray(
-        // $event.container.data, --> generic
         this.formBody.forms,
         $event.previousIndex,
         $event.currentIndex,
