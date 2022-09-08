@@ -50,6 +50,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your text",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -68,6 +69,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your email",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -86,6 +88,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your password",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -104,6 +107,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your date",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -122,6 +126,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your datetime-local",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -140,6 +145,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your number",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -158,6 +164,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your tel",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -176,6 +183,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your time",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -194,6 +202,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your week",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -212,6 +221,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your month",
+      "childRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -230,6 +240,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your button",
+      "childRef": [],
       "options":[
         {
           "optionType": "submit",
@@ -255,6 +266,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your otion",
+      "childRef": [],
       "options":[
         {
           "optionType": "option",
@@ -279,6 +291,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your textarea",
+      "childRef": [],
       "options":[
         {
           "optionType": "attribute--rows",
@@ -308,6 +321,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your otion",
+      "childRef": [],
       "options":[
         {
           "optionType": "option",
@@ -332,6 +346,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your checkbox",
+      "childRef": [],
       "options":[
         {
           "optionType": "option",
@@ -356,6 +371,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your radio",
+      "childRef": [],
       "options":[
         {
           "optionType": "option",

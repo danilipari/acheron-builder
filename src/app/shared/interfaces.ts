@@ -67,6 +67,7 @@ export interface FormItem {
   href: string;
   description: string;
   placeholder: string;
+  childRef: Array<string>;
   options: Array<OptionsFormStructure>;
   required: boolean;
   validation: string;

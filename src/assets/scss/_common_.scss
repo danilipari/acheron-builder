@@ -59,6 +59,20 @@
   height: 45% !important;
 }
 
+.mat-flat-button.mat-accent,
+  .mat-raised-button.mat-accent,
+  .mat-fab.mat-accent,
+  .mat-mini-fab.mat-accent {
+    background-color: $main-3;
+    border: 5px solid $primary;
+    -webkit-box-shadow: 0px 0px 10px 10px rgba($main-3, 0.25)!important;
+    box-shadow: 0px 0px 10px 10px rgba($main-3, 0.25)!important;
+
+    & .mat-button-wrapper {
+      color: $primary;
+    }
+  }
+
 /* *:not(:hover) {
   transition: all 0.65s ease !important;
 } */

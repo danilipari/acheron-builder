@@ -1,8 +1,4 @@
 #layouts-w {
-  .bg-violet {
-    background-color: $primary;
-  }
-
   #json_action {
     position: absolute;
     bottom: 25px;
@@ -12,13 +8,6 @@
       height: 60px;
       width: 60px;
     }
-  }
-
-  .mat-flat-button.mat-accent,
-  .mat-raised-button.mat-accent,
-  .mat-fab.mat-accent,
-  .mat-mini-fab.mat-accent {
-    background-color: $primary;
   }
 
   .list-group-item:hover {
