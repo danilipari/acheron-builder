@@ -60,7 +60,7 @@
               </div>
               <div
                 id="typesF"
-                class=""
+                class="row"
                 cdkDropList
                 [cdkDropListData]="typesF"
                 cdkDropListConnectedTo="forms"
@@ -71,9 +71,10 @@
                   cdkDrag
                   [cdkDragData]="types"
                   (cdkDragStarted)="dragStart($event, 'typesF', type.uuid, iTF)"
-                  class="list-group m-4 shadow-sm"
+                  class=" list-group px-4 py-3 "
+                  [ngClass]="isPow(typesFormsFiltered.length) ? ' col-4 ' : ' col-6  '"
                 >
-                  <div class="list-group-item">
+                  <div class="list-group-item py-3 shadow-sm">
                     {{ type.label }} {{ type.length > 1 ? '(list)' : null }}
                   </div>
                 </div>
@@ -94,7 +95,7 @@
               </div>
               <div
                 id="typesA"
-                class=""
+                class="row"
                 cdkDropList
                 [cdkDropListData]="typesA"
                 cdkDropListConnectedTo="actions"
@@ -105,9 +106,10 @@
                   cdkDrag
                   [cdkDragData]="typesA"
                   (cdkDragStarted)="dragStart($event, 'typesA', type.uuid, iTA)"
-                  class="list-group m-4 shadow-sm"
+                  class=" list-group px-4 py-3 "
+                  [ngClass]="isPow(typesActionsFiltered.length) ? ' col-4 ' : ' col-6  '"
                 >
-                  <div class="list-group-item">
+                  <div class="list-group-item py-3 shadow-sm">
                     {{ type.label }}
                   </div>
                 </div>

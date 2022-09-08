@@ -3,6 +3,8 @@ import { resInfo } from 'src/app/shared/interfaces';
 import { DashbordService } from 'src/app/services/dashbord.service';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +14,18 @@ import { takeUntil } from 'rxjs/operators';
 export class DashboardComponent implements OnInit, OnDestroy {
   countResurces!: resInfo;
   unsubscribe$: Subject<boolean> = new Subject<boolean>();
+
+  optionsW: AnimationOptions = {
+    path: '/assets/lottie/35-compare-solid-edited.json',
+  };
+
+  optionsF: AnimationOptions = {
+    path: '/assets/lottie/76-newspaper-solid-edited.json',
+  };
+
+  optionsL: AnimationOptions = {
+    path: '/assets/lottie/40-add-card-solid-edited.json',
+  };
 
   constructor(
     private dashboardService: DashbordService,
@@ -25,6 +39,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     });
+  }
+
+  animationCreated(animationItem: AnimationItem): void {
+    console.log(animationItem);
   }
 
   ngOnDestroy(): void {

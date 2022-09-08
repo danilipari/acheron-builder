@@ -7,12 +7,18 @@
   <div class="row row-space justify-content-around">
     <div class="col-4 box-p-ab" [routerLink]="'/workflows'">
       <div class="box-c-ab text-center">
-        <i-bs
+        <!-- <i-bs
           name="layer-backward"
           class="text-white"
           width="68px"
           height="68px"
-        ></i-bs>
+        ></i-bs> -->
+        <div class="mx-auto" style="width: 86px; height: 86px;">
+          <ng-lottie
+            [options]="optionsW"
+            (animationCreated)="animationCreated($event)"
+          ></ng-lottie>
+        </div>
         <p>{{ 'Workflows' | uppercase }}</p>
         <div class="box-counter mx-auto">
           <p>{{ countResurces?.quantity_workflows }}</p>
@@ -21,12 +27,18 @@
     </div>
     <div class="col-4 box-p-ab" [routerLink]="'/forms'">
       <div class="box-c-ab text-center">
-        <i-bs
+        <!-- <i-bs
         name="ui-checks"
         class="text-white"
         width="68px"
         height="68px"
-        ></i-bs>
+        ></i-bs> -->
+        <div class="mx-auto" style="width: 86px; height: 86px;">
+          <ng-lottie
+            [options]="optionsF"
+            (animationCreated)="animationCreated($event)"
+          ></ng-lottie>
+        </div>
         <p>{{ 'Forms' | uppercase }}</p>
         <div class="box-counter mx-auto">
           <p>{{ countResurces?.quantity_forms }}</p>
@@ -35,12 +47,18 @@
     </div>
     <div class="col-4 box-p-ab" [routerLink]="'/layouts'">
       <div class="box-c-ab text-center">
-        <i-bs
+        <!-- <i-bs
         name="layout-wtf"
         class="text-white"
         width="68px"
         height="68px"
-        ></i-bs>
+        ></i-bs> -->
+        <div class="mx-auto" style="width: 86px; height: 86px;">
+          <ng-lottie
+            [options]="optionsL"
+            (animationCreated)="animationCreated($event)"
+          ></ng-lottie>
+        </div>
         <p>{{ 'Layouts' | uppercase }}</p>
         <div class="box-counter mx-auto">
           <p>{{ countResurces?.quantity_layouts }}</p>

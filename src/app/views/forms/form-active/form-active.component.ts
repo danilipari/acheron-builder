@@ -606,6 +606,10 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     }
   }
 
+  public isPow(number: number): boolean {
+    return Utils.power_of_2(number);
+  }
+
   public getItem(): any {
     const who = {
       type: this.formSelected !== '' ? 'forms' : 'actions',
