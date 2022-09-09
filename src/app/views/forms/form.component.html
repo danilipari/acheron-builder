@@ -14,7 +14,7 @@
         <div class="d-flex gap-2 w-100 justify-content-between">
           <div>
             <h4 class="mb-0">{{ form.form_name }}</h4>
-            <p class="mb-0 opacity-75">{{ form.form_text | json }}</p>
+            <p class="mb-0 opacity-75">{{ form.form_text }}</p>
           </div>
           <small class="opacity-50 text-nowrap">items: {{ form.forms_quantity }}<!-- {{ sumListLength([form.forms, form.actions]) }} --></small>
         </div>
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div id="json_action" routerLink="/forms/action">
+  <div class="go_to_action" routerLink="/forms/action">
     <button mat-mini-fab class="shadow-lg" aria-label="add_json">+</button>
   </div>
 </div>
