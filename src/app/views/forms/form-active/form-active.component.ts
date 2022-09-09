@@ -799,11 +799,16 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           this.snackBar('Item successfully removed');
           this.formSelected = '';
         } else if (result.type === 'save-form') {
-          this.formService.saveForm(this.formBody, this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-            this.snackBar();
-          }, (error: any) => {
-            console.log(error);
-          });
+          if (this.formBody?.form_name?.trim() !== '' && this.formBody?.form_name !== undefined) {
+            this.formService.saveForm(this.formBody, this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+              this.snackBar();
+            }, (error: any) => {
+              this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
+              console.log(error);
+            });
+          } else {
+            this.snackBar('Form name is required', 'danger');
+          }
         } else if (result.type === 'save-field') {
           const form_id = this.route_id;
           const form_detail_id = this.getItem().id;

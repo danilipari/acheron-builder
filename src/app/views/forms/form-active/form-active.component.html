@@ -27,7 +27,7 @@
                   </div>
                   <div>
                     <label class="text-primary-ab" for="title">Title</label>
-                    <input type="text" for="title" class="form-control shadow-sm mb-3" [(ngModel)]="formBody.form_name" placeholder="Nome del form">
+                    <input type="text" for="title" class="form-control shadow-sm mb-3" [ngClass]="!formBody.form_name ? 'border border-danger rounded' : ''" [(ngModel)]="formBody.form_name" placeholder="Nome del form">
                   </div>
                   <div>
                     <label class="text-primary-ab" for="description">Description</label>
@@ -124,16 +124,30 @@
         <div class="structure col border">
           <div class="card">
             <div class="card-body">
-              <div class="h-45 overflow-hidden" (mouseover)="hoverForm = true" (mouseout)="hoverForm = false">
+              <div class="h-45 overflow-hidden">
                 <p class="text-primary-ab px-4 mt-2">{{ "Form Items" | titlecase }}</p>
                 <div class="h-100 overflow-scroll">
                   <div
                     id="forms"
-                    class=""
+                    class="pb-5 pt-3"
                     cdkDropList
+                    (mouseover)="hoverForm = true" (mouseout)="hoverForm = false"
                     [cdkDropListData]="forms"
                     (cdkDropListDropped)="drop($event)"
                   >
+                    <div class="list-group m-4 shadow-sm border border-danger" *ngIf="!formBody.forms.length">
+                      <div class="list-group-item border border-danger text-danger bg-danger-light-ab">
+                        <div class="d-flex justify-content-between">
+                          <span class="my-auto">No forms</span>
+                          <i-bs
+                            name="view-list"
+                            class="my-auto"
+                            width="24px"
+                            height="24px"
+                          ></i-bs>
+                        </div>
+                      </div>
+                    </div>
                     <div
                       *ngFor="let form of formBody.forms; trackBy: trackByFnF; let iF = index;"
                       cdkDrag
@@ -151,21 +165,35 @@
                 </div>
               </div>
               <hr>
-              <div class="h-45 overflow-hidden" (mouseover)="hoverAction = true" (mouseout)="hoverAction = false">
+              <div class="h-45 overflow-hidden">
                 <p class="text-primary-ab px-4 mt-4">{{ "Action Items" | titlecase }}</p>
                 <div class="h-100 overflow-scroll">
                   <div
                     id="actions"
-                    class=""
+                    class="pb-5 pt-3"
+                    (mouseover)="hoverAction = true" (mouseout)="hoverAction = false"
                     cdkDropList
                     [cdkDropListData]="actions"
                     (cdkDropListDropped)="drop($event)"
                   >
+                    <div class="list-group m-4 shadow-sm border border-danger" *ngIf="!formBody.actions.length">
+                      <div class="list-group-item border border-danger text-danger bg-danger-light-ab">
+                        <div class="d-flex justify-content-between">
+                          <span class="my-auto">No actions</span>
+                          <i-bs
+                            name="view-list"
+                            class="my-auto"
+                            width="24px"
+                            height="24px"
+                          ></i-bs>
+                        </div>
+                      </div>
+                    </div>
                     <div
                       *ngFor="let action of formBody.actions; trackBy: trackByFnA; let iA = index;"
                       cdkDrag
                       (cdkDragStarted)="dragStart($event, 'actions', action?.uuid, iA)"
-                      class="list-group m-4 shadow-sm"
+                      class="list-group m-4 shadow-sm bg-danger"
                     >
                       <div class="list-group-item " (click)="setSelectedItem(action?.uuid, 'action')" [ngClass]="action?.uuid === actionSelected ? ' border border-primary ' : ''">
                         <div class="form-group">
