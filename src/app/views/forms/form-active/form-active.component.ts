@@ -706,7 +706,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   }
 
   public addChildrenRef(element: any): void {
-    console.log('addChildrenRef', element);
+    console.debug('addChildrenRef', element);
 
   }
 
