@@ -15,6 +15,21 @@
 }
 /* APP */
 
+.text-primary {
+  color: $primary !important;
+}
+
+.mat-chip-remove {
+  & .text-primary {
+    color: $primary !important;
+  }
+}
+
+.mat-chip.mat-standard-chip {
+  background-color: $main-3 !important;
+  color: $primary !important;
+}
+
 .snake-success {
   background-color: $success;
 }

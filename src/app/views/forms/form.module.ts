@@ -18,6 +18,8 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
+
 /*  */
 
 
@@ -37,6 +39,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     SharedModule,
     MatTooltipModule,
+    MatChipsModule,
     NgxJsonViewerModule,
   ]
 })

@@ -50,7 +50,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your text",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -69,7 +70,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your email",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -88,7 +90,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your password",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -107,7 +110,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your date",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -126,7 +130,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your datetime-local",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -145,7 +150,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your number",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -164,7 +170,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your tel",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -183,7 +190,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your time",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -202,7 +210,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your week",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -221,7 +230,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your month",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[],
       "required":false,
       "validation":"/.*/",
@@ -240,7 +250,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your button",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[
         {
           "optionType": "submit",
@@ -266,7 +277,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your otion",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[
         {
           "optionType": "option",
@@ -291,7 +303,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Insert your textarea",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[
         {
           "optionType": "attribute--rows",
@@ -321,7 +334,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your otion",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[
         {
           "optionType": "option",
@@ -346,7 +360,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your checkbox",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[
         {
           "optionType": "option",
@@ -371,7 +386,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "error":"",
       "description":"description",
       "placeholder":"Select your radio",
-      "childRef": [],
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
       "options":[
         {
           "optionType": "option",
@@ -391,6 +407,9 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "href":""
     },
   ];
+
+  public allFormItemsMapped: Array<FormItem> = [];
+  public allFormItemsMappedFiltered: Array<FormItem> = [];
 
   public typesForms: Array<typeStructure> = [
     {
@@ -562,13 +581,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     this.typesActionsFiltered = [...this.typesActions];
 
     if (this.route_id !== '') {
-      this.formService.getForm(this.route_id).pipe(takeUntil(this.unsubscribe$))
-        .subscribe((res: any) => {
-          this.formBody = {
-            ...res,
-            form_special: Boolean(Number(res.form_special)),
-          };
-        }), (error: any) => {
+      this.formService.getForm(this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((res: any) => {
+        this.formBody = {
+          ...res,
+          form_special: Boolean(Number(res.form_special)),
+        };
+        this.setChips();
+      }), (error: any) => {
         console.log(error);
       };
     }
@@ -577,6 +596,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   private init(): void {
     this.indexRefresh();
+    this.setChips();
   }
 
   public dragStart($event: any, type: string, uuid: string, index: number): void {
@@ -591,9 +611,11 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     if (who === 'form' ? (this.formSelected === '') : (this.actionSelected === '')) {
       setTimeout(() => {
         who === 'form' ? (this.formSelected = uuid, this.actionSelected = '') : (this.actionSelected = uuid, this.formSelected = '');
+        this.init();
       }, 150);
     } else {
       who === 'form' ? (this.formSelected = uuid, this.actionSelected = '') : (this.actionSelected = uuid, this.formSelected = '');
+      this.init();
     }
   }
 
@@ -651,6 +673,22 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     });
   }
 
+  private setChips(): void {
+    const who = {
+      type: this.formSelected !== '' ? 'forms' : 'actions',
+      uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
+    };
+
+    this.allFormItemsMapped = [
+      ...this.formBody.forms.map((elF: any) => ({ id: elF.id, uuid: elF.uuid, uuidRef: elF.uuidRef, active: false, inputType: elF.inputType, color: Utils.stringToColour(`${elF.inputType} - ${elF.uuidRef}`) })),
+      ...this.formBody.actions.map((elA: any) => ({ id: elA.id, uuid: elA.uuid, uuidRef: elA.uuidRef, active: false, inputType: elA.inputType, color: Utils.stringToColour(`${elA.inputType} - ${elA.uuidRef}`) })),
+    ];
+
+    this.allFormItemsMappedFiltered = [
+      ...this.allFormItemsMapped?.filter(((self: any) => self.uuid !== who.uuid))
+    ];
+  }
+
   /**
    * @author Dani Lipari
    * @description Function order index of array
@@ -661,11 +699,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     if (this.formBody?.forms.length > 0) {
       this.formBody.forms?.forEach((form: any, index: number) => {
         form.index = index;
+        form.color = Utils.stringToColour(`${form.inputType} - ${form.uuidRef}`);
       })?.filter((element: any) => element.id !== null);
     }
     if (this.formBody?.actions.length > 0) {
       this.formBody.actions?.forEach((action: any, index: number) => {
         action.index = index;
+        action.color = Utils.stringToColour(`${action.inputType} - ${action.uuidRef}`);
       })?.filter((element: any) => element.id !== null);
     }
   }
@@ -701,7 +741,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           $event.previousIndex,
           $event.currentIndex,
         );
-        this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesFormsFiltered[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
+        this.formBody.forms[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesFormsFiltered[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4(), uuidRef: uuid.v4() }))[0];
       } else if (this.type.type === 'typesA' && this.hoverAction === true) {
         copyArrayItem(
           this.typesActionsFiltered,
@@ -709,16 +749,16 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           $event.previousIndex,
           $event.currentIndex,
         );
-        this.formBody.actions[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesActionsFiltered[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4() }))[0];
+        this.formBody.actions[leaveIndex] = this._items.filter((item: any) => (item.inputType === this.typesActionsFiltered[fromIndex].type)).map((el: any) => ({...el, uuid: uuid.v4(), uuidRef: uuid.v4() }))[0];
       }
-      this.indexRefresh();
+      this.init();
     } else {
       moveItemInArray(
         this.formBody.forms,
         $event.previousIndex,
         $event.currentIndex,
       );
-      this.indexRefresh();
+      this.init();
     }
     this.typesFormsFiltered = this.typesFormsFiltered.map((elMap: any) => ({...elMap, uuid: uuid.v4()}));
   }

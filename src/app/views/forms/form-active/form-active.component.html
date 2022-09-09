@@ -155,8 +155,12 @@
                       class="list-group m-4 shadow-sm"
                     >
                       <div class="list-group-item" (click)="setSelectedItem(form?.uuid, 'form')" [ngClass]="form?.uuid === formSelected ? ' border border-primary ' : ''">
+                        <!-- {{ form | json }} -->
                         <div class="form-group">
-                          <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form?.inputType | titlecase }}</span></p>
+                          <div class="d-flex mb-2">
+                            <div class="d-flex my-auto"><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form?.inputType | titlecase }}</span></div>
+                            <div class="d-flex my-auto"><span class="text-muted mx-2">Ref:</span><div [style]="'height: 18px; width: 18px; border-radius: 50%;background-color: ' + form?.color + ' !important;'">&nbsp;</div></div>
+                          </div>
                           <input class="form-control" [type]="form?.type" [disabled]="true" [placeholder]="form?.placeholder ? form?.placeholder : ('Placeholder... ' + form?.inputType)" [value]="form?.value">
                         </div>
                       </div>
@@ -196,8 +200,12 @@
                       class="list-group m-4 shadow-sm bg-danger"
                     >
                       <div class="list-group-item " (click)="setSelectedItem(action?.uuid, 'action')" [ngClass]="action?.uuid === actionSelected ? ' border border-primary ' : ''">
+                        <!-- {{ action | json }} -->
                         <div class="form-group">
-                          <p><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action?.inputType | titlecase }}</span></p>
+                          <div class="d-flex mb-2">
+                            <div class="d-flex my-auto"><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action?.inputType | titlecase }}</span></div>
+                            <div class="d-flex my-auto"><span class="text-muted mx-2">Ref:</span><div [style]="'height: 18px; width: 18px; border-radius: 50%;background-color: ' + action?.color + ' !important;'">&nbsp;</div></div>
+                          </div>
                           <input class="form-control" [type]="action?.type" [disabled]="true" [placeholder]="action?.placeholder ? action?.placeholder : ('Placeholder... ' + action?.inputType)" [value]="action?.value">
                         </div>
                       </div>
@@ -291,6 +299,43 @@
                   <div class="col-6 form-group">
                     <label>Href</label>
                     <input class="form-control" type="text" [value]="getItem().full_element['href']" [(ngModel)]="getItem().full_element['href']">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 form-group">
+                    <label>Children Ref</label>
+                    {{ allFormItemsMapped.length | json }}
+                    fS {{ formSelected | json }}
+                    aS {{ actionSelected | json }}
+
+                    <div class="form-control w-100">
+
+                      <input type="text" class="form-field input-chip border rounded w-100 mt-1 mb-2 px-3" placeholder="Nome del field">
+                      <mat-chip-list>
+                        <mat-chip *ngFor="let chip of allFormItemsMappedFiltered; let iC = index;">
+                          <div class="d-flex">
+                            <span class="my-auto" [style]="'height: 18px; width: 18px; border-radius: 50%;' + 'background-color: ' + chip.color +'!important;'">
+                              &nbsp;
+                            </span>
+                            <span class="my-auto mx-3">
+                              <!-- {{ chip | json }} -->
+                              {{ chip.inputType }} - {{ chip.uuid | json }}
+                            </span>
+                          </div>
+                          <button class="mb-1" matChipRemove>
+                            <i-bs
+                              name="x-circle"
+                              class="text-primary"
+                              width="22px"
+                              height="22px"
+                            ></i-bs>
+                          </button>
+                        </mat-chip>
+                      </mat-chip-list>
+
+                    </div>
+
+
                   </div>
                 </div>
                 <div class="row mt-4">
