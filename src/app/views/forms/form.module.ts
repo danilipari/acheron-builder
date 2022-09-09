@@ -19,6 +19,7 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
 
 /*  */
 
@@ -40,6 +41,7 @@ import { MatChipsModule } from '@angular/material/chips';
     SharedModule,
     MatTooltipModule,
     MatChipsModule,
+    MatSelectModule,
     NgxJsonViewerModule,
   ]
 })

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, Subject, pipe } from 'rxjs';
+import { forkJoin, Subject, pipe, of, tap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ConfigurationDialog, typeStructure, FormStructure, FormItem, Types } from '../../../shared/interfaces';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
@@ -574,7 +574,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.debug('routeID Form', this.route_id, this.route_id === '');
+    console.log('routeID Form', this.route_id, this.route_id !== '');
 
     this.typesTypes = Utils.convertObjectToArray(Types);
     this.typesFormsFiltered = [...this.typesForms];
@@ -586,7 +586,6 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           ...res,
           form_special: Boolean(Number(res.form_special)),
         };
-        this.setChips();
       }), (error: any) => {
         console.log(error);
       };
@@ -642,12 +641,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     delete clean_element.id;
 
     const res = {
-      id: (element.id &&  element.id !== null) ? element.id : null,
+      id: (element.id && element.id !== null) ? element.id : null,
       full_element: element,
       clean_element: clean_element,
       component: element.component,
       special: this.specialOptions.includes(element.component),
       lengthOptions: element.options.length,
+      childrenRef: element.childrenRef
     }
     return res;
   }
@@ -680,13 +680,34 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     };
 
     this.allFormItemsMapped = [
-      ...this.formBody.forms.map((elF: any) => ({ id: elF.id, uuid: elF.uuid, uuidRef: elF.uuidRef, active: false, inputType: elF.inputType, color: Utils.stringToColour(`${elF.inputType} - ${elF.uuidRef}`) })),
-      ...this.formBody.actions.map((elA: any) => ({ id: elA.id, uuid: elA.uuid, uuidRef: elA.uuidRef, active: false, inputType: elA.inputType, color: Utils.stringToColour(`${elA.inputType} - ${elA.uuidRef}`) })),
+      ...this.formBody.forms?.map((elF: any) => ({ id: elF.id, uuid: elF.uuid, uuidRef: elF.uuidRef, inputType: elF.inputType, color: Utils.stringToColour(`${elF.inputType} - ${elF?.uuidRef}`) })),
+      ...this.formBody.actions?.map((elA: any) => ({ id: elA.id, uuid: elA.uuid, uuidRef: elA.uuidRef, inputType: elA.inputType, color: Utils.stringToColour(`${elA.inputType} - ${elA?.uuidRef}`) })),
     ];
 
     this.allFormItemsMappedFiltered = [
       ...this.allFormItemsMapped?.filter(((self: any) => self.uuid !== who.uuid))
     ];
+  }
+
+  public chipRemove(element: any): void {
+    const who = {
+      type: this.formSelected !== '' ? 'forms' : 'actions',
+      uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
+      component: this.getItem().component,
+      special: this.getItem().special,
+      childrenRef: this.getItem().childrenRef,
+    };
+
+    const childrenRefMapped = [
+      ...who.childrenRef.filter((elR: any) => elR.uuid !== element.uuid),
+    ];
+
+    this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, childrenRef: childrenRefMapped} : {...el}));
+  }
+
+  public addChildrenRef(element: any): void {
+    console.log('addChildrenRef', element);
+
   }
 
   /**
