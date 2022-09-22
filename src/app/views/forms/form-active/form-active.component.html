@@ -422,7 +422,13 @@
                 <div class="row mt-4">
                   <div class="col-12 form-group">
                     <label>Value</label>
-                    <input class="form-control" type="text" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
+                    <!-- <input class="form-control" type="text" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']"> -->
+                    <input *ngIf="getItem().full_element['inputType'] !== 'checkbox'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
+                    <div class="" *ngIf="getItem().full_element['inputType'] === 'checkbox'">
+                      <div class="rounded p-2 text-center" for="enabled" [ngClass]="getItem().full_element['value'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
+                        {{ getItem().full_element['value'] ? getItem().full_element['value'] : false }}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
