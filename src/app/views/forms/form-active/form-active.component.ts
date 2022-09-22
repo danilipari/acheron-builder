@@ -8,7 +8,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag
 import { DialogAlertMessagesComponent } from '../../../components/dialog-alert-messages/dialog-alert-messages.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormService } from '../../../services/form.service';
-import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation } from 'angular-animations';
+import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation, bounceInAnimation } from 'angular-animations';
 import Utils from '../../../shared/utils';
 import * as uuid from "uuid";
 
@@ -18,10 +18,10 @@ import * as uuid from "uuid";
   styleUrls: ['./form-active.component.scss'],
   animations: [
     bounceInRightOnEnterAnimation({ anchor: 'enter1', translate: '500px' }),
-    bounceInLeftOnEnterAnimation(),
+    bounceInLeftOnEnterAnimation({ anchor: 'enter2', translate: '500px' }),
     bounceInRightOnEnterAnimation(),
     bounceOutLeftOnLeaveAnimation(),
-    bounceOutRightOnLeaveAnimation(),
+    bounceOutRightOnLeaveAnimation({ anchor: 'enter2', translate: '500px' }),
   ],
 })
 export class FormActiveComponent implements OnInit, OnDestroy {
@@ -368,7 +368,12 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           "optionType": "option",
           "typeValue": "boolean",
           "value": "false",
-        }
+        },
+        {
+          "optionType": "inverse",
+          "typeValue": "boolean",
+          "value": "false",
+        },
       ],
       "required":false,
       "validation":"/.*/",
