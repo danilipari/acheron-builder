@@ -25,6 +25,7 @@ import * as uuid from "uuid";
   ],
 })
 export class FormActiveComponent implements OnInit, OnDestroy {
+  public testing: boolean = false;
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
   private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -574,6 +575,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    localStorage.getItem('tes') ? this.testing = true : this.testing = false;
     console.log('routeID Form', this.route_id, this.route_id !== '');
 
     this.typesTypes = Utils.convertObjectToArray(Types);

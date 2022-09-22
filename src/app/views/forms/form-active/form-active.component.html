@@ -249,7 +249,7 @@
               <div class="card-body">
                 <p class="text-primary-ab">{{ 'previewing json' | titlecase }}</p>
                 <div class="border rounded w-100 h-25 overflow-scroll">
-                  <div> <!-- style="pointer-events: none;" -->
+                  <div>
                     <ngx-json-viewer [json]="getItem().clean_element" [expanded]="true"></ngx-json-viewer>
                   </div>
                 </div>
@@ -273,6 +273,12 @@
                     <div class="rounded p-3 text-center" for="enabled" [ngClass]="getItem().full_element['visible'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['visible'] = !getItem().full_element['visible']">
                       {{ getItem().full_element['visible'] ? 'Visible' : 'Not visible' }}
                     </div>
+                  </div>
+                </div>
+                <div class="row mt-3" *ngIf="testing">
+                  <div class="col-12 form-group">
+                    <label for="error">Error</label>
+                    <input class="form-control border border-danger text-danger bg-danger-light-ab" type="text" [value]="getItem().full_element['error']" [(ngModel)]="getItem().full_element['error']">
                   </div>
                 </div>
                 <div class="row mt-3">
