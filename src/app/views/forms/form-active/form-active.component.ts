@@ -689,6 +689,24 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     ];
   }
 
+  public mapChildrenRefList(allFormItemsMappedFiltered: Array<object>): Array<any> {
+    const who = {
+      childrenRef: this.getItem().childrenRef,
+    };
+
+    const finalArr = [
+      ...allFormItemsMappedFiltered.reduce((acc: any, item: any) => {
+        if (who.childrenRef.map((elC: any) => elC.uuidRef).includes(item.uuidRef)) {
+          acc = [...acc, who.childrenRef.filter((el: any) => el.uuidRef === item.uuidRef)[0]];
+        } else {
+          acc = [...acc, item];
+        }
+        return acc;
+      }, []),
+    ];
+    return finalArr;
+  }
+
   public chipRemove(element: any): void {
     const who = {
       type: this.formSelected !== '' ? 'forms' : 'actions',
@@ -706,8 +724,20 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   }
 
   public addChildrenRef(element: any): void {
-    console.debug('addChildrenRef', element);
+    const who = {
+      type: this.formSelected !== '' ? 'forms' : 'actions',
+      uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
+      component: this.getItem().component,
+      special: this.getItem().special,
+      childrenRef: this.getItem().childrenRef,
+    };
 
+    console.log('addChildrenRef', element);
+    if (who.childrenRef.map((el: any) => el.uuidRef).includes(element.uuidRef)){
+      this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, childrenRef: who.childrenRef.filter((ell: any) => ell.uuidRef !== element.uuidRef) } : {...el}));
+    } else {
+      this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, childrenRef: [...who.childrenRef, element] } : {...el}));
+    }
   }
 
   /**

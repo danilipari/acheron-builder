@@ -305,16 +305,15 @@
                   <div class="col-12 form-group">
                     <label>Children Ref</label>
 
-                    <div class="border rounded w-100">
-                      <select name="sC" id="sC" multiple class="form-control input-chip border rounded w-100 mt-1 mb-2 px-3" [(ngModel)]="getItem().full_element['childrenRef']">
+                    <div class="rounded w-100">
+                      <!-- <select name="sC" id="sC" multiple class="form-control input-chip border rounded w-100 mt-1 mb-2 px-3" [(ngModel)]="getItem().full_element['childrenRef']">
                         <option *ngFor="let child of allFormItemsMappedFiltered" [value]="child" class="d-flex">
                           <div>{{ child.inputType }}</div>
                           <div [style]="'height: 18px; width: 18px; border-radius: 50%;background-color: ' + child?.color + ' !important;'">&nbsp;</div>
                         </option>
-                      </select>
-
+                      </select> -->
                       <mat-select class="form-select mb-2" [(ngModel)]="getItem().childrenRef" multiple>
-                        <mat-option *ngFor="let child of allFormItemsMappedFiltered" [value]="child" (onSelectionChange)="addChildrenRef(child)">
+                        <mat-option *ngFor="let child of mapChildrenRefList(allFormItemsMappedFiltered)" [value]="child" (click)="addChildrenRef(child)">
                           <div class="d-flex">
                             <div class="my-auto" [style]="'height: 20px; width: 20px; border-radius: 50%;background-color: ' + child?.color + ' !important;'">&nbsp;</div>
                             <div class="my-auto mx-3">{{ child.inputType }}</div>
