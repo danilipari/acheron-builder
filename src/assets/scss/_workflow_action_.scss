@@ -1,0 +1,20 @@
+#workflow-action {
+  background-color: $white;
+
+  .d-flex.body {
+    min-height: 100vh;
+    height: 100%;
+  }
+
+  .card {
+    border: none;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+
+    & .card-header, .card-body, .card-footer {
+      border: none;
+      background-color: transparent;
+    }
+  }
+}

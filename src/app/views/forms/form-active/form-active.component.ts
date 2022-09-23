@@ -75,7 +75,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -95,7 +95,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -115,7 +115,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -135,7 +135,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -155,7 +155,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -175,7 +175,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -195,7 +195,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -215,7 +215,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -235,7 +235,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "childrenRef": [],
       "options":[],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -261,7 +261,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         }
       ],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -288,7 +288,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         }
       ],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -319,7 +319,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         }
       ],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -345,7 +345,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         }
       ],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -376,7 +376,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         },
       ],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -407,7 +407,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         },
       ],
       "required":false,
-      "validation":"/.*/",
+      "validation":"",
       "value": "",
       "visible":true,
       "href":""
@@ -562,6 +562,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     },
   ];
 
+  public regexs: any[] = [
+    {
+      label: 'Password 5 Level Strenght Password',
+      regex: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$"
+    },
+  ]
+
   public hoverForm: boolean = false;
   public hoverAction: boolean = false;
 
@@ -580,7 +587,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    localStorage.getItem('tes') ? this.testing = true : this.testing = false;
+    localStorage.getItem('-t-s-') ? this.testing = true : this.testing = false;
     console.log('routeID Form', this.route_id, this.route_id !== '');
 
     this.typesTypes = Utils.convertObjectToArray(Types);
