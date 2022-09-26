@@ -52,9 +52,9 @@
                 <div class="my-auto">
                   <div class="px-4 mt-4">
                     <label for="filtersT" class="text-primary-ab">Filters</label>
-                    <select class=" form-select border border-primary" name="filtersT" id="filtersT" [(ngModel)]="filterFormTypesSelected" (change)="filterTypesChange('form')">
-                      <option [value]="filter.value" *ngFor="let filter of filterTypes; let ifFT = index">{{ ifFT === 0 ? (filter.label + ' form') : ('Form ' + filter.label) }}</option>
-                    </select>
+                    <mat-select class=" form-control border border-primary" name="filtersT" id="filtersT" [(ngModel)]="filterFormTypesSelected" (selectionChange)="filterTypesChange('form')">
+                      <mat-option [value]="filter.value" *ngFor="let filter of filterTypes; let ifFT = index">{{ ifFT === 0 ? (filter.label + ' form') : ('Form ' + filter.label) }}</mat-option>
+                    </mat-select>
                   </div>
                 </div>
               </div>
@@ -87,9 +87,9 @@
                 <div class="my-auto">
                   <div class="px-4 mt-4">
                     <label for="filtersA" class="text-primary-ab">Filters</label>
-                    <select class=" form-select border border-primary" name="filtersA" id="filtersA" [(ngModel)]="filterActionTypesSelected" (change)="filterTypesChange('action')">
-                      <option [value]="filter.value" *ngFor="let filter of filterTypes; let ifAT = index">{{ ifAT === 0 ? (filter.label + ' action') : ('Action ' + filter.label) }}</option>
-                    </select>
+                    <mat-select class=" form-control border border-primary" name="filtersA" id="filtersA" [(ngModel)]="filterActionTypesSelected" (selectionChange)="filterTypesChange('action')">
+                      <mat-option [value]="filter.value" *ngFor="let filter of filterTypes; let ifAT = index">{{ ifAT === 0 ? (filter.label + ' action') : ('Action ' + filter.label) }}</mat-option>
+                    </mat-select>
                   </div>
                 </div>
               </div>
@@ -339,7 +339,7 @@
                           <div [style]="'height: 18px; width: 18px; border-radius: 50%;background-color: ' + child?.color + ' !important;'">&nbsp;</div>
                         </option>
                       </select> -->
-                      <mat-select class="form-select mb-2" [(ngModel)]="getItem().childrenRef" multiple>
+                      <mat-select class="form-control mb-2" [(ngModel)]="getItem().childrenRef" multiple>
                         <mat-option *ngFor="let child of mapChildrenRefList(allFormItemsMappedFiltered)" [value]="child" (click)="addChildrenRef(child)">
                           <div class="d-flex">
                             <div class="my-auto" [style]="'height: 20px; width: 20px; border-radius: 50%;background-color: ' + child?.color + ' !important;'">&nbsp;</div>
@@ -386,9 +386,9 @@
                         </div>
                         <div class="w-100 my-auto mx-4">
                           <label>Type Value</label>
-                          <select class="form-control" name="types" id="types" [disabled]="getItem().special" [value]="otpion.typeValue" [(ngModel)]="otpion.typeValue" (change)="otpion.value = null">
-                            <option [value]="type.value" *ngFor="let type of typesTypes">{{ type.key | titlecase }}</option>
-                          </select>
+                          <mat-select class="form-control" name="types" id="types" [disabled]="getItem().special" [value]="otpion.typeValue" [(ngModel)]="otpion.typeValue" (selectionChange)="otpion.value = null">
+                            <mat-option [value]="type.value" *ngFor="let type of typesTypes">{{ type.key | titlecase }}</mat-option>
+                          </mat-select>
                         </div>
                         <div class="w-100 my-auto d-flex justify-content-between">
                           <div class="my-auto w-75">

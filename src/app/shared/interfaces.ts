@@ -41,6 +41,7 @@ export interface Workflow {
 export interface FormStructure {
   // Required
   id?: number;
+  uuid: string;
   form_name: string;
   form_special: boolean;
   forms: Array<FormItem>;

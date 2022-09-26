@@ -52,6 +52,16 @@ export class WorkflowActionComponent implements OnInit {
     }
   }
 
+  /**
+   * @author Dani Lipari
+   * @description Function generate UUID
+   * @visibility Public
+   * @returns Void
+  */
+  public generateUUID(): void {
+    this.workflow.uuid = uuid.v4();
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next(true);
     this.unsubscribe$.unsubscribe();
