@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigurationDialog, Workflow, FormStructure, FormItem, typeStructure } from '../../shared/interfaces';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
@@ -19,6 +20,8 @@ export class WorkflowComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute,
     private workflowService: WorkflowService
   ) {}
 
@@ -52,7 +55,12 @@ export class WorkflowComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogRenderComponent, config);
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed', result);
+      console.log('The dialog DialogRenderComponent was closed', result);
+      if ( result !== undefined && result !== null && result !== '' ) {
+        setTimeout(() => {
+          result.id !== undefined && this.router.navigate([`/workflows/action/${result.id}`]);
+        }, 200);
+      }
     });
   }
 

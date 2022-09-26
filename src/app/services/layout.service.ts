@@ -25,4 +25,12 @@ export class LayoutService {
     }
   } */
 
+  getLayouts() {
+    return this.http.get(`${API}layout`, httpOptions);
+  }
+
+  getLayout(id: string) {
+    return this.http.get(`${API}layout/${id}`, httpOptions);
+  }
+
 }

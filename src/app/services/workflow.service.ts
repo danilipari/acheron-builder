@@ -29,4 +29,12 @@ export class WorkflowService {
     return this.http.get(`${API}workflow/${id}`, httpOptions);
   }
 
+  saveWorkflow(data: any, workflow_id?: number | string) {
+    if (workflow_id) {
+      return this.http.post(`${API}workflow/${workflow_id}`, data, httpOptions);
+    } else {
+      return this.http.post(`${API}workflow`, data, httpOptions);
+    }
+  }
+
 }

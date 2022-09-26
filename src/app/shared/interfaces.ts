@@ -23,14 +23,17 @@ export interface DialogData {
 
 export interface Workflow {
   // Required
-  id: string | number;
+  id?: string | number;
   uuid: string;
   title: string;
-  created_at: string | null;
   forms: Array<number>;
-  layout_id: number; // Need to assign default value 0
 
   //! Not required
+  layout_id?: number; // Need to assign default value 0
+  created_at?: string | null;
+  online_from?: string | null;
+  online_to?: string | null;
+  rules?: any;
   error_form?: number;
   unavailable_form?: number;
   description?: string;
