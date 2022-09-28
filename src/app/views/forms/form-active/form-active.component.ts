@@ -581,6 +581,10 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     'radio',
   ];
 
+  public specialOptionsLength: Array<string> = [
+    'externalwidget',
+  ];
+
   public filterFormTypesSelected: number = 0;
   public filterActionTypesSelected: number = 0;
   public filterTypes: Array<any> = [
@@ -696,6 +700,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       clean_element: clean_element,
       component: element.component,
       special: this.specialOptions.includes(element.component),
+      specialOptions: this.specialOptions.includes(element.component),
       lengthOptions: element.options.length,
       childrenRef: element.childrenRef
     }

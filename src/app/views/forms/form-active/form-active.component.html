@@ -258,19 +258,19 @@
                 <div class="row mt-4">
                   <div class="col-4">
                     <label class="text-primary-ab" for="enabled">Enabled</label>
-                    <div class="rounded p-3 text-center border " for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['enabled']}" (click)="getItem().full_element['enabled'] = !getItem().full_element['enabled']">
+                    <div class="rounded p-3 text-center border " for="enabled" [ngClass]="getItem().full_element['enabled'] ? ' border border-primary text-primary-ab bg-dark-light-ab ' : ' border '" (click)="getItem().full_element['enabled'] = !getItem().full_element['enabled']">
                       {{ getItem().full_element['enabled'] ? 'Enabled' : 'Not eabled' }}
                     </div>
                   </div>
                   <div class="col-4">
                     <label class="text-primary-ab" for="enabled">Required</label>
-                    <div class="rounded p-3 text-center border " for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['required']}" (click)="getItem().full_element['required'] = !getItem().full_element['required']">
+                    <div class="rounded p-3 text-center border " for="enabled" [ngClass]="getItem().full_element['required'] ? ' border border-primary text-primary-ab bg-dark-light-ab ' : ' border '" (click)="getItem().full_element['required'] = !getItem().full_element['required']">
                       {{ getItem().full_element['required'] ? 'Required' : 'Not required' }}
                     </div>
                   </div>
                   <div class="col-4">
                     <label class="text-primary-ab" for="enabled">Visible</label>
-                    <div class="rounded p-3 text-center border" for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['visible']}" (click)="getItem().full_element['visible'] = !getItem().full_element['visible']">
+                    <div class="rounded p-3 text-center border" for="enabled" [ngClass]="getItem().full_element['visible'] ? ' border border-primary text-primary-ab bg-dark-light-ab ' : ' border '" (click)="getItem().full_element['visible'] = !getItem().full_element['visible']">
                       {{ getItem().full_element['visible'] ? 'Visible' : 'Not visible' }}
                     </div>
                   </div>
@@ -424,7 +424,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="list-group mt-2">
+                      <div class="list-group mt-2" *ngIf="!getItem().specialOptions">
                         <div class="list-group-item cursor-p border border-primary text-primary-ab bg-dark-light-ab" (click)="optionActions()">
                           <div class="d-flex justify-content-between">
                             <span class="my-auto">Add option</span>
