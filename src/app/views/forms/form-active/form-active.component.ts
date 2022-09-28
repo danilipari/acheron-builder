@@ -575,6 +575,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   public typesActionsFiltered: Array<typeStructure> = [];
 
   public specialOptions: Array<string> = [
+    'externalwidget',
     'select',
     'group',
     'radio',
