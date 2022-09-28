@@ -282,7 +282,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       "placeholder":"Insert your externalwidget",
       "uuidRef": uuid.v4(),
       "childrenRef": [],
-      "options":[],
+      "options":[
+        {
+          "optionType": "components",
+          "typeValue": "string",
+          "value": "component",
+        }
+      ],
       "required":false,
       "validation":"",
       "value": "",
