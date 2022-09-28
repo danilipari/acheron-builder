@@ -27,15 +27,15 @@
                   </div>
                   <div>
                     <label class="text-primary-ab" for="title">Title</label>
-                    <input type="text" for="title" class="form-control shadow-sm mb-3" [ngClass]="!formBody.form_name ? 'border border-danger rounded' : ''" [(ngModel)]="formBody.form_name" placeholder="Nome del form">
+                    <input type="text" for="title" class="form-control shadow-sm mb-3" [ngClass]="{'border border-danger rounded' : !formBody.form_name}" [(ngModel)]="formBody.form_name" placeholder="Nome del form">
                   </div>
                   <div>
                     <label class="text-primary-ab" for="description">Description</label>
-                    <textarea class="form-control shadow-sm mb-3" for="description" rows="5" [(ngModel)]="formBody.form_text" placeholder="Nome del form"></textarea>
+                    <textarea class="form-control shadow-sm mb-3" for="description" rows="3" [(ngModel)]="formBody.form_text" placeholder="Nome del form"></textarea>
                   </div>
                   <div>
                     <label class="text-primary-ab" for="form_special">Special form</label>
-                    <div class="rounded p-3 text-center" for="form_special" [ngClass]="formBody.form_special ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="formBody.form_special = !formBody.form_special">
+                    <div class="rounded p-3 text-center border " for="form_special" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab': formBody.form_special}" (click)="formBody.form_special = !formBody.form_special">
                       {{ formBody.form_special ? 'Special form enabled' : 'Special form disabled' }}
                     </div>
                   </div>
@@ -71,9 +71,9 @@
                   cdkDrag
                   [cdkDragData]="types"
                   (cdkDragStarted)="dragStart($event, 'typesF', type.uuid, iTF)"
-                  class=" list-group px-4 py-3 "
-                  [ngClass]="isPow(typesFormsFiltered.length) ? ' col-4 ' : ' col-6  '"
-                >
+                  class=" list-group px-4 py-3 col-4 "
+                  >
+                  <!-- [ngClass]="isPow(typesFormsFiltered.length) ? ' col-4 ' : ' col-6  '" -->
                   <div class="list-group-item py-3 shadow-sm">
                     {{ type.label }} {{ type.length > 1 ? '(list)' : null }}
                   </div>
@@ -106,9 +106,9 @@
                   cdkDrag
                   [cdkDragData]="typesA"
                   (cdkDragStarted)="dragStart($event, 'typesA', type.uuid, iTA)"
-                  class=" list-group px-4 py-3 "
-                  [ngClass]="isPow(typesActionsFiltered.length) ? ' col-4 ' : ' col-6  '"
-                >
+                  class=" list-group px-4 py-3 col-4"
+                  >
+                  <!-- [ngClass]="isPow(typesActionsFiltered.length) ? ' col-4 ' : ' col-6  '" -->
                   <div class="list-group-item py-3 shadow-sm">
                     {{ type.label }}
                   </div>
@@ -156,14 +156,13 @@
                       (cdkDragStarted)="dragStart($event, 'forms', form?.uuid, iF)"
                       class="list-group m-4 shadow-sm"
                     >
-                      <div class="list-group-item" (click)="setSelectedItem(form?.uuid, 'form')" [ngClass]="form?.uuid === formSelected ? ' border border-primary ' : ''">
+                      <div class="list-group-item" (click)="setSelectedItem(form?.uuid, 'form')" [ngClass]="{' border border-primary ': form?.uuid === formSelected, ' bg-dark-light-ab ' : crColor === form?.color}">
                         <!-- {{ form | json }} -->
                         <div class="form-group">
-                          <div class="d-flex mb-2">
+                          <div class="d-flex my-2">
                             <div class="d-flex my-auto"><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ form?.inputType | titlecase }}</span></div>
                             <div class="d-flex my-auto"><span class="text-muted mx-2">Ref:</span><div [style]="'height: 18px; width: 18px; border-radius: 50%;background-color: ' + form?.color + ' !important;'">&nbsp;</div></div>
                           </div>
-                          <input class="form-control" [type]="form?.type" [disabled]="true" [placeholder]="form?.placeholder ? form?.placeholder : ('Placeholder... ' + form?.inputType)" [value]="form?.value">
                         </div>
                       </div>
                     </div>
@@ -201,14 +200,13 @@
                       (cdkDragStarted)="dragStart($event, 'actions', action?.uuid, iA)"
                       class="list-group m-4 shadow-sm bg-danger"
                     >
-                      <div class="list-group-item " (click)="setSelectedItem(action?.uuid, 'action')" [ngClass]="action?.uuid === actionSelected ? ' border border-primary ' : ''">
+                      <div class="list-group-item " (click)="setSelectedItem(action?.uuid, 'action')" [ngClass]="{' border border-primary ': action?.uuid === actionSelected, ' bg-dark-light-ab ' : crColor === action?.color}">
                         <!-- {{ action | json }} -->
                         <div class="form-group">
-                          <div class="d-flex mb-2">
+                          <div class="d-flex my-2">
                             <div class="d-flex my-auto"><span class="text-muted mx-2">Type:</span><span class="text-primary-ab">{{ action?.inputType | titlecase }}</span></div>
                             <div class="d-flex my-auto"><span class="text-muted mx-2">Ref:</span><div [style]="'height: 18px; width: 18px; border-radius: 50%;background-color: ' + action?.color + ' !important;'">&nbsp;</div></div>
                           </div>
-                          <input class="form-control" [type]="action?.type" [disabled]="true" [placeholder]="action?.placeholder ? action?.placeholder : ('Placeholder... ' + action?.inputType)" [value]="action?.value">
                         </div>
                       </div>
                     </div>
@@ -260,19 +258,19 @@
                 <div class="row mt-4">
                   <div class="col-4">
                     <label class="text-primary-ab" for="enabled">Enabled</label>
-                    <div class="rounded p-3 text-center" for="enabled" [ngClass]="getItem().full_element['enabled'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['enabled'] = !getItem().full_element['enabled']">
+                    <div class="rounded p-3 text-center border " for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['enabled']}" (click)="getItem().full_element['enabled'] = !getItem().full_element['enabled']">
                       {{ getItem().full_element['enabled'] ? 'Enabled' : 'Not eabled' }}
                     </div>
                   </div>
                   <div class="col-4">
                     <label class="text-primary-ab" for="enabled">Required</label>
-                    <div class="rounded p-3 text-center" for="enabled" [ngClass]="getItem().full_element['required'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['required'] = !getItem().full_element['required']">
+                    <div class="rounded p-3 text-center border " for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['required']}" (click)="getItem().full_element['required'] = !getItem().full_element['required']">
                       {{ getItem().full_element['required'] ? 'Required' : 'Not required' }}
                     </div>
                   </div>
                   <div class="col-4">
                     <label class="text-primary-ab" for="enabled">Visible</label>
-                    <div class="rounded p-3 text-center" for="enabled" [ngClass]="getItem().full_element['visible'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['visible'] = !getItem().full_element['visible']">
+                    <div class="rounded p-3 text-center border" for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['visible']}" (click)="getItem().full_element['visible'] = !getItem().full_element['visible']">
                       {{ getItem().full_element['visible'] ? 'Visible' : 'Not visible' }}
                     </div>
                   </div>
@@ -342,10 +340,10 @@
                         </option>
                       </select> -->
                       <mat-select class="form-control mb-2" [(ngModel)]="getItem().childrenRef" multiple>
-                        <mat-option *ngFor="let child of mapChildrenRefList(allFormItemsMappedFiltered)" [value]="child" (click)="addChildrenRef(child)">
+                        <mat-option *ngFor="let child of mapChildrenRefList(allFormItemsMappedFiltered)" [value]="child" (click)="addChildrenRef(child)" (mouseover)="crColor = child?.color" (mouseout)="crColor = ''">
                           <div class="d-flex">
-                            <div class="my-auto" [style]="'height: 20px; width: 20px; border-radius: 50%;background-color: ' + child?.color + ' !important;'">&nbsp;</div>
                             <div class="my-auto mx-3">{{ child.inputType }}</div>
+                            <div class="my-auto" [style]="'height: 20px; width: 20px; border-radius: 50%;background-color: ' + child?.color + ' !important;'">&nbsp;</div>
                           </div>
                         </mat-option>
                       </mat-select>
@@ -397,12 +395,12 @@
                             <label>Value</label>
                             <input *ngIf="otpion.typeValue === 'string' || otpion.typeValue === 'number'" class="form-control" [type]="otpion.typeValue" [value]="otpion.value" [(ngModel)]="otpion.value">
                             <div class="" *ngIf="otpion.typeValue === 'boolean'">
-                              <div class="rounded p-2 text-center" for="enabled" [ngClass]="otpion.value ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="otpion.value = !otpion.value">
+                              <div class="rounded p-2 text-center border " for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : otpion.value}" (click)="otpion.value = !otpion.value">
                                 {{ otpion.value ? otpion.value : false }}
                               </div>
                             </div>
                           </div>
-                          <div class="my-auto p-2 mt-4 mb-1 rounded " [ngClass]="getItem().special && getItem().lengthOptions < 2 ? 'border border-muted' : 'border border-danger'" (click)="getItem().special && getItem().lengthOptions < 2 ? null : optionActions(iO)">
+                          <div class="my-auto p-2 mt-4 mb-1 rounded border " [ngClass]="getItem().special && getItem().lengthOptions < 2 ? ' border-muted' : ' border-danger'" (click)="getItem().special && getItem().lengthOptions < 2 ? null : optionActions(iO)">
                             <i-bs
                               name="x-circle"
                               [ngClass]="getItem().special && getItem().lengthOptions < 2 ? 'text-muted' : 'text-danger'"
@@ -454,7 +452,7 @@
                     <!-- <input class="form-control" type="text" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']"> -->
                     <input *ngIf="getItem().full_element['inputType'] !== 'checkbox'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
                     <div class="" *ngIf="getItem().full_element['inputType'] === 'checkbox'">
-                      <div class="rounded p-2 text-center" for="enabled" [ngClass]="getItem().full_element['value'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border'" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
+                      <div class="rounded p-2 text-center border" for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['value']}" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
                         {{ getItem().full_element['value'] ? getItem().full_element['value'] : false }}
                       </div>
                     </div>

@@ -23,7 +23,7 @@
               </div>
               <div class="mb-3">
                 <label class="text-primary-ab" for="title">Title</label>
-                <input type="text" for="title" class="form-control shadow-sm mb-3" [ngClass]="!workflow.title ? 'border border-danger rounded' : ''" [(ngModel)]="workflow.title" placeholder="Nome del workflow">
+                <input type="text" for="title" class="form-control shadow-sm mb-3" [ngClass]="{'border border-danger rounded' : !workflow.title}" [(ngModel)]="workflow.title" placeholder="Nome del workflow">
               </div>
               <div class="mb-3">
                 <label class="text-primary-ab" for="description">Description</label>

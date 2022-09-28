@@ -39,6 +39,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   public type!: any;
 
+  public crColor: string = '';
+
   private _items: Array<FormItem> = [
     {
       "index": null,
@@ -270,6 +272,26 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     {
       "index": null,
       "uuid": uuid.v4(),
+      "inputType":"externalwidget",
+      "component":"externalwidget",
+      "enabled":true,
+      "name":"externalwidget",
+      "label":"externalwidget",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your externalwidget",
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
+      "options":[],
+      "required":false,
+      "validation":"",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
       "inputType":"select",
       "component":"select",
       "enabled":true,
@@ -489,6 +511,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       value: null,
     },
     // Special Forms
+    {
+      uuid: uuid.v4(),
+      type: "externalwidget",
+      label: "external widget",
+      length: 1,
+      value: null,
+    },
     {
       uuid: uuid.v4(),
       type: "select",
