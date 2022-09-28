@@ -37,4 +37,8 @@ export class WorkflowService {
     }
   }
 
+  deleteWorkflow(id: number | string) {
+    return this.http.delete(`${API}workflow/${id}`, httpOptions);
+  }
+
 }

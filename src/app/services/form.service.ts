@@ -37,4 +37,8 @@ export class FormService {
     return this.http.post(`${API}form/${form_id}/${form_detail_id}`, data, httpOptions);
   }
 
+  deleteForm(id: number | string) {
+    return this.http.delete(`${API}form/${id}`, httpOptions);
+  }
+
 }

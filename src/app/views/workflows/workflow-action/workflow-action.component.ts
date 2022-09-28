@@ -71,8 +71,8 @@ export class WorkflowActionComponent implements OnInit {
           this.workflow = {
             ...res,
             layout_id: Number(res.layout_id),
-            online_from: this.fixBackISOString(res.online_from),
-            online_to: this.fixBackISOString(res.online_to),
+            online_from: res.online_from ? this.fixBackISOString(res.online_from) : '',
+            online_to: res.online_to ? this.fixBackISOString(res.online_to) : '',
           };
         }), (error: any) => {
         console.log(error);
@@ -100,7 +100,7 @@ export class WorkflowActionComponent implements OnInit {
   }
 
   public fixBackISOString(stringDate: string): string {
-    const stringT = stringDate.split(' ');
+    const stringT = stringDate?.split(' ');
     return `${stringT[0]}T${stringT[1]}Z`;
   }
 

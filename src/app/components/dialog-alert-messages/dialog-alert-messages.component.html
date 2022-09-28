@@ -18,9 +18,9 @@
 
   <div id="actions" class="d-flex justify-content-around mt-5 pt-5">
     <div *ngFor="let option of data.options; let iO = index" (click)="option.action === 'close' ? onNoClick() : onSaveClick()">
-      <button [ngClass]="' btn btn-' + (iO === 1 ? 'outline-' : '') + option.color + ' btn-lg w-100'">
-        {{ option.label | uppercase }}
-      </button>
+      <button
+        [ngClass]="'btn btn-lg border border-' + option.color + ' bg-' + option.color + '-light-ab w-100 mt-auto text-' + option.color + ' '"
+      >{{ option.label | uppercase }}</button>
     </div>
   </div>
 </div>

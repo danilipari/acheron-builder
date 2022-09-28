@@ -4,6 +4,7 @@ import { ConfigurationDialog, Workflow, FormStructure, FormItem, typeStructure }
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
 import { WorkflowService } from '../../services/workflow.service';
+import { DialogAlertMessagesComponent } from '../../components/dialog-alert-messages/dialog-alert-messages.component';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as uuid from "uuid";
@@ -57,9 +58,19 @@ export class WorkflowComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog DialogRenderComponent was closed', result);
       if ( result !== undefined && result !== null && result !== '' ) {
-        setTimeout(() => {
-          result.id !== undefined && this.router.navigate([`/workflows/action/${result.id}`]);
-        }, 200);
+        if (!result.delete) {
+          setTimeout(() => {
+            result.id !== undefined && this.router.navigate([`/workflows/action/${result.id}`]);
+          }, 200);
+        } else {
+          this.workflowService.deleteWorkflow(result.id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+            this.ngOnInit();
+          }, (error) => {
+            if (error){
+              console.log(error);
+            }
+          });
+        }
       }
     });
   }

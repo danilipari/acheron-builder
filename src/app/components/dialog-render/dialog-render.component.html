@@ -11,8 +11,9 @@
       </div>
 
       <div class="card-footer d-flex justify-content-around">
-        <button type="button" class="btn btn-lg btn-outline-danger w-75 mx-2" (click)="onClose()">{{ 'delete' | uppercase }}</button>
-        <button type="button" class="btn btn-lg btn-outline-success w-75 mx-2" (click)="onClose(data.form.id)">{{ 'edit' | uppercase }}</button>
+        <button class="btn btn-lg border border-danger bg-danger-light-ab w-100 mt-auto text-danger" (click)="onDelete(data.form.id)">{{ 'delete' | uppercase }}</button>
+        <div class="mx-2">&nbsp;</div>
+        <button class="btn btn-lg border border-success bg-success-light-ab w-100 mt-auto text-success" (click)="onClose(data.form.id)">{{ 'edit' | uppercase }}</button>
       </div>
     </div>
   </div>
