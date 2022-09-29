@@ -35,7 +35,7 @@
                   </div>
                   <div>
                     <label class="text-primary-ab" for="form_special">Special form</label>
-                    <div class="rounded p-3 text-center border " for="form_special" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab': formBody.form_special}" (click)="formBody.form_special = !formBody.form_special">
+                    <div class="rounded p-3 text-center " for="form_special" [ngClass]="formBody.form_special ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="formBody.form_special = !formBody.form_special">
                       {{ formBody.form_special ? 'Special form enabled' : 'Special form disabled' }}
                     </div>
                   </div>
@@ -231,10 +231,10 @@
                         height="24px"
                       ></i-bs>
                     </div>
-                    <div class="border rounded p-2 mx-3" matTooltip="Delete field" (click)="formBody.forms?.length >= 2 ? dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'trash', 'delete') : null">
+                    <div class="border rounded p-2 mx-3" matTooltip="Delete field" (click)="((formSelected !== '' && formBody.forms?.length >= 2) || (actionSelected !== '' && formBody.actions?.length >= 2)) ? dialogAlertMessage('Delete Form Item', 'Are you sure you want to permanently delete this field?', 'trash', 'delete') : null">
                       <i-bs
                         name="trash"
-                        [ngClass]="formBody.forms?.length >= 2 ? 'text-primary-ab' : 'text-muted'"
+                        [ngClass]="((formSelected !== '' && formBody.forms?.length >= 2) || (actionSelected !== '' && formBody.actions?.length >= 2)) ? 'text-primary-ab' : 'text-muted'"
                         width="24px"
                         height="24px"
                       ></i-bs>
@@ -395,7 +395,7 @@
                             <label>Value</label>
                             <input *ngIf="otpion.typeValue === 'string' || otpion.typeValue === 'number'" class="form-control" [type]="otpion.typeValue" [value]="otpion.value" [(ngModel)]="otpion.value">
                             <div class="" *ngIf="otpion.typeValue === 'boolean'">
-                              <div class="rounded p-2 text-center border " for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : otpion.value}" (click)="otpion.value = !otpion.value">
+                              <div class="rounded p-2 text-center " for="enabled" [ngClass]="otpion.value ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="otpion.value = !otpion.value">
                                 {{ otpion.value ? otpion.value : false }}
                               </div>
                             </div>
@@ -450,9 +450,9 @@
                   <div class="col-12 form-group">
                     <label>Value</label>
                     <!-- <input class="form-control" type="text" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']"> -->
-                    <input *ngIf="getItem().full_element['inputType'] !== 'checkbox'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
-                    <div class="" *ngIf="getItem().full_element['inputType'] === 'checkbox'">
-                      <div class="rounded p-2 text-center border" for="enabled" [ngClass]="{' border border-primary text-primary-ab bg-dark-light-ab' : getItem().full_element['value']}" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
+                    <input *ngIf="(getItem().full_element['inputType'] !== 'checkbox') && getItem().full_element['inputType'] !== 'button'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
+                    <div class="" *ngIf="(getItem().full_element['inputType'] === 'checkbox') || getItem().full_element['inputType'] === 'button'">
+                      <div class="rounded p-2 text-center " for="enabled" [ngClass]="getItem().full_element['value'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
                         {{ getItem().full_element['value'] ? getItem().full_element['value'] : false }}
                       </div>
                     </div>

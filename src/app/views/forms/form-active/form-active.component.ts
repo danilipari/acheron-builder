@@ -714,8 +714,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
    * @visibility Private
    * @returns Void
    */
-  private rmFromItem(uuid: string): void {
-    this.formBody.forms = this.formBody.forms.filter((form: any) => form.uuid !== uuid);
+  private rmFromItem(uuid: string, who: string): void {
+    this.formBody[who] = this.formBody[who].filter((who: any) => who.uuid !== uuid);
     this.init();
   }
 
@@ -927,7 +927,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       width: `800px`,
       height: `400px`,
       data: {
-        uuid: this.formSelected,
+        uuid: this.formSelected !== "" ? this.formSelected : this.actionSelected,
         title: title,
         message: message,
         icon: icon,
@@ -941,9 +941,9 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       console.debug('The dialog was closed', result);
       if (result) {
         if( result.type === 'delete' && result?.action?.confirm === true) {
-          this.rmFromItem(this.formSelected);
+          this.rmFromItem(this.formSelected !== "" ? this.formSelected : this.actionSelected, this.formSelected !== "" ? 'forms' : 'actions');
           this.snackBar('Item successfully removed');
-          this.formSelected = '';
+          this.formSelected !== "" ? this.formSelected = '' : this.actionSelected = '';
         } else if (result.type === 'save-form') {
           if (this.formBody?.form_name?.trim() !== '' && this.formBody?.form_name !== undefined) {
             this.formService.saveForm(this.formBody, this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
