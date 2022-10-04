@@ -302,43 +302,69 @@
                     <input class="form-control border border-danger text-danger bg-danger-light-ab" type="text" [value]="getItem().full_element['error']" [(ngModel)]="getItem().full_element['error']">
                   </div>
                 </div>
-                <div class="row mt-3">
+
+                <div class="row mt-3" *ngIf="getItem().full_element['component'] === 'label'">
                   <div class="col-6 form-group">
-                    <label>Name</label>
+                    <label class="text-primary-ab">Countries</label>
+                    <mat-select class="form-control mb-2" [(ngModel)]="getItem().full_element['options'][0]['value']">
+                      <mat-option *ngFor="let country of strapi.countries" [value]="country.value">
+                        <p class="mb-0">{{ country.label }}</p>
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="col-6 form-group">
+                    <label class="text-primary-ab">Languages</label>
+                    <mat-select class="form-control mb-2" [(ngModel)]="getItem().full_element['options'][1]['value']">
+                      <mat-option *ngFor="let language of strapi.languages" [value]="language.value">
+                        <p class="mb-0">{{ language.label }}</p>
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-12 form-group">
+                    <label class="text-primary-ab">Value</label>
+                    <!-- <input class="form-control" type="text" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']"> -->
+                    <input *ngIf="(getItem().full_element['inputType'] !== 'checkbox') && getItem().full_element['inputType'] !== 'button'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
+                    <div class="" *ngIf="(getItem().full_element['inputType'] === 'checkbox') || getItem().full_element['inputType'] === 'button'">
+                      <div class="rounded p-2 text-center " for="enabled" [ngClass]="getItem().full_element['value'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
+                        {{ getItem().full_element['value'] ? getItem().full_element['value'] : false }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3" *ngIf="testing">
+                  <div class="col-6 form-group">
+                    <label class="text-primary-ab">Name</label>
                     <input class="form-control" type="text" [value]="getItem().full_element['name']" [(ngModel)]="getItem().full_element['name']">
                   </div>
                   <div class="col-6 form-group">
-                    <label>Label</label>
+                    <label class="text-primary-ab">Label</label>
                     <input class="form-control" type="text" [value]="getItem().full_element['label']" [(ngModel)]="getItem().full_element['label']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
-                    <label>Description</label>
+                    <label class="text-primary-ab">Description</label>
                     <textarea class="form-control" rows="8" [value]="getItem().full_element['description']" [(ngModel)]="getItem().full_element['description']"></textarea>
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-6 form-group">
-                    <label>Placeholder</label>
+                    <label class="text-primary-ab">Placeholder</label>
                     <input class="form-control" type="text" [value]="getItem().full_element['placeholder']" [(ngModel)]="getItem().full_element['placeholder']">
                   </div>
                   <div class="col-6 form-group">
-                    <label>Href</label>
+                    <label class="text-primary-ab">Href</label>
                     <input class="form-control" type="text" [value]="getItem().full_element['href']" [(ngModel)]="getItem().full_element['href']">
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
-                    <label>Children Ref</label>
+                    <label class="text-primary-ab">Children Ref</label>
 
                     <div class="rounded w-100">
-                      <!-- <select name="sC" id="sC" multiple class="form-control input-chip border rounded w-100 mt-1 mb-2 px-3" [(ngModel)]="getItem().full_element['childrenRef']">
-                        <option *ngFor="let child of allFormItemsMappedFiltered" [value]="child" class="d-flex">
-                          <div>{{ child.inputType }}</div>
-                          <div [style]="'height: 18px; width: 18px; border-radius: 50%;background-color: ' + child?.color + ' !important;'">&nbsp;</div>
-                        </option>
-                      </select> -->
                       <mat-select class="form-control mb-2" [(ngModel)]="getItem().childrenRef" multiple>
                         <mat-option *ngFor="let child of mapChildrenRefList(allFormItemsMappedFiltered)" [value]="child" (click)="addChildrenRef(child)" (mouseover)="crColor = child?.color" (mouseout)="crColor = ''">
                           <div class="d-flex">
@@ -376,34 +402,34 @@
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
-                    <label>Options</label>
+                    <label class="text-primary-ab">Options</label>
                     <div class="list-group">
                       <div class="list-group-item cursor-p border border-primary d-flex justify-content-around" *ngFor="let otpion of getItem().full_element['options']; let iO = index">
 <!--  -->
                         <div class="w-100 my-auto">
-                          <label>Option Type</label>
+                          <label class="text-primary-ab">Option Type</label>
                           <input class="form-control" type="text" [disabled]="getItem().special" [value]="otpion.optionType" [(ngModel)]="otpion.optionType">
                         </div>
                         <div class="w-100 my-auto mx-4">
-                          <label>Type Value</label>
+                          <label class="text-primary-ab">Type Value</label>
                           <mat-select class="form-control" name="types" id="types" [disabled]="getItem().special" [value]="otpion.typeValue" [(ngModel)]="otpion.typeValue" (selectionChange)="otpion.value = null">
                             <mat-option [value]="type.value" *ngFor="let type of typesTypes">{{ type.key | titlecase }}</mat-option>
                           </mat-select>
                         </div>
                         <div class="w-100 my-auto d-flex justify-content-between">
                           <div class="my-auto w-75">
-                            <label>Value</label>
-                            <input *ngIf="otpion.typeValue === 'string' || otpion.typeValue === 'number'" class="form-control" [type]="otpion.typeValue" [value]="otpion.value" [(ngModel)]="otpion.value">
+                            <label class="text-primary-ab">Value</label>
+                            <input *ngIf="otpion.typeValue === 'string' || otpion.typeValue === 'number'" [disabled]="getItem().special" class="form-control" [type]="otpion.typeValue" [value]="otpion.value" [(ngModel)]="otpion.value">
                             <div class="" *ngIf="otpion.typeValue === 'boolean'">
-                              <div class="rounded p-2 text-center " for="enabled" [ngClass]="otpion.value ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="otpion.value = !otpion.value">
+                              <div class="rounded p-2 text-center " for="enabled" [ngClass]="otpion.value ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="getItem().special ? null : (otpion.value = !otpion.value)">
                                 {{ otpion.value ? otpion.value : false }}
                               </div>
                             </div>
                           </div>
-                          <div class="my-auto p-2 mt-4 mb-1 rounded border " [ngClass]="getItem().special && getItem().lengthOptions < 2 ? ' border-muted' : ' border-danger'" (click)="getItem().special && getItem().lengthOptions < 2 ? null : optionActions(iO)">
+                          <div class="my-auto p-2 mt-4 mb-1 rounded border " [ngClass]="getItem().special || (getItem().special && getItem().lengthOptions < 2) ? ' border-muted' : ' border-danger'" (click)="getItem().special || (getItem().special && getItem().lengthOptions < 2) ? null : optionActions(iO)">
                             <i-bs
                               name="x-circle"
-                              [ngClass]="getItem().special && getItem().lengthOptions < 2 ? 'text-muted' : 'text-danger'"
+                              [ngClass]="getItem().special || (getItem().special && getItem().lengthOptions < 2) ? 'text-muted' : 'text-danger'"
                               width="22px"
                               height="22px"
                             ></i-bs>
@@ -442,20 +468,8 @@
                 </div>
                 <div class="row mt-4">
                   <div class="col-12 form-group">
-                    <label>Validation Pattern</label>
+                    <label class="text-primary-ab">Validation Pattern</label>
                     <input class="form-control" type="text" [value]="getItem().full_element['validation']" [(ngModel)]="getItem().full_element['validation']">
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-12 form-group">
-                    <label>Value</label>
-                    <!-- <input class="form-control" type="text" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']"> -->
-                    <input *ngIf="(getItem().full_element['inputType'] !== 'checkbox') && getItem().full_element['inputType'] !== 'button'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
-                    <div class="" *ngIf="(getItem().full_element['inputType'] === 'checkbox') || getItem().full_element['inputType'] === 'button'">
-                      <div class="rounded p-2 text-center " for="enabled" [ngClass]="getItem().full_element['value'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
-                        {{ getItem().full_element['value'] ? getItem().full_element['value'] : false }}
-                      </div>
-                    </div>
                   </div>
                 </div>
 

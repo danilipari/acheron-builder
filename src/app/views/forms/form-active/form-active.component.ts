@@ -65,6 +65,37 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     {
       "index": null,
       "uuid": uuid.v4(),
+      "inputType":"label",
+      "component":"label",
+      "enabled":true,
+      "name":"label",
+      "label":"label",
+      "error":"",
+      "description":"description",
+      "placeholder":"Insert your label",
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
+      "options":[
+        {
+          "optionType": "country",
+          "typeValue": "string",
+          "value": "",
+        },
+        {
+          "optionType": "languages",
+          "typeValue": "string",
+          "value": "",
+        }
+      ],
+      "required":false,
+      "validation":"/.*/",
+      "value": "",
+      "visible":true,
+      "href":""
+    },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
       "inputType":"email",
       "component":"input",
       "enabled":true,
@@ -455,6 +486,13 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     },
     {
       uuid: uuid.v4(),
+      type: "label",
+      label: "label",
+      length: 1,
+      value: null,
+    },
+    {
+      uuid: uuid.v4(),
       type: "email",
       label: "email",
       length: 1,
@@ -579,6 +617,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     'select',
     'group',
     'radio',
+    'label'
   ];
 
   public specialOptionsLength: Array<string> = [
@@ -609,6 +648,22 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     },
   ]
 
+  public strapi = {
+    countries: [
+      { label: "Germany", value: "DE" },
+      { label: "Spain", value: "ES" },
+      { label: "United Kingdom", value: "GB" },
+      { label: "Italy", value: "IT" },
+    ],
+    languages: [
+      { label: "Italian", value: "IT" },
+      { label: "English", value: "EN" },
+      { label: "Spanish", value: "ES" },
+      { label: "German", value: "DE" },
+      { label: "Chinese", value: "ZH" },
+      { label: "Russian", value: "RU" },
+    ],
+  }
   public hoverForm: boolean = false;
   public hoverAction: boolean = false;
 

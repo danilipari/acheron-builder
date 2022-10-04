@@ -38,6 +38,10 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "moment",
+              "lottie-web"
             ]
           },
           "configurations": {
