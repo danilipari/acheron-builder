@@ -60,6 +60,10 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
+  public cloneFormAction(form: FormStructure) {
+    alert(`clone form ${form.id} - ${form.form_name}`);
+  }
+
   sumListLength(array: Array<any>): number {
     return array.map((element: any[]) => (element.length)).reduce((a, b) => a + b, 0);
   }

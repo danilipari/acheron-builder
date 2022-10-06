@@ -13,9 +13,9 @@
         <ng-container *ngIf="clientY + clientX > 0">
           <div class="position-absolute" [ngClass]="show_right_click && show_right_click_id == form.id ? 'd-block' : 'd-none'" [style]="'top:' + clientY + 'px;left:' + (clientX + 25) + 'px;z-index: 100;'">
             <div class="list-group shadow">
-              <a href="#" class="list-group-item list-group-item-action">menu - {{ form.form_name }}</a>
-              <a [routerLink]="['/forms/action/' + form.id]" class="list-group-item list-group-item-action">Edit</a>
-              <a href="#" class="list-group-item list-group-item-action">Clone</a>
+              <div class="list-group-item list-group-item-action">Action menu</div>
+              <div [routerLink]="['/forms/action/' + form.id]" class="list-group-item list-group-item-action">Edit</div>
+              <div (click)="cloneFormAction(form)" class="list-group-item list-group-item-action">Clone</div>
             </div>
           </div>
         </ng-container>
