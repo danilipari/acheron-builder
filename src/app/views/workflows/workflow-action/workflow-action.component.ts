@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowService } from '../../../services/workflow.service';
 import { FormService } from '../../../services/form.service';
 import { LayoutService } from '../../../services/layout.service';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Workflow } from '../../../shared/interfaces';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation } from 'angular-animations';
 import * as uuid from "uuid";
 
@@ -38,11 +39,16 @@ export class WorkflowActionComponent implements OnInit {
   };
   public layouts!: any[];
 
+  private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  private _verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   constructor(
     private route: ActivatedRoute,
     private workflowService: WorkflowService,
     private layoutService: LayoutService,
     private formService: FormService,
+    private _snackBar: MatSnackBar,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -68,13 +74,13 @@ export class WorkflowActionComponent implements OnInit {
 
     if (this.route_id !== '') {
       this.workflowService.getWorkflow(this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((res: any) => {
-          this.workflow = {
-            ...res,
-            layout_id: Number(res.layout_id),
-            online_from: res.online_from ? this.fixBackISOString(res.online_from) : '',
-            online_to: res.online_to ? this.fixBackISOString(res.online_to) : '',
-          };
-        }), (error: any) => {
+        this.workflow = {
+          ...res,
+          layout_id: Number(res.layout_id),
+          online_from: res.online_from ? this.fixBackISOString(res.online_from) : '',
+          online_to: res.online_to ? this.fixBackISOString(res.online_to) : '',
+        };
+      }), (error: any) => {
         console.log(error);
       };
     }
@@ -114,15 +120,33 @@ export class WorkflowActionComponent implements OnInit {
     this.workflow.uuid = uuid.v4();
   }
 
+  public snackBar(message: string = 'Done!', color: string = 'default'): void {
+    this._snackBar.open(message, 'Close', {
+      horizontalPosition: this._horizontalPosition,
+      verticalPosition: this._verticalPosition,
+      duration: 2500,
+      panelClass: [`snake-${color}`]
+    });
+  }
+
   public saveWorkflow(): void {
     if (this.route_id === '') {
       this.workflowService.saveWorkflow(this.workflow).subscribe((resS: any) => {
         console.log(resS, this.route_id);
-      });
+        this.router.navigate(['/workflows']);
+        this.snackBar('Workflow successfully created!');
+      }), (error: any) => {
+        this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
+        console.log(error);
+      };
     } else {
       this.workflowService.saveWorkflow(this.workflow, this.route_id).subscribe((resE: any) => {
         console.log(resE, this.route_id);
-      });
+        this.snackBar('Workflow successfully updated!');
+      }), (error: any) => {
+        this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
+        console.log(error);
+      };
     }
   }
 

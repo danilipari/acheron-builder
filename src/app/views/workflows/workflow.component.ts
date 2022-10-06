@@ -4,6 +4,7 @@ import { ConfigurationDialog, Workflow, FormStructure, FormItem, typeStructure }
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRenderComponent } from '../../components/dialog-render/dialog-render.component';
 import { WorkflowService } from '../../services/workflow.service';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { DialogAlertMessagesComponent } from '../../components/dialog-alert-messages/dialog-alert-messages.component';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,21 +20,23 @@ export class WorkflowComponent implements OnInit, OnDestroy {
   public ea_icon: string = 'https://static.escort-advisor.com/favicon.ico';
   public workflows: Array<Workflow> = [];
 
+  private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  private _verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private workflowService: WorkflowService
+    private workflowService: WorkflowService,
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
     this.workflowService.getWorkflows('render').pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.workflows = responseData;
-    }, (error) => {
-      if (error){
-        console.log(error);
-      }
-    });
+    }), (error: any) => {
+      console.log(error);
+    };
   }
 
   /**
@@ -56,7 +59,7 @@ export class WorkflowComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(DialogRenderComponent, config);
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog DialogRenderComponent was closed', result);
+      console.debug('The dialog DialogRenderComponent was closed', result);
       if ( result !== undefined && result !== null && result !== '' ) {
         if (!result.delete) {
           setTimeout(() => {
@@ -65,13 +68,21 @@ export class WorkflowComponent implements OnInit, OnDestroy {
         } else {
           this.workflowService.deleteWorkflow(result.id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
             this.ngOnInit();
-          }, (error) => {
-            if (error){
-              console.log(error);
-            }
-          });
+            this.snackBar('Workflow successfully deleted!');
+          }), (error: any) => {
+            console.log(error);
+          };
         }
       }
+    });
+  }
+
+  public snackBar(message: string = 'Done!', color: string = 'default'): void {
+    this._snackBar.open(message, 'Close', {
+      horizontalPosition: this._horizontalPosition,
+      verticalPosition: this._verticalPosition,
+      duration: 2500,
+      panelClass: [`snake-${color}`]
     });
   }
 

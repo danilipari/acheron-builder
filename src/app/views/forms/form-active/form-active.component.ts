@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subject, pipe, of, tap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ConfigurationDialog, typeStructure, FormStructure, FormItem, Types } from '../../../shared/interfaces';
@@ -676,6 +676,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
     public formService: FormService,
@@ -1002,11 +1003,12 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         } else if (result.type === 'save-form') {
           if (this.formBody?.form_name?.trim() !== '' && this.formBody?.form_name !== undefined) {
             this.formService.saveForm(this.formBody, this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-              this.snackBar();
-            }, (error: any) => {
+              this.snackBar('Form successfully created!');
+              this.router.navigate(['/forms']);
+            }), (error: any) => {
               this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
               console.log(error);
-            });
+            };
           } else {
             this.snackBar('Form name is required', 'danger');
           }
@@ -1020,10 +1022,20 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           };
 
           this.formService.saveFormField(form_id, form_detail_id, data).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-            this.snackBar('Field successfully saved');
-          }, (error: any) => {
+            this.snackBar('Field successfully updated!');
+          }), (error: any) => {
+            this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
             console.log(error);
-          });
+          };
+        } else if (result.type === 'delete-form') {
+          console.log('delete', this.route_id);
+          this.formService.deleteForm(this.route_id).subscribe((response: any) => {
+            this.snackBar('Form successfully deleted!');
+            this.router.navigate(['/forms']);
+          }), (error: any) => {
+            this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
+            console.log(error);
+          };
         }
       }
     });

@@ -33,11 +33,9 @@ export class FormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formService.getForms().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.forms = responseData;
-    }, (error) => {
-      if (error){
-        console.log(error);
-      }
-    });
+    }), (error: any) => {
+      console.log(error);
+    }
   }
 
   sumListLength(array: Array<any>): number {
