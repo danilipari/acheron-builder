@@ -684,7 +684,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     localStorage.getItem('-t-s-') ? this.testing = true : this.testing = false;
-    console.log('routeID Form', this.route_id, this.route_id !== '');
+    console.debug('routeID Form', this.route_id, this.route_id !== '');
 
     this.typesTypes = Utils.convertObjectToArray(Types);
     this.typesFormsFiltered = [...this.typesForms];
@@ -843,7 +843,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       childrenRef: this.getItem().childrenRef,
     };
 
-    console.log('addChildrenRef', element);
+    console.debug('addChildrenRef', element);
     if (who.childrenRef.map((el: any) => el.uuidRef).includes(element.uuidRef)){
       this.formBody[who.type] = this.formBody[who.type].map((el: any) => (el.uuid === who.uuid ? {...el, childrenRef: who.childrenRef.filter((ell: any) => ell.uuidRef !== element.uuidRef) } : {...el}));
     } else {
@@ -1028,7 +1028,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
             console.log(error);
           };
         } else if (result.type === 'delete-form') {
-          console.log('delete', this.route_id);
+          console.debug('delete', this.route_id);
           this.formService.deleteForm(this.route_id).subscribe((response: any) => {
             this.snackBar('Form successfully deleted!');
             this.router.navigate(['/forms']);

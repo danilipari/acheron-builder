@@ -58,6 +58,7 @@ export interface FormStructure {
 }
 
 export interface FormItem {
+  form_id?: number | null;
   index: number | null;
   uuid: string;
   inputType: string;

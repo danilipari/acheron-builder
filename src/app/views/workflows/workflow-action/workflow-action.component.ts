@@ -52,7 +52,7 @@ export class WorkflowActionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('routeID Workflow', this.route_id, this.route_id === '');
+    console.debug('routeID Workflow', this.route_id, this.route_id === '');
 
     forkJoin({
       forms: this.formService.getForms(),
@@ -69,7 +69,7 @@ export class WorkflowActionComponent implements OnInit {
         { id: 1, layout_name: 'Default' },
         { id: 2, layout_name: 'Altro layout' }
       ];
-      console.log('forms', this.forms);
+      console.debug('forms', this.forms);
     });
 
     if (this.route_id !== '') {
@@ -132,7 +132,7 @@ export class WorkflowActionComponent implements OnInit {
   public saveWorkflow(): void {
     if (this.route_id === '') {
       this.workflowService.saveWorkflow(this.workflow).subscribe((resS: any) => {
-        console.log(resS, this.route_id);
+        console.debug(resS, this.route_id);
         this.router.navigate(['/workflows']);
         this.snackBar('Workflow successfully created!');
       }), (error: any) => {
@@ -141,7 +141,7 @@ export class WorkflowActionComponent implements OnInit {
       };
     } else {
       this.workflowService.saveWorkflow(this.workflow, this.route_id).subscribe((resE: any) => {
-        console.log(resE, this.route_id);
+        console.debug(resE, this.route_id);
         this.snackBar('Workflow successfully updated!');
       }), (error: any) => {
         this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);

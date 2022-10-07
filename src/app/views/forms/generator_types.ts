@@ -78,7 +78,7 @@ const types: Array<any> = [
 let items: any[] = [];
 
 
-console.log('--- in generator ---');
+console.debug('--- in generator ---');
 
 items = types.map((el: any, index: number) => ({
   "index": index,
@@ -99,6 +99,6 @@ items = types.map((el: any, index: number) => ({
   "href": "",
 }));
 
-console.log(items);
+console.debug(items);
 
-console.log('--- out generator ---');
+console.debug('--- out generator ---');

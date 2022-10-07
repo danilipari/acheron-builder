@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
+    console.debug(animationItem);
   }
 
   ngOnDestroy(): void {

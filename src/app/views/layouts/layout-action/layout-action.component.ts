@@ -12,7 +12,7 @@ export class LayoutActionComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log('routeID Layout', this.route_id);
+    console.debug('routeID Layout', this.route_id);
   }
 
 }
