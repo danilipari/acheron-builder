@@ -119,7 +119,6 @@ export class FormComponent implements OnInit, OnDestroy {
           break;
       }
     }
-
     return newForm;
   }
 
