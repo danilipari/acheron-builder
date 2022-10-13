@@ -4,6 +4,8 @@ import { FormService } from './../../services/form.service';
 import { FormStructure, FormItem, CloneFormUUIDStructure } from '././../../shared/interfaces';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import Utils from '../../shared/utils';
 import * as uuid from "uuid";
 
 @Component({
@@ -22,6 +24,9 @@ export class FormComponent implements OnInit, OnDestroy {
   use_left: boolean = false;
   show_menu_click_id: number | null = 0;
 
+  private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  private _verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   clientY: number = 0;
   clientX: number = 0;
 
@@ -39,6 +44,7 @@ export class FormComponent implements OnInit, OnDestroy {
   constructor(
     private formService: FormService,
     public router: Router,
+    private _snackBar: MatSnackBar,
   ) {}
 
   public  ngOnInit(): void {
@@ -47,6 +53,15 @@ export class FormComponent implements OnInit, OnDestroy {
     }), (error: any) => {
       console.log(error);
     }
+  }
+
+  public snackBar(message: string = 'Done!', color: string = 'default'): void {
+    this._snackBar.open(message, 'Close', {
+      horizontalPosition: this._horizontalPosition,
+      verticalPosition: this._verticalPosition,
+      duration: 2500,
+      panelClass: [`snake-${color}`]
+    });
   }
 
   public async onRightClick(event: any, form: FormItem): Promise<void> {
@@ -95,7 +110,7 @@ export class FormComponent implements OnInit, OnDestroy {
       // console.debug(key[0], key[1]);
       switch (key[0]) {
         case "uuid":
-          newForm["_uuid"] = key[1];
+          // newForm["_uuid"] = key[1];
           newForm[key[0]] = uuid.v4();
           break;
         case "forms":
@@ -109,9 +124,7 @@ export class FormComponent implements OnInit, OnDestroy {
             arrL.shift(),
             {
               ...f,
-              _uuid: f.uuid,
               uuid: uuidS.reverse()[0].uuid,
-              _uuidRef: f.uuidRef,
               uuidRef: uuidS.reverse()[0].uuidRef
             }
           ));
@@ -127,9 +140,7 @@ export class FormComponent implements OnInit, OnDestroy {
             arrL.shift(),
             {
               ...f,
-              _uuid: f.uuid,
               uuid: uuidS.reverse()[0].uuid,
-              _uuidRef: f.uuidRef,
               uuidRef: uuidS.reverse()[0].uuidRef
             }
           ));
@@ -138,12 +149,61 @@ export class FormComponent implements OnInit, OnDestroy {
           break;
       }
     }
+
+    for (let key of Object.entries(newForm)) {
+      // console.debug(key[0], key[1]);
+      switch (key[0]) {
+        case "forms":
+          newForm[key[0]] = ([key[1]]).flat().map((f: any, index: number) => (
+            {
+              ...f,
+              color: Utils.stringToColour(`${f.inputType} - ${f.uuidRef}`),
+              childrenRef: [...f.childrenRef].map((cR: any) => ({
+                ...cR,
+                color: Utils.stringToColour(`${cR.inputType} - ${uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef}`),
+                uuid: uuidS.find((u: any) => u._uuid === cR.uuid)!.uuid,
+                uuidRef: uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef
+              })),
+            }
+          ));
+          break;
+        case "actions":
+          newForm[key[0]] = ([key[1]]).flat().map((f: any) => (
+            {
+              ...f,
+              color: Utils.stringToColour(`${f.inputType} - ${f.uuidRef}`),
+              childrenRef: [...f.childrenRef].map((cR: any) => ({
+                ...cR,
+                color: Utils.stringToColour(`${cR.inputType} - ${uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef}`),
+                uuid: uuidS.find((u: any) => u._uuid === cR.uuid)!.uuid,
+                uuidRef: uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef,
+              })),
+            }
+          ));
+          break;
+        case "form_name":
+          newForm[key[0]] = `${key[1]} - COPY`;
+          break;
+        default:
+          break;
+      }
+    }
+
     return { nf: newForm, uuidS: uuidS };
   }
 
   public cloneFormAction(form: FormItem) {
-    console.debug(`clone form ${form.form_id}`, form, this.cloneForm(form));
+    // console.debug(`clone form ${form.form_id}`, form, this.cloneForm(form).nf);
     /* this.ngOnInit(); */
+
+    const data = this.cloneForm(form).nf;
+    this.formService.saveForm(data).subscribe((res: any) => {
+      console.debug("cloneFormAction", res);
+      this.snackBar('Form cloned successfully');
+      this.ngOnInit();
+    }), (err: any) => {
+      console.error(err);
+    };
   }
 
   sumListLength(array: Array<any>): number {

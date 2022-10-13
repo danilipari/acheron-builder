@@ -746,7 +746,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
       type: this.formSelected !== '' ? 'forms' : 'actions',
       uuid: this.formSelected !== '' ? this.formSelected : this.actionSelected,
     };
-    const element = this.formBody[who.type].filter((el: any) => el.uuid === who.uuid)[0];
+    const element = this.formBody[who.type].find((el: any) => el.uuid === who.uuid);
     let clean_element = {...element};
     delete clean_element.id;
 
