@@ -121,7 +121,6 @@ export class FormComponent implements OnInit, OnDestroy {
               _uuidRef: f.uuidRef,
               uuidRef: arrL[0].uuidRef
             }),
-            arrL.shift(),
             {
               ...f,
               uuid: uuidS.reverse()[0].uuid,
@@ -137,7 +136,6 @@ export class FormComponent implements OnInit, OnDestroy {
               _uuidRef: f.uuidRef,
               uuidRef: arrL[0].uuidRef
             }),
-            arrL.shift(),
             {
               ...f,
               uuid: uuidS.reverse()[0].uuid,
