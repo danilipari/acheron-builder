@@ -2,6 +2,7 @@ export interface SidebarRoutes {
   // Required
   name: string;
   path: string;
+  icon: any;
 
   //! Not required
   visible?: boolean;

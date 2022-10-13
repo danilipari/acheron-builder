@@ -182,6 +182,9 @@ export class FormComponent implements OnInit, OnDestroy {
         case "form_name":
           newForm[key[0]] = `${key[1]} - COPY`;
           break;
+        case "form_text":
+          newForm[key[0]] = `${key[1]} - COPY`;
+          break;
         default:
           break;
       }

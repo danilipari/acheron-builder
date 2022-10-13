@@ -12,10 +12,10 @@
       <div *ngFor="let form of forms; let iF = index;" class="list-group-item list-group-item-action d-flex gap-3 py-3 shadow-sm" aria-current="true" (contextmenu)="onRightClick($event, form)">
         <ng-container *ngIf="clientY + clientX > 0">
           <div class="position-absolute" [ngClass]="show_right_click && show_menu_click_id == form.form_id ? 'd-block' : 'd-none'" [style]="'top:' + clientY + 'px;left:' + (clientX + 25) + 'px;z-index: 100;'">
-            <div class="list-group shadow">
-              <div class="list-group-item list-group-item-action">Action menu</div>
+            <div class="list-group menu shadow">
+              <!-- <div class="list-group-item list-group-item-action">Action menu</div> -->
               <div [routerLink]="['/forms/action/' + form.form_id]" class="list-group-item list-group-item-action d-flex justify-content-between">
-                <p class="my-auto">Edit</p>
+                <p class="my-auto text-primary-ab">Edit</p>
                 <i-bs
                   name="pencil-square"
                   class="text-primary-ab my-auto"
@@ -24,9 +24,18 @@
                 ></i-bs>
               </div>
               <div (click)="cloneFormAction(form)" class="list-group-item list-group-item-action d-flex justify-content-between">
-                <p class="my-auto">Clone</p>
+                <p class="my-auto text-primary-ab">Clone</p>
                 <i-bs
                   name="clipboard-plus"
+                  class="text-primary-ab my-auto"
+                  width="15px"
+                  height="15px"
+                ></i-bs>
+              </div>
+              <div (click)="null" class="list-group-item list-group-item-action d-flex justify-content-between">
+                <p class="my-auto text-primary-ab">Delete</p>
+                <i-bs
+                  name="trash"
                   class="text-primary-ab my-auto"
                   width="15px"
                   height="15px"
@@ -49,11 +58,11 @@
               width="22px"
               height="22px"
             ></i-bs>
-            <div *ngIf="show_left_click && show_menu_click_id == form.form_id" class="position-absolute" [style]="'top: 0px; left: -120px;z-index: 100;'">
-              <div class="list-group shadow">
-                <div class="list-group-item list-group-item-action">Action menu</div>
+            <div *ngIf="show_left_click && show_menu_click_id == form.form_id" class="position-absolute" [style]="'top: 0px; left: -130px;z-index: 100;'">
+              <div class="list-group menu shadow">
+                <!-- <div class="list-group-item list-group-item-action">Action menu</div> -->
                 <div [routerLink]="['/forms/action/' + form.form_id]" class="list-group-item list-group-item-action d-flex justify-content-between">
-                  <p class="my-auto">Edit</p>
+                  <p class="my-auto text-primary-ab">Edit</p>
                   <i-bs
                     name="pencil-square"
                     class="text-primary-ab my-auto"
@@ -62,9 +71,18 @@
                   ></i-bs>
                 </div>
                 <div (click)="cloneFormAction(form)" class="list-group-item list-group-item-action d-flex justify-content-between">
-                  <p class="my-auto">Clone</p>
+                  <p class="my-auto text-primary-ab">Clone</p>
                   <i-bs
                     name="clipboard-plus"
+                    class="text-primary-ab my-auto"
+                    width="15px"
+                    height="15px"
+                  ></i-bs>
+                </div>
+                <div (click)="null" class="list-group-item list-group-item-action d-flex justify-content-between">
+                  <p class="my-auto text-primary-ab">Delete</p>
+                  <i-bs
+                    name="trash"
                     class="text-primary-ab my-auto"
                     width="15px"
                     height="15px"

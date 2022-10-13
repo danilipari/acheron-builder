@@ -1,13 +1,28 @@
-<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark-ab">
-  <a href="/dashboard" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-    <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-    <span class="fs-5">{{ title }}</span>
+<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark-ab" style="width: 250px;">
+  <a class="d-flex mx-auto align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <div class="fs-5 mx-auto" [routerLink]="'dashboard'">{{ !side ? title : min_title }}</div>
+    <div class="my-auto mx-2" style="width: 15%;" (click)="toggleSidebar()">
+      <ng-lottie
+        [options]="dashboardIcon"
+        (animationCreated)="animationCreated($event)"
+      ></ng-lottie>
+    </div>
   </a>
   <hr class="text-white">
   <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item" *ngFor="let route of routes; let iR = index;">
-      <a [routerLink]="route.path" [routerLinkActive]="'active'" class="nav-link text-white text-center" aria-current="page">
-        {{ route.name }}
+    <li class="nav-item" *ngFor="let route of routes; let iR = index;" [matTooltip]="route.name">
+      <a [routerLink]="route.path" [routerLinkActive]="'active'" class="nav-link text-white text-center d-flex justify-content-around" aria-current="page">
+        <ng-container *ngIf="!side">
+          <div class="my-auto fs-5">{{ route.name }}</div>
+        </ng-container>
+        <ng-container *ngIf="side">
+          <div class="my-auto mx-2" style="width: 15%;">
+            <ng-lottie
+              [options]="route.icon"
+              (animationCreated)="animationCreated($event)"
+            ></ng-lottie>
+          </div>
+        </ng-container>
       </a>
     </li>
   </ul>

@@ -15,17 +15,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   countResurces!: resInfo;
   unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
-  optionsW: AnimationOptions = {
-    path: '/assets/lottie/35-compare-solid-edited.json',
-  };
-
-  optionsF: AnimationOptions = {
-    path: '/assets/lottie/76-newspaper-solid-edited.json',
-  };
-
-  optionsL: AnimationOptions = {
-    path: '/assets/lottie/40-add-card-solid-edited.json',
-  };
+  optionsW: AnimationOptions = this.convertLottieUrl("35-compare-solid-edited.json");
+  optionsF: AnimationOptions = this.convertLottieUrl("76-newspaper-solid-edited.json");
+  optionsL: AnimationOptions = this.convertLottieUrl("40-add-card-solid-edited.json");
 
   constructor(
     private dashboardService: DashbordService,
@@ -41,6 +33,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   animationCreated(animationItem: AnimationItem): void {
     console.debug(animationItem);
+  }
+
+  public convertLottieUrl(url: string): AnimationOptions {
+    const svg: AnimationOptions = {
+      path: `/assets/lottie/${url}`,
+    };
+
+    return svg;
   }
 
   ngOnDestroy(): void {

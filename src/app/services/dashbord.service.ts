@@ -17,6 +17,9 @@ const httpOptions = {
 export class DashbordService {
   constructor(private http: HttpClient) {}
 
+  public sidebar: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public sidebarObs = this.sidebar.asObservable();
+
   getInfo() {
     return this.http.get(`${API}info`, httpOptions);
   }
