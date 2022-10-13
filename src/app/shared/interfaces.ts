@@ -119,6 +119,13 @@ export enum Types {
   any = TypesInt.Any */
 }
 
+export interface CloneFormUUIDStructure {
+  _uuid: string;
+  uuid: string;
+  _uuidRef: string;
+  uuidRef: string;
+}
+
 /* export enum TypesOptionInt {
   String = "string",
   Number = "number",

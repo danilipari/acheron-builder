@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from './../../services/form.service';
-import { FormStructure, FormItem } from '././../../shared/interfaces';
+import { FormStructure, FormItem, CloneFormUUIDStructure } from '././../../shared/interfaces';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as uuid from "uuid";
@@ -86,40 +86,59 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
-  // function that copy form with interface FormItem and change the value of keys equal to "uuid" with new "uuid.v4()"
-  private cloneForm(form: FormItem): FormItem {
+  private cloneForm(form: FormItem): { nf: FormItem, uuidS: Array<CloneFormUUIDStructure> } {
     let newForm: any = structuredClone(form);
+    let uuidS: Array<CloneFormUUIDStructure> = [];
+    let arrL: any[] = new Array(newForm.forms_quantity *2).fill({ uuid: "", uuidRef: "" }).map(() => ({ uuid: uuid.v4(), uuidRef: uuid.v4() }));
 
     for (let key of Object.entries(newForm)) {
-      console.debug(key[0], key[1]);
+      // console.debug(key[0], key[1]);
       switch (key[0]) {
         case "uuid":
           newForm["_uuid"] = key[1];
           newForm[key[0]] = uuid.v4();
           break;
         case "forms":
-          newForm[key[0]] = ([key[1]]).flat().map((f: any) => ({
-            ...f,
-            _uuid: f.uuid,
-            uuid: uuid.v4(),
-            _uuidRef: f.uuidRef,
-            uuidRef: uuid.v4()
-          }));
+          newForm[key[0]] = ([key[1]]).flat().map((f: any, index: number) => (
+            uuidS.push({
+              _uuid: f.uuid,
+              uuid: arrL[0].uuid,
+              _uuidRef: f.uuidRef,
+              uuidRef: arrL[0].uuidRef
+            }),
+            arrL.shift(),
+            {
+              ...f,
+              _uuid: f.uuid,
+              uuid: uuidS.reverse()[0].uuid,
+              _uuidRef: f.uuidRef,
+              uuidRef: uuidS.reverse()[0].uuidRef
+            }
+          ));
           break;
         case "actions":
-          newForm[key[0]] = ([key[1]]).flat().map((f: any) => ({
-            ...f,
-            _uuid: f.uuid,
-            uuid: uuid.v4(),
-            _uuidRef: f.uuidRef,
-            uuidRef: uuid.v4()
-          }));
+          newForm[key[0]] = ([key[1]]).flat().map((f: any) => (
+            uuidS.push({
+              _uuid: f.uuid,
+              uuid: arrL[0].uuid,
+              _uuidRef: f.uuidRef,
+              uuidRef: arrL[0].uuidRef
+            }),
+            arrL.shift(),
+            {
+              ...f,
+              _uuid: f.uuid,
+              uuid: uuidS.reverse()[0].uuid,
+              _uuidRef: f.uuidRef,
+              uuidRef: uuidS.reverse()[0].uuidRef
+            }
+          ));
           break;
         default:
           break;
       }
     }
-    return newForm;
+    return { nf: newForm, uuidS: uuidS };
   }
 
   public cloneFormAction(form: FormItem) {
