@@ -87,7 +87,7 @@ export interface OptionsFormStructure {
   value: any | null;
 }
 
-export interface typeStructure {
+export interface TypeStructure {
   uuid: string;
   type: string;
   label: string;
