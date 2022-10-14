@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { SidebarRoutes } from '../interfaces';
-import { AnimationItem } from 'lottie-web';
-import { AnimationOptions } from 'ngx-lottie';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { DashbordService } from 'src/app/services/dashbord.service';
@@ -21,31 +19,31 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   side: any;
 
-  dashboardIcon = this.convertLottieUrl("157-swipe-solid-edited.json");
+  dashboardIcon = "157-swipe-solid-edited.json";
 
   routes: Array<SidebarRoutes> = [
     {
       name: "Dashboard",
       path: "/dashboard",
-      icon: this.convertLottieUrl("41-home-solid-edited.json"),
+      icon: "41-home-solid-edited.json",
       visible: true,
     },
     {
       name: "Workflows",
       path: "/workflows",
-      icon: this.convertLottieUrl("35-compare-solid-edited.json"),
+      icon: "35-compare-solid-edited.json",
       visible: true,
     },
     {
       name: "Forms",
       path: "/forms",
-      icon: this.convertLottieUrl("76-newspaper-solid-edited.json"),
+      icon: "76-newspaper-solid-edited.json",
       visible: true,
     },
     {
       name: "Layouts",
       path: "/layouts",
-      icon: this.convertLottieUrl("40-add-card-solid-edited.json"),
+      icon: "40-add-card-solid-edited.json",
       visible: true,
     },
   ];
@@ -70,18 +68,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.side = !this.side;
     this.dashbordService.sidebar.next(this.side);
     localStorage.setItem('sid', this.side);
-  }
-
-  animationCreated(animationItem: AnimationItem): void {
-    console.debug(animationItem);
-  }
-
-  public convertLottieUrl(url: string): AnimationOptions {
-    const svg: AnimationOptions = {
-      path: `/assets/lottie/${url}`,
-    };
-
-    return svg;
   }
 
   ngOnDestroy() {

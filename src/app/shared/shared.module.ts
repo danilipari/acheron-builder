@@ -12,6 +12,7 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { LottieRenderComponent } from './lottie-render/lottie-render.component';
 
 export function playerFactory() {
   return player;
@@ -20,13 +21,13 @@ export function playerFactory() {
 
 const components: Array<any> = [
   SidebarComponent,
-  JsonRenderComponent
+  JsonRenderComponent,
+  LottieRenderComponent
 ];
 
 @NgModule({
   declarations: [
     components,
-    JsonRenderComponent,
   ],
   imports: [
     CommonModule,

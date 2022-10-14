@@ -7,13 +7,6 @@ import { DashboardComponent } from './dashboard.component';
 
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
-
-export function playerFactory() {
-  return player;
-}
-
 @NgModule({
   declarations: [
     DashboardComponent
@@ -22,7 +15,6 @@ export function playerFactory() {
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    LottieModule.forRoot({ player: playerFactory }),
     NgxBootstrapIconsModule.pick(allIcons),
   ]
 })

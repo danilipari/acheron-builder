@@ -2,10 +2,7 @@
   <a class="d-flex mx-auto align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <div class="fs-5 mx-auto" [routerLink]="'dashboard'">{{ !side ? title : min_title }}</div>
     <div class="my-auto mx-2" [style]="!side ? 'width: 15%;' : 'width: 30%;'" (click)="toggleSidebar()" [matTooltip]="!side ? 'Close Sidebar' : 'Open Sidebar'" matTooltipPosition="after" matTooltipClass="tooltip">
-      <ng-lottie
-        [options]="dashboardIcon"
-        (animationCreated)="animationCreated($event)"
-      ></ng-lottie>
+      <acheron-lottie-render [route]="" [name]="dashboardIcon"></acheron-lottie-render>
     </div>
   </a>
   <hr class="text-white">
@@ -17,10 +14,7 @@
         </ng-container>
         <ng-container *ngIf="side">
           <div class="my-auto mx-2 w-50">
-            <ng-lottie
-              [options]="route.icon"
-              (animationCreated)="animationCreated($event)"
-            ></ng-lottie>
+            <acheron-lottie-render [route]="" [name]="route.icon"></acheron-lottie-render>
           </div>
         </ng-container>
       </a>

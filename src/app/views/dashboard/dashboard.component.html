@@ -14,10 +14,7 @@
           height="68px"
         ></i-bs> -->
         <div class="mx-auto" style="width: 86px; height: 86px;">
-          <ng-lottie
-            [options]="optionsW"
-            (animationCreated)="animationCreated($event)"
-          ></ng-lottie>
+          <acheron-lottie-render [route]="" [name]="optionsW"></acheron-lottie-render>
         </div>
         <p>{{ 'Workflows' | uppercase }}</p>
         <div class="box-counter mx-auto">
@@ -28,10 +25,7 @@
     <div class="col-4 box-p-ab" [routerLink]="'/forms'">
       <div class="box-c-ab text-center">
         <div class="mx-auto" style="width: 86px; height: 86px;">
-          <ng-lottie
-            [options]="optionsF"
-            (animationCreated)="animationCreated($event)"
-          ></ng-lottie>
+          <acheron-lottie-render [route]="" [name]="optionsF"></acheron-lottie-render>
         </div>
         <p>{{ 'Forms' | uppercase }}</p>
         <div class="box-counter mx-auto">
@@ -42,10 +36,7 @@
     <div class="col-4 box-p-ab" [routerLink]="'/layouts'">
       <div class="box-c-ab text-center">
         <div class="mx-auto" style="width: 86px; height: 86px;">
-          <ng-lottie
-            [options]="optionsL"
-            (animationCreated)="animationCreated($event)"
-          ></ng-lottie>
+          <acheron-lottie-render [route]="" [name]="optionsL"></acheron-lottie-render>
         </div>
         <p>{{ 'Layouts' | uppercase }}</p>
         <div class="box-counter mx-auto">
