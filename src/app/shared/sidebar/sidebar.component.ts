@@ -18,7 +18,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @Input() public version: string = "";
   @Input() public title: string = "";
   @Input() public min_title: string = "";
-  @Input() public width: number = 250;
 
   side: any;
 
@@ -56,14 +55,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.dashbordService.sidebarObs.pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: boolean) => {
-      this.side = responseData;
-    });
+    if (localStorage.getItem('sid')) {
+      const sid = localStorage.getItem('sid') ?? "";
+      this.side = JSON.parse(sid);
+    } else {
+      this.dashbordService.sidebarObs.pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: boolean) => {
+        this.side = responseData;
+        localStorage.setItem('sid', JSON.stringify(this.side));
+      });
+    }
   }
 
   public toggleSidebar(): void {
     this.side = !this.side;
     this.dashbordService.sidebar.next(this.side);
+    localStorage.setItem('sid', this.side);
   }
 
   animationCreated(animationItem: AnimationItem): void {

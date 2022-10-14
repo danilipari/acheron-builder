@@ -120,6 +120,14 @@ input {
     }
   }
 
+  .mat-tooltip.tooltip {
+    background-color: $main-3;
+    border: 1px solid $primary;
+    border-radius: 5px;
+    color: $primary;
+    font-size: 15px;
+  }
+
 /* *:not(:hover) {
   transition: all 0.65s ease !important;
 } */
