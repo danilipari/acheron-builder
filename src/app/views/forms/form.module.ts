@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from '../../shared/shared.module';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
@@ -43,6 +44,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatChipsModule,
     MatSelectModule,
     NgxJsonViewerModule,
+    AngularEditorModule
   ]
 })
 export class FormModule { }

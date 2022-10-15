@@ -1,4 +1,12 @@
 <div class="" id="workflow-action">
+  <div class="my-5 p-5 d-flex flex-row justify-content-between">
+    <div id="gesu" class="px-5">
+      flow 1
+    </div>
+    <div id="lamadonna" class="px-5">
+      flow 2
+    </div>
+  </div>
   <div class="container-fluid px-0" *ngIf="workflow">
     <div class="d-flex body">
 
@@ -33,13 +41,25 @@
           </div>
         </div>
         <div class="card-body">
+
+
+          <!-- <div class="my-5 d-flex flex-row justify-content-between">
+            <div id="gesu">
+              gesu sono qui
+            </div>
+            <div id="lamadonna">
+              la madonna sono qui
+            </div>
+          </div> -->
+
+
           <p class="text-primary-ab px-4 mt-4">{{ "Configuration" | titlecase }}</p>
           <div class="m-4 p-2">
             <div class="d-flex flex-column">
               <div class="w-100 my-auto mb-4">
                 <label class="text-primary-ab">Forms</label>
                 <mat-select class="form-control" name="types" id="types" [(ngModel)]="workflow.forms" multiple>
-                  <mat-option [value]="form.id" *ngFor="let form of forms.regular">{{ form.id }} - {{ form.form_name | titlecase }}</mat-option>
+                  <mat-option [value]="form.form_id" *ngFor="let form of forms.regular">{{ form.form_id }} - {{ form.form_name | titlecase }}</mat-option>
                 </mat-select>
               </div>
               <div class="w-100 my-auto mb-4">
@@ -76,13 +96,13 @@
               <div class="w-100 my-auto mb-4">
                 <label class="text-primary-ab">Error form</label>
                 <mat-select class="form-control" name="types" id="types" [(ngModel)]="workflow.error_form">
-                  <mat-option [value]="fsE.id" *ngFor="let fsE of forms.special">{{ fsE.id }} - {{ fsE.form_name | titlecase }}</mat-option>
+                  <mat-option [value]="fsE.form_id" *ngFor="let fsE of forms.special">{{ fsE.form_id }} - {{ fsE.form_name | titlecase }}</mat-option>
                 </mat-select>
               </div>
               <div class="w-100 my-auto mb-4">
                 <label class="text-primary-ab">Unavailable form</label>
                 <mat-select class="form-control" name="types" id="types" [(ngModel)]="workflow.unavailable_form">
-                  <mat-option [value]="fsU.id" *ngFor="let fsU of forms.special">{{ fsU.id }} - {{ fsU.form_name | titlecase }}</mat-option>
+                  <mat-option [value]="fsU.form_id" *ngFor="let fsU of forms.special">{{ fsU.form_id }} - {{ fsU.form_name | titlecase }}</mat-option>
                 </mat-select>
               </div>
             </div>

@@ -12,6 +12,7 @@ import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutL
 import Utils from '../../../shared/utils';
 import Constants from '../../../shared/constants';
 import * as uuid from "uuid";
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-form-active',
@@ -116,6 +117,94 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     actions: [],
   };
 
+  htmlContent = '';
+
+  config: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '250px',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'no',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    /* uploadUrl: 'v1/image',
+    upload: (file: File) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      console.log(formData)
+      return this.formService.uploadImage(formData);
+    }, */
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      [
+        // 'undo',
+        // 'redo',
+        // 'bold',
+        // 'italic',
+        // 'underline',
+        // 'strikeThrough',
+        // 'subscript',
+        // 'superscript',
+        // 'justifyLeft',
+        // 'justifyCenter',
+        // 'justifyRight',
+        // 'justifyFull',
+        // 'indent',
+        // 'outdent',
+        // 'insertUnorderedList',
+        // 'insertOrderedList',
+        // 'heading',
+        // 'fontName'
+      ],
+      [
+        // 'fontSize',
+        // 'textColor',
+        // 'backgroundColor',
+        // 'customClasses',
+        // 'link',
+        // 'unlink',
+        // 'insertImage',
+        // 'insertVideo',
+        // 'insertHorizontalRule',
+        // 'removeFormat',
+        // 'toggleEditorMode'
+      ],
+      [
+        'insertVideo',
+        'insertImage'
+      ]
+    ]
+  };
   constructor(
     private route: ActivatedRoute,
     private router: Router,

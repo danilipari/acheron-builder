@@ -126,6 +126,9 @@
         <div class="structure col border">
           <div class="card">
             <div class="card-body">
+              <!-- <div class="my-5">
+                <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+              </div> -->
               <div class="h-45 overflow-hidden">
                 <p class="text-primary-ab px-4 mt-2">{{ "Form Items" | titlecase }}</p>
                 <div class="h-100 overflow-scroll">
@@ -324,8 +327,15 @@
                 <div class="row mt-3">
                   <div class="col-12 form-group">
                     <label class="text-primary-ab">Value</label>
+                    <!-- !customeditor -->
+                    <ng-container *ngIf="(getItem().full_element['inputType'] === 'customeditor')">
+                      <angular-editor [(ngModel)]="getItem().full_element['value']" [config]="config"></angular-editor>
+                    </ng-container>
+                    <!--  -->
                     <!-- <input class="form-control" type="text" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']"> -->
-                    <input *ngIf="(getItem().full_element['inputType'] !== 'checkbox') && getItem().full_element['inputType'] !== 'button'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
+                    <!-- !all -->
+                    <input *ngIf="(getItem().full_element['inputType'] !== 'customeditor') && (getItem().full_element['inputType'] !== 'checkbox') && getItem().full_element['inputType'] !== 'button'" class="form-control" [type]="getItem().full_element['type']" [value]="getItem().full_element['value']" [(ngModel)]="getItem().full_element['value']">
+                    <!-- !checkbox & !button -->
                     <div class="" *ngIf="(getItem().full_element['inputType'] === 'checkbox') || getItem().full_element['inputType'] === 'button'">
                       <div class="rounded p-2 text-center " for="enabled" [ngClass]="getItem().full_element['value'] ? ' border border-primary text-primary-ab bg-dark-light-ab' : ' border '" (click)="getItem().full_element['value'] = !getItem().full_element['value']">
                         {{ getItem().full_element['value'] ? getItem().full_element['value'] : false }}

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowService } from '../../../services/workflow.service';
 import { FormService } from '../../../services/form.service';
@@ -9,6 +10,9 @@ import { Workflow } from '../../../shared/interfaces';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation } from 'angular-animations';
 import * as uuid from "uuid";
+import 'leader-line';
+declare let LeaderLine: any;
+
 
 @Component({
   selector: 'app-workflow-action',
@@ -49,9 +53,25 @@ export class WorkflowActionComponent implements OnInit {
     private formService: FormService,
     private _snackBar: MatSnackBar,
     private router: Router,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit(): void {
+    const xxx = this.document.getElementById('gesu');
+    console.log(xxx);
+
+    new LeaderLine(
+      document.getElementById('gesu'),
+      document.getElementById('lamadonna'), {
+        startPlugColor: '#712cf9',
+        endPlugColor: '#2E2C48',
+        gradient: true,
+        /* dash: {
+          animation: true
+        } */
+      }
+    );
+
     console.debug('routeID Workflow', this.route_id, this.route_id === '');
 
     forkJoin({
@@ -98,9 +118,9 @@ export class WorkflowActionComponent implements OnInit {
   public formSelected(): any {
     if (this.workflow && this.workflow.forms) {
       return {
-        forms: [...this.forms.forms.filter((f: any) => this.workflow.forms.includes(f.id))],
-        error_form: [...this.forms.forms.filter((f: any) => this.workflow.error_form == f.id)],
-        unavailable_form: [...this.forms.forms.filter((f: any) => this.workflow.unavailable_form == f.id)],
+        forms: [...this.forms.forms.filter((f: any) => this.workflow.forms.includes(f.form_id))],
+        error_form: [...this.forms.forms.filter((f: any) => this.workflow.error_form == f.form_id)],
+        unavailable_form: [...this.forms.forms.filter((f: any) => this.workflow.unavailable_form == f.form_id)],
       };
     }
   }
