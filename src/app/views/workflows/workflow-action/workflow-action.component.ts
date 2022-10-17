@@ -43,6 +43,10 @@ export class WorkflowActionComponent implements OnInit {
   };
   public layouts!: any[];
 
+  llArr: any[] = [];
+  htmlBody: string = ``;
+  lines: any[] = [];
+
   private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   private _verticalPosition: MatSnackBarVerticalPosition = 'top';
 
@@ -57,20 +61,22 @@ export class WorkflowActionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const xxx = this.document.getElementById('gesu');
-    console.log(xxx);
-
-    new LeaderLine(
-      document.getElementById('gesu'),
-      document.getElementById('lamadonna'), {
+    /* new LeaderLine(
+      document.getElementById('w1'),
+      document.getElementById('w2'), {
         startPlugColor: '#712cf9',
         endPlugColor: '#2E2C48',
         gradient: true,
-        /* dash: {
-          animation: true
-        } */
       }
     );
+    new LeaderLine(
+      document.getElementById('w2'),
+      document.getElementById('w3'), {
+        startPlugColor: '#712cf9',
+        endPlugColor: '#2E2C48',
+        gradient: true,
+      }
+    ); */
 
     console.debug('routeID Workflow', this.route_id, this.route_id === '');
 
@@ -104,6 +110,8 @@ export class WorkflowActionComponent implements OnInit {
         console.log(error);
       };
     }
+
+    this.updateFlowUI();
   }
 
   public dateChange(event: any, who: any): void {
@@ -112,6 +120,59 @@ export class WorkflowActionComponent implements OnInit {
       this.workflow.online_from = date.toISOString();
     } else if (who === 'online_to') {
       this.workflow.online_to = date.toISOString();
+    }
+  }
+
+  private generateHtmlFlow(arr: any = this.formSelected().forms): any {
+    let html = `<div class="my-5 p-5 d-flex flex-row justify-content-between">`;
+    arr.forEach((fS: any, ix: number) => {
+      html += `
+        <div id="${fS.uuid}" class="px-3">
+          <div class="p-2 border border-primary rounded">
+            ${fS.form_name}
+          </div>
+        </div>`;
+      });
+      html += "<div>";
+    return html;
+  }
+
+  private async updateHtmlBody(): Promise<void> {
+    const html = await this.generateHtmlFlow();
+    return this.htmlBody = html;
+  }
+
+  private updateFlowUI(): any {
+    if (this.formSelected().forms.length > 1) {
+      this.lines.forEach((l: any) => l.remove());
+      this.lines = [];
+
+      if (this.lines.length === 0) {
+        this.llArr = this.formSelected().forms.reduce((acc: Array<any>, item: any, index: number) => {
+          if (index > 0) {
+            acc = [...acc, [this.formSelected().forms[index -1], this.formSelected().forms[index]]];
+          }
+          return acc;
+        }, []);
+
+        this.updateHtmlBody();
+
+        setTimeout(() => {
+          [...this.llArr].forEach((f: any, ix: number) => {
+            if (f.length === 2) {
+              const elementLine = new LeaderLine(
+                document.getElementById(`${f[0].uuid}`),
+                document.getElementById(`${f[1].uuid}`), {
+                  startPlugColor: '#712cf9',
+                  endPlugColor: '#2E2C48',
+                  gradient: true,
+                }
+              );
+              this.lines = [...this.lines, elementLine];
+            }
+          });
+        }, 5);
+      }
     }
   }
 
