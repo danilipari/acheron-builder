@@ -61,23 +61,6 @@ export class WorkflowActionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /* new LeaderLine(
-      document.getElementById('w1'),
-      document.getElementById('w2'), {
-        startPlugColor: '#712cf9',
-        endPlugColor: '#2E2C48',
-        gradient: true,
-      }
-    );
-    new LeaderLine(
-      document.getElementById('w2'),
-      document.getElementById('w3'), {
-        startPlugColor: '#712cf9',
-        endPlugColor: '#2E2C48',
-        gradient: true,
-      }
-    ); */
-
     console.debug('routeID Workflow', this.route_id, this.route_id === '');
 
     forkJoin({
