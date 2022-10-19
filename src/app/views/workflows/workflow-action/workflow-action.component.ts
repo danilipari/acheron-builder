@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowService } from '../../../services/workflow.service';
@@ -26,7 +26,7 @@ declare let LeaderLine: any;
     bounceOutRightOnLeaveAnimation(),
   ],
 })
-export class WorkflowActionComponent implements OnInit {
+export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDestroy {
   public route_id: string = this.route.snapshot.params['id'] !== undefined ? this.route.snapshot.params['id'] : '';
   private unsubscribe$: Subject<boolean> = new Subject<boolean>();
   public workflow: Workflow = {
@@ -35,6 +35,7 @@ export class WorkflowActionComponent implements OnInit {
     created_at: null,
     forms: [],
     layout_id: 0,
+    flow_json: "",
   };
   public forms: any = {
     forms: [],
@@ -44,8 +45,11 @@ export class WorkflowActionComponent implements OnInit {
   public layouts!: any[];
 
   llArr: any[] = [];
-  htmlBody: string = ``;
   lines: any[] = [];
+  counterInit: number = 0;
+
+  addFlowStatus: boolean = false;
+  addFlowUuid: any;
 
   private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   private _verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -93,8 +97,34 @@ export class WorkflowActionComponent implements OnInit {
         console.log(error);
       };
     }
+  }
 
-    this.updateFlowUI();
+  ngAfterViewChecked(): void {
+    this.formSelected().forms.length && this.callInit();
+  }
+
+  private callInit(): void {
+    if (this.counterInit === 0) {
+      this.counterInit = this.counterInit +1;
+      this.updateFlowUI();
+    }
+  }
+
+  public deleteFlowItem(item: any): void {
+    this.workflow.forms = this.workflow.forms.filter(form => form != item.form_id);
+    if (this.workflow.forms.filter(form => form != item.form_id).length === 1) {
+      this.lines.forEach((l: any) => l.remove());
+    } else {
+      this.updateFlowUI();
+    }
+  }
+
+  public checkStartsFlow(): boolean {
+    return this.workflow.forms.length > 1 ? this.lines.some((el: any) => el.start.id === this.addFlowUuid) : false;
+  }
+
+  public addFlowEnd(): void {
+    alert('Add Flow End');
   }
 
   public dateChange(event: any, who: any): void {
@@ -104,25 +134,6 @@ export class WorkflowActionComponent implements OnInit {
     } else if (who === 'online_to') {
       this.workflow.online_to = date.toISOString();
     }
-  }
-
-  private generateHtmlFlow(arr: any = this.formSelected().forms): any {
-    let html = `<div class="my-5 p-5 d-flex flex-row justify-content-between">`;
-    arr.forEach((fS: any, ix: number) => {
-      html += `
-        <div id="${fS.uuid}" class="px-3">
-          <div class="p-2 border border-primary rounded">
-            ${fS.form_name}
-          </div>
-        </div>`;
-      });
-      html += "<div>";
-    return html;
-  }
-
-  private async updateHtmlBody(): Promise<void> {
-    const html = await this.generateHtmlFlow();
-    return this.htmlBody = html;
   }
 
   private updateFlowUI(): any {
@@ -138,8 +149,6 @@ export class WorkflowActionComponent implements OnInit {
           return acc;
         }, []);
 
-        this.updateHtmlBody();
-
         setTimeout(() => {
           [...this.llArr].forEach((f: any, ix: number) => {
             if (f.length === 2) {
@@ -151,9 +160,10 @@ export class WorkflowActionComponent implements OnInit {
                   gradient: true,
                 }
               );
-              this.lines = [...this.lines, elementLine];
+              this.lines.push(elementLine);
             }
           });
+          // console.log(this.lines, 'LINES');
         }, 5);
       }
     }
@@ -215,6 +225,7 @@ export class WorkflowActionComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.lines.forEach((l: any) => l.remove());
     this.unsubscribe$.next(true);
     this.unsubscribe$.unsubscribe();
   }

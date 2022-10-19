@@ -28,6 +28,7 @@ export interface Workflow {
   uuid: string;
   title: string;
   forms: Array<number>;
+  flow_json: string;
 
   //! Not required
   layout_id?: number; // Need to assign default value 0
