@@ -3,7 +3,7 @@
   <div class="container-fluid px-0" *ngIf="workflow">
 
     <div class="p-5">
-      <div class="flow-boundary-p p-5 d-flex flex-row justify-content-between">
+      <div class="flow-boundary-p p-5 d-flex flex-row justify-content-around">
         <div
           [id]="fS.uuid + ''"
           *ngFor="let fS of formSelected().forms; let ix = index"
@@ -20,7 +20,7 @@
           <div class="flow-remove bg-white border border-white shadow" (click)="deleteFlowItem(fS)" *ngIf="workflow.forms.length > 1">
             <i-bs name="x-circle-fill" class="text-danger" width="24px" height="24px"></i-bs>
           </div>
-          <div class="flow-add" *ngIf="addFlowStatus && addFlowUuid == fS.uuid && lines?.length && !checkStartsFlow()" (click)="openFlowEnd()">
+          <div class="flow-add" *ngIf="addFlowStatus && addFlowUuid == fS.uuid && lines?.length && !checkStartsFlow() && formSelected().forms_r.length" (click)="openFlowEnd()">
             <i-bs name="node-plus-fill" class="text-primary-ab" width="46px" height="46px"></i-bs>
           </div>
           <div class="p-2">
