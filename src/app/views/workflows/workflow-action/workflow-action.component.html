@@ -4,6 +4,7 @@
 
     <div class="p-5">
       <div class="flow-boundary-p p-5 d-flex flex-row justify-content-around">
+        <!-- -- {{ addFlowStatus && addFlowUuid == fS.uuid && lines?.length && !checkStartsFlow() && formSelected().forms_r.length }} -- -->
         <div
           [id]="fS.uuid + ''"
           *ngFor="let fS of formSelected().forms; let ix = index"
