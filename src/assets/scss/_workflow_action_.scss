@@ -19,15 +19,23 @@
   }
 }
 
-.flow-boundary {
+.flow-boundary-p {
   width: 100%;
   height: 400px;
   max-width: 100%;
-  border-radius: 22px;
+  border-radius: 22px !important;
   border: solid $primary 3.5px;
 }
 
-.flow-box {
+.flow-boundary-r {
+  width: 100%;
+  height: 200px;
+  max-width: 100%;
+  border-radius: 22px !important;
+  border: solid $success 3.5px;
+}
+
+.flow-box-p {
   position: relative;
   width: 150px;
   height: 80px;
@@ -41,7 +49,6 @@
   background-color: $main-3;
   margin-right: 25px;
   border-radius: 8px;
-  z-index: 1;
   padding: 10px;
 
   &:active {
@@ -61,6 +68,27 @@
     right: -50px;
     z-index: 100;
     border-radius: 50%;
+  }
+
+}
+
+.flow-box-r {
+  position: relative;
+  width: 150px;
+  height: 80px;
+  border: solid 1px $success;
+  color: $success;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: $success-2;
+  margin-right: 25px;
+  border-radius: 8px;
+  padding: 10px;
+
+  &:hover {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
 
 }

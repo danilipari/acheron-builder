@@ -51,6 +51,8 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
   addFlowStatus: boolean = false;
   addFlowUuid: any;
 
+  addFlowEndUp: boolean = false;
+
   private _horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   private _verticalPosition: MatSnackBarVerticalPosition = 'top';
 
@@ -123,8 +125,14 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
     return this.workflow.forms.length > 1 ? this.lines.some((el: any) => el.start.id === this.addFlowUuid) : false;
   }
 
-  public addFlowEnd(): void {
-    alert('Add Flow End');
+  public openFlowEnd(): void {
+    this.addFlowEndUp = !this.addFlowEndUp;
+  }
+
+  public addFlowEnd(element: any): void {
+    this.workflow.forms.push(element.form_id);
+    this.updateFlowUI();
+    this.addFlowEndUp = !this.addFlowEndUp;
   }
 
   public dateChange(event: any, who: any): void {
@@ -173,6 +181,7 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
     if (this.workflow && this.workflow.forms) {
       return {
         forms: [...this.forms.forms.filter((f: any) => this.workflow.forms.includes(f.form_id))],
+        forms_r: [...this.forms.forms.filter((f: any) => !this.workflow.forms.includes(f.form_id) && !f.form_special)],
         error_form: [...this.forms.forms.filter((f: any) => this.workflow.error_form == f.form_id)],
         unavailable_form: [...this.forms.forms.filter((f: any) => this.workflow.unavailable_form == f.form_id)],
       };
