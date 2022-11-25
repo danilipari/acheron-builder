@@ -1,0 +1,9 @@
+#strapi-w {
+  .list-group-item:hover {
+    background-image: linear-gradient(to right, white, #7854bf47, #50299c47);
+  }
+
+  #main {
+    background-color: $white;
+  }
+}

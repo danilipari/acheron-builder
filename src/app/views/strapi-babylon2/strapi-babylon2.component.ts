@@ -13,6 +13,7 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
 
   jwtStrapi: any;
   userStrapi: any;
+  contentTypes: any[] = [];
 
   constructor(private strapiService: StrapiBabylon2Service) {}
 
@@ -30,6 +31,16 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
       const us: any = localStorage.getItem("userStrap");
       this.jwtStrapi = localStorage.getItem("jwtStrap");
       this.userStrapi = localStorage.getItem("userStrap") ? JSON.parse(us) : {};
+
+      this.init();
+    }
+  }
+
+  private init(): void {
+    this.strapiService.getContentTypes().subscribe((responseData: any) => {
+      this.contentTypes = responseData.data?.filter((el: any) => el.isDisplayed);
+    }), (error: any) => {
+      console.log(error);
     }
   }
 

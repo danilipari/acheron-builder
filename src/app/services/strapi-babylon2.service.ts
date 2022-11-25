@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 
-const sessionToken = localStorage.getItem('sessionToken');
+const sessionToken = localStorage.getItem('jwtStrap');
 
 const API = environment.apiUrlStrapi;
 const USER = environment.strapiUser;
@@ -38,12 +38,12 @@ export class StrapiBabylon2Service {
     return this.http.post(`${API}admin/login`, data, httpOptions);
   }
 
-  getLayouts() {
-    return this.http.get(`${API}layout`, httpOptions);
+  getContentTypesSettings(){
+    return this.http.get(`${API}content-manager/content-types-settings`, httpOptionsBearer);
   }
 
-  getLayout(id: string) {
-    return this.http.get(`${API}layout/${id}`, httpOptions);
+  getContentTypes(){
+    return this.http.get(`${API}content-manager/content-types`, httpOptionsBearer);
   }
 
 }
