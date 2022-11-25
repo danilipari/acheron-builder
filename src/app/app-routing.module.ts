@@ -27,6 +27,11 @@ const routes: Routes = [
     loadChildren: () => import('./views/forms/form.module').then((m) => m.FormModule),
     canActivate: [],
   },
+  {
+    path: 'strapi',
+    loadChildren: () => import('./views/strapi-babylon2/strapi-babylon2.module').then((m) => m.StrapiBabylon2Module),
+    canActivate: [],
+  },
 ];
 
 @NgModule({

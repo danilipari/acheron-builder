@@ -29,6 +29,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
       visible: true,
     },
     {
+      name: "Strapi",
+      path: "/strapi",
+      icon: "19-book-solid-edited.json",
+      visible: true,
+    },
+    {
       name: "Workflows",
       path: "/workflows",
       icon: "35-compare-solid-edited.json",

@@ -5,5 +5,7 @@
 export const environment = {
   production: false,
   apiUrl_local: 'http://localhost:8080',
-  apiUrl: 'https://st-sti.escort-advisor.com/api/v1/'
+  apiUrl: 'https://st-sti.escort-advisor.com/api/v1/',
+  strapiUser: 'acheron@dontouch.ch',
+  strapiPass: 'gabcYz9NuhsEazZEWPh'
 };
