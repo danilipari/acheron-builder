@@ -1,4 +1,10 @@
 import { StrapiBabylon2Component } from './strapi-babylon2.component';
+import { StrapiCategoriesComponent } from './strapi-categories/strapi-categories.component';
+import { StrapiCountriesComponent } from './strapi-countries/strapi-countries.component';
+import { StrapiLabelsComponent } from './strapi-labels/strapi-labels.component';
+import { StrapiUsersComponent } from './strapi-users/strapi-users.component';
+
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -7,14 +13,22 @@ const routes: Routes = [
     path: '',
     component: StrapiBabylon2Component,
   },
-  /* {
-    path: 'action',
-    component: LayoutActionComponent,
+  {
+    path: 'categories',
+    component: StrapiCategoriesComponent,
   },
   {
-    path: 'action/:id',
-    component: LayoutActionComponent,
-  } */
+    path: 'countries',
+    component: StrapiCountriesComponent,
+  },
+  {
+    path: 'labels',
+    component: StrapiLabelsComponent,
+  },
+  {
+    path: 'users',
+    component: StrapiUsersComponent,
+  },
 ];
 
 @NgModule({

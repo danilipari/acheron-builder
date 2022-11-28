@@ -46,4 +46,8 @@ export class StrapiBabylon2Service {
     return this.http.get(`${API}content-manager/content-types`, httpOptionsBearer);
   }
 
+  getCategoriesItems(page: string | number, size: string | number) {
+    return this.http.get(`${API}content-manager/collection-types/application::category.category?page=${page}&pageSize=${size}&_sort=category_title:ASC`, httpOptionsBearer);
+  }
+
 }

@@ -13,7 +13,7 @@
     <div class="d-flex">
 
       <div *ngFor="let contentType of contentTypes; let i = index;">
-        <div class="p-3 text-center border border-primary text-primary-ab bg-dark-light-ab w-auto rounded mx-3">
+        <div [routerLink]="contentType.info.path" class="p-3 text-center border border-primary text-primary-ab bg-dark-light-ab w-auto rounded mx-3">
           {{ contentType.info.label }}
         </div>
       </div>
