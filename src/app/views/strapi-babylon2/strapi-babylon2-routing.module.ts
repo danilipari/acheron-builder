@@ -2,7 +2,6 @@ import { StrapiBabylon2Component } from './strapi-babylon2.component';
 import { StrapiCategoriesComponent } from './strapi-categories/strapi-categories.component';
 import { StrapiCountriesComponent } from './strapi-countries/strapi-countries.component';
 import { StrapiLabelsComponent } from './strapi-labels/strapi-labels.component';
-import { StrapiUsersComponent } from './strapi-users/strapi-users.component';
 
 
 import { NgModule } from '@angular/core';
@@ -24,10 +23,6 @@ const routes: Routes = [
   {
     path: 'labels',
     component: StrapiLabelsComponent,
-  },
-  {
-    path: 'users',
-    component: StrapiUsersComponent,
   },
 ];
 

@@ -50,4 +50,6 @@ export class StrapiBabylon2Service {
     return this.http.get(`${API}content-manager/collection-types/application::${section}.${section}?page=${page}&pageSize=${size}&_sort=${sortKey}:${sortOrder}`, httpOptionsBearer);
   }
 
+  // content-manager/collection-types/application::label.label?page=1&pageSize=10&_sort=label_title:ASC
+
 }
