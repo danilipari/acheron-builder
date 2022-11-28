@@ -1,5 +1,12 @@
 <div class="container-fluid p-4">
-  <h1 class="text-white">Labels</h1>
+  <div class="bg-white text-dark d-flex justify-content-between w-100 p-3">
+    <h1 class="text-dark my-auto">Labels</h1>
+
+    <mat-select class="form-control border border-primary w-25" [(ngModel)]="columns" multiple (selectionChange)="selectionChangeTableColumns()">
+      <mat-option *ngFor="let column of columnList" [value]="column">{{ column | titlecase }}</mat-option>
+    </mat-select>
+  </div>
+
 
   <div class="mat-elevation-z8">
     <table mat-table matSort [dataSource]="dataSource">

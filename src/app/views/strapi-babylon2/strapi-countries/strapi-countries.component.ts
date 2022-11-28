@@ -14,7 +14,10 @@ export class StrapiCountriesComponent implements OnInit {
   skip: number = 0;
   totalLength: number = 0;
 
-  displayedColumns: string[] = ['id', 'Country', 'labels', 'created_at'];
+  columns: any[] = ['id', 'Country', 'labels', 'created_at'];
+  columnList: string[] = ['id', 'Country', 'labels', 'created_at'];
+
+  displayedColumns!: string[];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -23,6 +26,7 @@ export class StrapiCountriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.strapiService.getTableCollectionItems("application::country.country", this.skip, this.limit, "Country", "ASC").subscribe((responseData: any) => {
+      this.displayedColumns = this.columns;
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
@@ -36,6 +40,7 @@ export class StrapiCountriesComponent implements OnInit {
     const limit = event.pageSize;
     const skip = event.pageIndex * limit;
     this.strapiService.getTableCollectionItems("application::country.country", skip, limit, "Country", "ASC").subscribe((responseData: any) => {
+      this.displayedColumns = this.columns;
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
@@ -43,6 +48,10 @@ export class StrapiCountriesComponent implements OnInit {
     }), (error: any) => {
       console.log(error);
     }
+  }
+
+  public selectionChangeTableColumns(): void {
+    this.displayedColumns = this.columns;
   }
 
 }

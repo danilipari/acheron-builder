@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
 
 
 import { StrapiBabylon2RoutingModule } from './strapi-babylon2-routing.module';
@@ -52,6 +53,7 @@ const materialModules = [
     MatButtonModule,
     NgxJsonViewerModule,
     ...materialModules,
+    MatSelectModule,
   ],
   exports: [
     components,
