@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { StrapiBabylon2Service } from '../../../services/strapi-babylon2.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-strapi-categories',
@@ -15,10 +16,9 @@ export class StrapiCategoriesComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'title', 'labels', 'created_at'];
   dataSource = new MatTableDataSource();
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  categories: any[] = [];
 
   constructor(private strapiService: StrapiBabylon2Service) {}
 
@@ -29,6 +29,7 @@ export class StrapiCategoriesComponent implements OnInit {
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }), (error: any) => {
       console.log(error);
     }
@@ -41,6 +42,7 @@ export class StrapiCategoriesComponent implements OnInit {
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }), (error: any) => {
       console.log(error);
     }

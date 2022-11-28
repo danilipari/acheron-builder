@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 import { StrapiBabylon2RoutingModule } from './strapi-babylon2-routing.module';
@@ -27,6 +28,12 @@ const components: Array<any> = [
   StrapiCountriesComponent,
   StrapiLabelsComponent,
   StrapiUsersComponent,
+];
+
+const materialModules = [
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
 ];
 
 
@@ -46,8 +53,7 @@ const components: Array<any> = [
     MatTooltipModule,
     MatButtonModule,
     NgxJsonViewerModule,
-    MatTableModule,
-    MatPaginatorModule,
+    ...materialModules,
   ],
   exports: [
     components,
