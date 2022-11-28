@@ -23,10 +23,6 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
     // "Users",
   ];
 
-  optionsW: string = "35-compare-solid-edited.json";
-  optionsF: string = "76-newspaper-solid-edited.json";
-  optionsL: string = "40-add-card-solid-edited.json";
-
   constructor(private strapiService: StrapiBabylon2Service) {}
 
   ngOnInit(): void {
