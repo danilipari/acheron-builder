@@ -50,4 +50,12 @@ export class StrapiBabylon2Service {
     return this.http.get(`${API}content-manager/collection-types/application::category.category?page=${page}&pageSize=${size}&_sort=category_title:ASC`, httpOptionsBearer);
   }
 
+  getCountriesItems(page: string | number, size: string | number) {
+    return this.http.get(`${API}content-manager/collection-types/application::country.country?page=${page}&pageSize=${size}&_sort=Country:ASC`, httpOptionsBearer);
+  }
+
+  getTableCollectionItems(section: string, page: string | number, size: string | number, sortKey: string, sortOrder: string = "ASC") {
+    return this.http.get(`${API}content-manager/collection-types/application::${section}.${section}?page=${page}&pageSize=${size}&_sort=${sortKey}:${sortOrder}`, httpOptionsBearer);
+  }
+
 }
