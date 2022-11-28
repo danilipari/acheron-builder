@@ -21,12 +21,14 @@ import { StrapiBabylon2Component } from './strapi-babylon2.component';
 import { StrapiCategoriesComponent } from './strapi-categories/strapi-categories.component';
 import { StrapiCountriesComponent } from './strapi-countries/strapi-countries.component';
 import { StrapiLabelsComponent } from './strapi-labels/strapi-labels.component';
+import { StrapiHeaderComponent } from './strapi-header/strapi-header.component';
 
 const components: Array<any> = [
   StrapiBabylon2Component,
   StrapiCategoriesComponent,
   StrapiCountriesComponent,
   StrapiLabelsComponent,
+  StrapiHeaderComponent,
 ];
 
 const materialModules = [
