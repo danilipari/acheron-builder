@@ -22,7 +22,7 @@ export class StrapiCountriesComponent implements OnInit {
   constructor(private strapiService: StrapiBabylon2Service) {}
 
   ngOnInit(): void {
-    this.strapiService.getTableCollectionItems("country", this.skip, this.limit, "Country", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::country.country", this.skip, this.limit, "Country", "ASC").subscribe((responseData: any) => {
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
@@ -35,7 +35,7 @@ export class StrapiCountriesComponent implements OnInit {
   public getData(event: any) {
     const limit = event.pageSize;
     const skip = event.pageIndex * limit;
-    this.strapiService.getTableCollectionItems("country", skip, limit, "Country", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::country.country", skip, limit, "Country", "ASC").subscribe((responseData: any) => {
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;

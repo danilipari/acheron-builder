@@ -22,7 +22,7 @@ export class StrapiCategoriesComponent implements OnInit {
   constructor(private strapiService: StrapiBabylon2Service) {}
 
   ngOnInit(): void {
-    this.strapiService.getTableCollectionItems("category", this.skip, this.limit, "category_title", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::category.category", this.skip, this.limit, "category_title", "ASC").subscribe((responseData: any) => {
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
@@ -35,7 +35,7 @@ export class StrapiCategoriesComponent implements OnInit {
   public getData(event: any) {
     const limit = event.pageSize;
     const skip = event.pageIndex * limit;
-    this.strapiService.getTableCollectionItems("category", skip, limit, "category_title", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::category.category", skip, limit, "category_title", "ASC").subscribe((responseData: any) => {
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
