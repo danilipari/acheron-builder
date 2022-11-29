@@ -5,7 +5,7 @@
     </p>
   </div>
   <div class="row row-space justify-content-around">
-    <div class="col-4 box-p-ab" [routerLink]="'/workflows'">
+    <div class="col-3 col-md-6 mt-5 box-p-ab" [routerLink]="'/workflows'">
       <div class="box-c-ab text-center">
         <div class="mx-auto" style="width: 86px; height: 86px;">
           <acheron-lottie-render [route]="" [name]="optionsW"></acheron-lottie-render>
@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4 box-p-ab" [routerLink]="'/forms'">
+    <div class="col-3 col-md-6 mt-5 box-p-ab" [routerLink]="'/forms'">
       <div class="box-c-ab text-center">
         <div class="mx-auto" style="width: 86px; height: 86px;">
           <acheron-lottie-render [route]="" [name]="optionsF"></acheron-lottie-render>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4 box-p-ab" [routerLink]="'/layouts'">
+    <div class="col-3 col-md-6 mt-5 box-p-ab" [routerLink]="'/layouts'">
       <div class="box-c-ab text-center">
         <div class="mx-auto" style="width: 86px; height: 86px;">
           <acheron-lottie-render [route]="" [name]="optionsL"></acheron-lottie-render>
@@ -35,6 +35,17 @@
         <p>{{ 'Layouts' | uppercase }}</p>
         <div class="box-counter mx-auto">
           <p>{{ countResurces?.quantity_layouts }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 col-md-6 mt-5 box-p-ab" [routerLink]="'/strapi'">
+      <div class="box-c-ab text-center">
+        <div class="mx-auto" style="width: 86px; height: 86px;">
+          <acheron-lottie-render [route]="" [name]="optionsS"></acheron-lottie-render>
+        </div>
+        <p>{{ 'Strapi' | uppercase }}</p>
+        <div class="box-counter mx-auto">
+          <p>99+</p>
         </div>
       </div>
     </div>

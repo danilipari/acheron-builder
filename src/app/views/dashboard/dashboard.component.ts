@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   optionsW: string = "35-compare-solid-edited.json";
   optionsF: string = "76-newspaper-solid-edited.json";
   optionsL: string = "40-add-card-solid-edited.json";
+  optionsS: string = "19-book-solid-edited.json";
+  /* icon: "19-book-solid-edited.json", */
 
   constructor(
     private dashboardService: DashbordService,
