@@ -46,6 +46,19 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
     }
   }
 
+  private loginStrapi(): void {
+    this.strapiService.loginStrapi().subscribe((responseData: any) => {
+      this.jwtStrapi = responseData.data.token;
+      this.userStrapi = responseData.data.user;
+      localStorage.setItem("jwtStrap", responseData.data.token);
+      localStorage.setItem("userStrap", JSON.stringify(responseData.data.user));
+
+      this.jwtStrapi && this.initWithJwt();
+    }), (error: any) => {
+      console.log(error);
+    }
+  }
+
   private initWithJwt(): void {
     this.strapiService.getContentTypes().subscribe((responseData: any) => {
       this.contentTypes = responseData.data?.filter((el: any) => el.isDisplayed && this.labels.includes(el.info.label)).map((el: any) => ({ ...el, info: { ...el.info, path: el.info.label?.toLowerCase() } }));
@@ -59,6 +72,20 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
     this.userStrapi = localStorage.removeItem("userStrap");
     this.ngOnInit();
     return "Clean Strapi lcoal data";
+  }
+
+  public logOutStrapi(): void {
+    this.jwtStrapi = localStorage.removeItem("jwtStrap");
+    this.userStrapi = localStorage.removeItem("userStrap");
+  }
+
+  public sessionStrapi(action: string = "in"): void {
+    if (action === "out") {
+      this.jwtStrapi = localStorage.removeItem("jwtStrap");
+      this.userStrapi = localStorage.removeItem("userStrap");
+    } else {
+      this.loginStrapi();
+    }
   }
 
   ngOnDestroy() {

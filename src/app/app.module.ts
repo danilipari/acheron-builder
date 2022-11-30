@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogAlertMessagesModule } from './components/dialog-alert-messages/dialog-alert-messages.module';
 import { DialogRenderModule } from './components/dialog-render/dialog-render.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MAT_MOMENT_DATE_FORMATS, MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -47,6 +48,7 @@ const components: Array<any> = [
     DialogAlertMessagesModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    MatTooltipModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -1,16 +1,25 @@
-<ng-container *ngIf="jwtStrapi">
-  <div class="p-2 m-1 d-flex justify-content-between">
-    <img src="../../../assets/images/strapi_logo.png" alt="strapi_logo" class="my-auto pt-2" style="width: 4%;">
-    <div class="my-auto text-white">
+<div class="p-2 m-1 d-flex justify-content-between">
+  <img src="../../../assets/images/strapi_logo.png" alt="strapi_logo" class="my-auto pt-2" style="width: 4%; cursor: pointer;">
+  <div class="my-auto d-flex text-white">
+    <div class="my-auto mx-3">
+      <div class="my-auto p-2 border border-white rounded position-relative mx-3" style="cursor: pointer;" (click)="sessionStrapi('out')" mat-raised-button matTooltip="Logout" aria-label="LogOut" matTooltipClass="tooltip" *ngIf="jwtStrapi">
+        <i-bs name="arrow-bar-right" class="text-white" width="22px" height="22px"></i-bs>
+      </div>
+      <div *ngIf="!jwtStrapi">
+        <button class="btn btn-primary" (click)="sessionStrapi('in')">{{ "login strapi" | uppercase }}</button>
+      </div>
+    </div>
+    <div class="my-auto border-start border-white px-4" *ngIf="jwtStrapi">
       <p class="mb-0 text-start">{{ userStrapi.firstname }} {{ userStrapi.lastname }}</p>
       <p class="mb-0 text-start">{{ userStrapi.roles[0].name }}</p>
     </div>
   </div>
-  <hr class="text-white m-0">
+</div>
+<hr class="text-white m-0 mx-2">
 
-  <div id="strapi-w">
-    <div id="main" class="p-3">
-
+<div id="strapi-w">
+  <div id="main" class="p-3">
+    <ng-container *ngIf="jwtStrapi">
       <div class="row row-space justify-content-around">
         <div class="col-4 box-p-ab" [routerLink]="contentType.info.path" *ngFor="let contentType of contentTypes; let i = index;">
           <div class="box-c-ab text-center">
@@ -18,8 +27,6 @@
           </div>
         </div>
       </div>
-
-    </div>
-
+    </ng-container>
   </div>
-</ng-container>
+</div>
