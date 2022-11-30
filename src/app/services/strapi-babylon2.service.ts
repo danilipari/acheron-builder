@@ -50,4 +50,16 @@ export class StrapiBabylon2Service {
     return this.http.get(`${API}content-manager/collection-types/${application}?page=${page}&pageSize=${size}&_sort=${sortKey}:${sortOrder}`, httpOptionsBearer);
   }
 
+  getTableCollectionItem(application: string, id: string | number) {
+    return this.http.get(`${API}content-manager/collection-types/${application}/${id}`, httpOptionsBearer);
+  }
+
+  setTableCollectionItem(application: string, data: any) {
+    return this.http.post(`${API}content-manager/collection-types/${application}`, data, httpOptionsBearer);
+  }
+
+  deleteTableCollectionItem(application: string, id: string | number) {
+    return this.http.delete(`${API}content-manager/collection-types/${application}/${id}`, httpOptionsBearer);
+  }
+
 }

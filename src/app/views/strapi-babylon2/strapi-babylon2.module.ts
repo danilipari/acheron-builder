@@ -22,6 +22,9 @@ import { StrapiCategoriesComponent } from './strapi-categories/strapi-categories
 import { StrapiCountriesComponent } from './strapi-countries/strapi-countries.component';
 import { StrapiLabelsComponent } from './strapi-labels/strapi-labels.component';
 import { StrapiHeaderComponent } from './strapi-header/strapi-header.component';
+import { StrapiLabelsDetailComponent } from './strapi-labels-detail/strapi-labels-detail.component';
+import { StrapiCategoriesDetailComponent } from './strapi-categories-detail/strapi-categories-detail.component';
+import { StrapiCountriesDetailComponent } from './strapi-countries-detail/strapi-countries-detail.component';
 
 const components: Array<any> = [
   StrapiBabylon2Component,
@@ -29,6 +32,9 @@ const components: Array<any> = [
   StrapiCountriesComponent,
   StrapiLabelsComponent,
   StrapiHeaderComponent,
+  StrapiLabelsDetailComponent,
+  StrapiCategoriesDetailComponent,
+  StrapiCountriesDetailComponent,
 ];
 
 const materialModules = [

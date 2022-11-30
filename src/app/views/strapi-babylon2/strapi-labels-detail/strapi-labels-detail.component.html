@@ -1,0 +1,45 @@
+<app-strapi-header></app-strapi-header>
+<div class="container-fluid p-4">
+  <div class="bg-white text-dark w-100 p-3">
+    <div>
+      <h1 class="text-primary-ab my-auto">{{ formTitle | titlecase }}</h1>
+      <h4 class="text-muted my-auto">API ID: label</h4>
+    </div>
+
+    <hr>
+
+    <div class="d-flex px-3">
+      <div class="col-8">
+        <div class="row bg-light rounded p-3 mb-5">
+          <div class="col-6 mb-3" *ngFor="let el of formItems">
+            <h4 class="my-auto mb-3">{{ el | json }}</h4>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="row bg-light rounded p-3 mb-5">
+          <h4 class="my-auto">Information</h4>
+        </div>
+
+        <div class="row bg-light rounded p-3 mb-5">
+          <div class="">
+            <h4 class="my-auto">Categories</h4>
+            <select class="form-select" name="" id=""></select>
+          </div>
+          <div class="my-3">
+            <h4 class="my-auto">Countries</h4>
+            <select class="form-select" name="" id=""></select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="text-white">
+  <pre>{{ dataRes | json }}</pre>
+</div>

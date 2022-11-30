@@ -22,6 +22,11 @@ export interface DialogData {
   [key: string]: any;
 }
 
+export interface RowTableActionHover {
+  actionIndex: number | null;
+  elementIndex: number | null;
+}
+
 export interface Workflow {
   // Required
   id?: string | number;
