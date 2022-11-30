@@ -14,7 +14,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   dataRes!: any;
   formTitle!: string;
   formItems!: any;
-  formItemsKey!: any;
+  formItemsMerge!: any;
 
   constructor(
     private strapiService: StrapiBabylon2Service,
@@ -41,18 +41,16 @@ export class StrapiLabelsDetailComponent implements OnInit {
 
   private controlPathIds(mode: number, id: number ): void {
     this.strapiService.getTableCollectionItem("application::label.label", id).subscribe((responseData: any) => {
-      console.log("strapi data res --> ", responseData);
       this.dataRes = responseData;
       this.formTitle = responseData.label_title;
-      this.formItems = Object.entries(this.dataRes).reduce((acc: any, item: any, index: any) => {
-          if (item[0].includes("_body")) {
-            acc = [...acc, ({[item[0]]: item[1]})];
-          }
-          return acc;
-        }, []);
-      this.formItemsKey = { "label_title": responseData.label_title };
-
-      console.log(this.formItems, this.formItemsKey, 'formItems');
+      this.formItems = Object.assign({}, ...Object.entries(this.dataRes).reduce((acc: any, item: any, index: any) => {
+        if (item[0].includes("_body")) {
+          acc = [...acc, ({[item[0]]: item[1]})];
+        }
+        return acc;
+      }, []));
+      this.formItemsMerge = { "label_title": responseData.label_title, ...this.formItems };
+      console.log(this.formItemsMerge);
     }), (error: any) => {
       console.log(error);
     }

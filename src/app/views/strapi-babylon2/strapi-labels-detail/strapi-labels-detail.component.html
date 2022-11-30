@@ -11,9 +11,9 @@
     <div class="d-flex px-3">
       <div class="col-8">
         <div class="row bg-light rounded p-3 mb-5">
-          <div class="col-6 mb-3" *ngFor="let el of formItems">
-            <h4 class="my-auto mb-3">{{ el | json }}</h4>
-            <input type="text" class="form-control">
+          <div class="col-6 mb-3" *ngFor="let item of formItemsMerge | keyvalue">
+            <h4 class="my-auto mb-3">{{ item.key }}</h4>
+            <input type="text" class="form-control" [(ngModel)]="item.value">
           </div>
         </div>
       </div>
