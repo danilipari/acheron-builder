@@ -60,6 +60,16 @@ input {
   border-color: $primary !important;
 }
 
+.btn.btn-outline-primary {
+  border-color: $primary !important;
+  color: $primary !important;
+
+  &:hover {
+    background-color: $primary!important;
+    color: $white!important;
+  }
+}
+
 .bg-dark-light-ab {
   background-color: $main-3 !important;
 }
