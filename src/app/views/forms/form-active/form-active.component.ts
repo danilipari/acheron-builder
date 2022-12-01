@@ -12,7 +12,6 @@ import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutL
 import Utils from '../../../shared/utils';
 import Constants from '../../../shared/constants';
 import * as uuid from "uuid";
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-form-active',
@@ -92,21 +91,10 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   ]
 
   public strapi = {
-    countries: [
-      { label: "Germany", value: "DE" },
-      { label: "Spain", value: "ES" },
-      { label: "United Kingdom", value: "GB" },
-      { label: "Italy", value: "IT" },
-    ],
-    languages: [
-      { label: "Italian", value: "IT" },
-      { label: "English", value: "EN" },
-      { label: "Spanish", value: "ES" },
-      { label: "German", value: "DE" },
-      { label: "Chinese", value: "ZH" },
-      { label: "Russian", value: "RU" },
-    ],
+    countries: Constants.strapiCountries,
+    languages: Constants.strapiLanguages
   }
+
   public hoverForm: boolean = false;
   public hoverAction: boolean = false;
 
@@ -119,92 +107,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   htmlContent = '';
 
-  config: AngularEditorConfig = {
-    editable: true,
-      spellcheck: true,
-      height: 'auto',
-      minHeight: '250px',
-      maxHeight: 'auto',
-      width: 'auto',
-      minWidth: '0',
-      translate: 'no',
-      enableToolbar: true,
-      showToolbar: true,
-      placeholder: 'Enter text here...',
-      defaultParagraphSeparator: '',
-      defaultFontName: '',
-      defaultFontSize: '',
-      fonts: [
-        {class: 'arial', name: 'Arial'},
-        {class: 'times-new-roman', name: 'Times New Roman'},
-        {class: 'calibri', name: 'Calibri'},
-        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-      ],
-      customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    /* uploadUrl: 'v1/image',
-    upload: (file: File) => {
-      const formData = new FormData();
-      formData.append('file', file);
-      console.log(formData)
-      return this.formService.uploadImage(formData);
-    }, */
-    uploadWithCredentials: false,
-    sanitize: true,
-    toolbarPosition: 'top',
-    toolbarHiddenButtons: [
-      [
-        // 'undo',
-        // 'redo',
-        // 'bold',
-        // 'italic',
-        // 'underline',
-        // 'strikeThrough',
-        // 'subscript',
-        // 'superscript',
-        // 'justifyLeft',
-        // 'justifyCenter',
-        // 'justifyRight',
-        // 'justifyFull',
-        // 'indent',
-        // 'outdent',
-        // 'insertUnorderedList',
-        // 'insertOrderedList',
-        // 'heading',
-        // 'fontName'
-      ],
-      [
-        // 'fontSize',
-        // 'textColor',
-        // 'backgroundColor',
-        // 'customClasses',
-        // 'link',
-        // 'unlink',
-        // 'insertImage',
-        // 'insertVideo',
-        // 'insertHorizontalRule',
-        // 'removeFormat',
-        // 'toggleEditorMode'
-      ],
-      [
-        'insertVideo',
-        'insertImage'
-      ]
-    ]
-  };
+  config = Constants.angularEditorConfig;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -535,7 +438,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           if (this.formBody?.form_name?.trim() !== '' && this.formBody?.form_name !== undefined) {
             this.formService.saveForm(this.formBody, this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
               this.snackBar('Form successfully created!');
-              this.router.navigate(['/forms']);
+              // this.router.navigate(['/forms']);
             }), (error: any) => {
               this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
               console.log(error);

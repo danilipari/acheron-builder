@@ -1,4 +1,5 @@
 import * as uuid from "uuid";
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 export default class Constants {
 
@@ -452,6 +453,26 @@ export default class Constants {
       "visible":true,
       "href":""
     },
+    {
+      "index": null,
+      "uuid": uuid.v4(),
+      "inputType":"qr-code",
+      "component":"qr-code",
+      "enabled":true,
+      "name":"qr-code",
+      "label":"qr-code",
+      "error":"",
+      "description":"",
+      "placeholder":"Select your qr-code",
+      "uuidRef": uuid.v4(),
+      "childrenRef": [],
+      "options":[],
+      "required":false,
+      "validation":"",
+      "value": "https://www.escort-advisor.com/",
+      "visible":true,
+      "href":"https://www.escort-advisor.com/"
+    },
   ];
 
   static typesFormsTypeStructure: any[] = [
@@ -582,6 +603,13 @@ export default class Constants {
       length: 2,
       value: null,
     },
+    {
+      uuid: uuid.v4(),
+      type: "qr-code",
+      label: "qr-code",
+      length: 1,
+      value: null,
+    },
   ];
 
   static typesActionsTypeStructure: any[] = [
@@ -593,5 +621,108 @@ export default class Constants {
       value: null,
     },
   ];
+
+  static strapiLanguages: [
+    { label: "Italian", value: "IT" },
+    { label: "English", value: "EN" },
+    { label: "Spanish", value: "ES" },
+    { label: "German", value: "DE" },
+    { label: "Chinese", value: "ZH" },
+    { label: "Russian", value: "RU" },
+  ];
+
+  static strapiCountries: [
+    { label: "Germany", value: "DE" },
+    { label: "Spain", value: "ES" },
+    { label: "United Kingdom", value: "GB" },
+    { label: "Italy", value: "IT" },
+  ];
+
+  static angularEditorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '250px',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'no',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    /* uploadUrl: 'v1/image',
+    upload: (file: File) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      console.log(formData)
+      return this.formService.uploadImage(formData);
+    }, */
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      [
+        // 'undo',
+        // 'redo',
+        // 'bold',
+        // 'italic',
+        // 'underline',
+        // 'strikeThrough',
+        // 'subscript',
+        // 'superscript',
+        // 'justifyLeft',
+        // 'justifyCenter',
+        // 'justifyRight',
+        // 'justifyFull',
+        // 'indent',
+        // 'outdent',
+        // 'insertUnorderedList',
+        // 'insertOrderedList',
+        // 'heading',
+        // 'fontName'
+      ],
+      [
+        // 'fontSize',
+        // 'textColor',
+        // 'backgroundColor',
+        // 'customClasses',
+        // 'link',
+        // 'unlink',
+        // 'insertImage',
+        // 'insertVideo',
+        // 'insertHorizontalRule',
+        // 'removeFormat',
+        // 'toggleEditorMode'
+      ],
+      [
+        'insertVideo',
+        'insertImage'
+      ]
+    ]
+  };
 
 }
