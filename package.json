@@ -29,6 +29,7 @@
     "@angular/router": "~14.2.1",
     "@kolkov/angular-editor": "^1.1.8",
     "angular-animations": "latest",
+    "angularx-qrcode": "^14.0.0",
     "bootstrap": "^5.2.0",
     "leader-line": "^1.0.7",
     "lottie-web": "^5.9.6",

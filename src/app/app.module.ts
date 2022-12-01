@@ -48,7 +48,7 @@ const components: Array<any> = [
     DialogAlertMessagesModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
