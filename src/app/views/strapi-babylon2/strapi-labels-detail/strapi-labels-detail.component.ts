@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StrapiBabylon2Service } from '../../../services/strapi-babylon2.service';
+import { GoogleService } from '../../../services/google.service';
+import { GoogleObj } from '../../../shared/interfaces';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -16,8 +18,18 @@ export class StrapiLabelsDetailComponent implements OnInit {
   formItems!: any;
   formItemsMerge!: any;
 
+  googleObject: GoogleObj = {
+    q: '',
+    source: 'it',
+    target: 'en',
+    format: 'text',
+  };
+  key!: string;
+  resultGoolge!: any;
+
   constructor(
     private strapiService: StrapiBabylon2Service,
+    private googleService: GoogleService,
     private router: Router,
     private route: ActivatedRoute,
   ) {}
@@ -54,6 +66,27 @@ export class StrapiLabelsDetailComponent implements OnInit {
     }), (error: any) => {
       console.log(error);
     }
+  }
+
+  public translateWithGoogle(): void {
+    console.log(this.googleObject, this.key, '----translateWithGoogle----');
+
+    if (this.key.length > 0) {
+      this.googleTranslateAction();
+    }
+  }
+
+  private googleTranslateAction(): void {
+    this.googleService.translate(this.googleObject, this.key).subscribe((responseData: any) => {
+      this.resultGoolge = responseData.data.translations[0].translatedText;
+      console.log(this.resultGoolge, '----resultGoolge----');
+    }), (error: any) => {
+      console.log(error);
+    }
+  }
+
+  public getItem(element: any): any {
+    return { el: element, length: element != null ? element.trim()?.length : 0 };
   }
 
 }

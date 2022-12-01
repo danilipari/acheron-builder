@@ -22,6 +22,13 @@ export interface DialogData {
   [key: string]: any;
 }
 
+export interface GoogleObj {
+  q: string;
+  readonly source: string; // = 'en';
+  readonly target: string; // = 'es';
+  readonly format: string; //  = 'text';
+}
+
 export interface RowTableActionHover {
   actionIndex: number | null;
   elementIndex: number | null;
