@@ -14,4 +14,6 @@ export class AppComponent {
   title = 'acheron-builder';
 
   constructor () {}
+
+  // https://fknop.gitbooks.io/angular-pipes/content/
 }
