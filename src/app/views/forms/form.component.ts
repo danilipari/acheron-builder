@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from './../../services/form.service';
-import { FormStructure, FormItem, CloneFormUUIDStructure } from '././../../shared/interfaces';
+import { ConfigurationDialog, FormStructure, FormItem, CloneFormUUIDStructure } from '././../../shared/interfaces';
 import Constants from '././../../shared/constants';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import Utils from '../../shared/utils';
+import { DialogAlertMessagesComponent } from '../../components/dialog-alert-messages/dialog-alert-messages.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as uuid from "uuid";
 
 @Component({
@@ -46,10 +48,14 @@ export class FormComponent implements OnInit, OnDestroy {
 
   statusJsonImport: boolean = false;
 
+  public fromDelete!: any;
+
   constructor(
-    private formService: FormService,
-    public router: Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    public formService: FormService,
   ) {}
 
   public ngOnInit(): void {
@@ -221,7 +227,47 @@ export class FormComponent implements OnInit, OnDestroy {
     };
   }
 
-  sumListLength(array: Array<any>): number {
+  public dialogAlertMessage(
+    title: string = 'AlertMessage',
+    message: string = 'Confrim?',
+    icon: string = 'check-circle-fill',
+    action: string = 'save',
+    options: any[] = [
+      {label: 'No', value: 'no', color: 'danger', action: 'close'},
+      {label: 'Yes', value: 'yes', color: 'success', action: 'confirm'}
+    ],
+  ): void {
+    const config: ConfigurationDialog = {
+      width: `800px`,
+      height: `400px`,
+      data: {
+        uuid: this.fromDelete.uuid,
+        title: title,
+        message: message,
+        icon: icon,
+        action: action,
+        options: options,
+      },
+    };
+    const dialogRef = this.dialog.open(DialogAlertMessagesComponent, config);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.debug('The dialog was closed', result);
+      if (result) {
+        if (result.type === 'delete-form') {
+          this.formService.deleteForm(this.fromDelete.form_id).subscribe((response: any) => {
+            this.snackBar('Form successfully deleted!');
+            this.forms = this.forms.filter((f: any) => f.form_id !== this.fromDelete.form_id);
+          }), (error: any) => {
+            this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
+            console.log(error);
+          };
+        }
+      }
+    });
+  }
+
+  public sumListLength(array: Array<any>): number {
     return array.map((element: any[]) => (element.length)).reduce((a, b) => a + b, 0);
   }
 

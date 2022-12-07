@@ -35,7 +35,7 @@
                   height="15px"
                 ></i-bs>
               </div>
-              <div (click)="null" class="list-group-item list-group-item-action d-flex justify-content-between">
+              <div (click)="fromDelete = form; dialogAlertMessage('Delete Form', 'Are you sure you want to delete this form?', 'check-circle-fill', 'delete-form')" class="list-group-item list-group-item-action d-flex justify-content-between">
                 <p class="my-auto text-primary-ab">Delete</p>
                 <i-bs
                   name="trash"
@@ -93,7 +93,7 @@
                     height="15px"
                   ></i-bs>
                 </div>
-                <div (click)="null" class="list-group-item list-group-item-action d-flex justify-content-between">
+                <div (click)="fromDelete = form; dialogAlertMessage('Delete Form', 'Are you sure you want to delete this form?', 'check-circle-fill', 'delete-form')" class="list-group-item list-group-item-action d-flex justify-content-between">
                   <p class="my-auto text-primary-ab">Delete</p>
                   <i-bs
                     name="trash"
