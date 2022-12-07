@@ -100,14 +100,19 @@ export class FormActiveComponent implements OnInit, OnDestroy {
 
   public formBody: any = {
     uuid: uuid.v4(),
+    form_name: "",
     form_special: false,
     forms: [],
     actions: [],
   };
 
   htmlContent = '';
-
   config = Constants.angularEditorConfig;
+
+  jsonFile: any;
+  fileInfo: any;
+  hidden: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -140,6 +145,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   private init(): void {
     this.indexRefresh();
     this.setChips();
+    this.jsonFile = this.formBody;
+    this.fileInfo = { name: `form-${this.route_id !== '' ? this.formBody.uuid : (this.formBody.uuid + '-new')}.json`};
   }
 
   public dragStart($event: any, type: string, uuid: string, index: number): void {

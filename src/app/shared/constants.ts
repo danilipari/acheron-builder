@@ -725,4 +725,12 @@ export default class Constants {
     ]
   };
 
+  static structureRequiredJSONExpImp: string[] = [
+    "uuid",
+    "form_name",
+    "form_special",
+    "forms",
+    "actions",
+  ];
+
 }
