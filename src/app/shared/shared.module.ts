@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { JsonRenderComponent } from './json-render/json-render.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { QRCodeModule } from 'angularx-qrcode';
+import { NgBytesPipeModule } from 'angular-pipes';
 
 
 import { LottieModule } from 'ngx-lottie';
@@ -16,6 +17,8 @@ import player from 'lottie-web';
 import { LottieRenderComponent } from './lottie-render/lottie-render.component';
 import { SafePipe } from './safe.pipe';
 import { QrcodeComponent } from './qrcode/qrcode.component';
+import { ImportJsonFileComponent } from './import-json-file/import-json-file.component';
+import { ExportJsonFileComponent } from './export-json-file/export-json-file.component';
 
 export function playerFactory() {
   return player;
@@ -27,6 +30,8 @@ const components: Array<any> = [
   JsonRenderComponent,
   LottieRenderComponent,
   QrcodeComponent,
+  ImportJsonFileComponent,
+  ExportJsonFileComponent,
   SafePipe,
 ];
 
@@ -43,6 +48,7 @@ const components: Array<any> = [
     LottieModule.forRoot({ player: playerFactory }),
     NgxJsonViewerModule,
     QRCodeModule,
+    NgBytesPipeModule,
   ],
   exports: [
     components,

@@ -41,6 +41,8 @@ export class FormComponent implements OnInit, OnDestroy {
     updated_at: new Date().toISOString()
   };
 
+  statusJsonImport: boolean = false;
+
   constructor(
     private formService: FormService,
     public router: Router,
@@ -53,6 +55,10 @@ export class FormComponent implements OnInit, OnDestroy {
     }), (error: any) => {
       console.log(error);
     }
+  }
+
+  public updateJsonImport(element: any): void {
+    this.statusJsonImport = element;
   }
 
   public snackBar(message: string = 'Done!', color: string = 'default'): void {

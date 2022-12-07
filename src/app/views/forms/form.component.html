@@ -8,6 +8,10 @@
   </div>
 
   <div class="my-5">
+    <div class="mx-5 my-3 d-flex justify-content-end">
+      <!-- <app-import-json-file [redirect]="["forms", "action"]"></app-import-json-file> -->
+      <app-import-json-file #import [exit_path]="['forms', 'action']" [format_accpeted]="'application/JSON'" (emitStatus)="updateJsonImport($event)" (click)="!statusJsonImport ? import.chooseFile() : null"></app-import-json-file>
+    </div>
     <div class="list-group w-auto mx-5 shadow-sm position-relative" (click)="(this.show_left_click || this.show_right_click) ? closeMenu() : null">
       <div *ngFor="let form of forms; let iF = index;" class="list-group-item list-group-item-action d-flex gap-3 py-3 shadow-sm" aria-current="true" (contextmenu)="onRightClick($event, form)">
         <ng-container *ngIf="clientY + clientX > 0">
@@ -44,7 +48,18 @@
             </div>
           </div>
         </ng-container>
-        <img [src]="ea_icon" alt="twbs" width="32" height="32" class="border rounded p-1 rounded-circle flex-shrink-0 " [ngClass]="{'border-warning' : form.form_special === '1'}">
+
+        <div class="my-auto p-2 rounded border" [ngClass]="form.form_special === '1' ? 'border-warning' : 'border-primary'">
+          <i-bs
+            name="filetype-json"
+            class=" my-auto "
+            [ngClass]=" form.form_special === '1' ? 'text-warning' : 'text-primary-ab'"
+            width="22px"
+            height="22px"
+          ></i-bs>
+        </div>
+        <!-- <img [src]="ea_icon" alt="twbs" width="32" height="32" class="border rounded p-1 rounded-circle flex-shrink-0 " [ngClass]="{'border-warning' : form.form_special === '1'}"> -->
+
         <div class="d-flex gap-2 w-100 justify-content-between">
           <div>
             <h4 class="mb-0">{{ form.form_name }}</h4>
