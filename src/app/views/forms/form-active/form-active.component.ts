@@ -134,17 +134,23 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         this.formBody = {
           ...res,
           form_special: Boolean(Number(res.form_special)),
+          actions: res.actions ? res.actions : [],
+          forms: res.forms ? res.forms : [],
         };
+
+        this.init();
       }), (error: any) => {
         console.log(error);
       };
+    } else {
+      this.init();
     }
-    this.init();
   }
 
   private init(): void {
     this.indexRefresh();
     this.setChips();
+
     this.jsonFile = this.formBody;
     this.fileInfo = { name: `form-${this.route_id !== '' ? this.formBody.uuid : (this.formBody.uuid + '-new')}.json`};
   }
