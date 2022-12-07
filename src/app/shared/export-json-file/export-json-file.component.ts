@@ -9,7 +9,7 @@ import Constants from '../constants';
 })
 export class ExportJsonFileComponent implements OnInit {
 
-  private structure_filed_required: string[] = Constants.structureRequiredJSONExpImp;
+  private structure_filed_required: string[] = Constants.structureRequiredJSON.form;
 
   @Input() public jsonFile!: FormStructure;
   @Input() public fileInfo!: any;

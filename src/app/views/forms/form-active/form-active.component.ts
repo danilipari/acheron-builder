@@ -83,6 +83,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     },
   ];
 
+  externalJSON: boolean = false;
+
   public regexs: any[] = [
     {
       label: 'Password 5 Level Strenght Password',
@@ -143,6 +145,14 @@ export class FormActiveComponent implements OnInit, OnDestroy {
         console.log(error);
       };
     } else {
+      if (Object.keys(history.state).length > 2) {
+        this.formBody = {
+          ...history.state,
+          form_special: Boolean(Number(history.state.form_special)),
+          actions: history.state.actions ? history.state.actions : [],
+          forms: history.state.forms ? history.state.forms : [],
+        };
+      }
       this.init();
     }
   }

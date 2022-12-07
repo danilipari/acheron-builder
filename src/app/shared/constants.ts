@@ -725,12 +725,14 @@ export default class Constants {
     ]
   };
 
-  static structureRequiredJSONExpImp: string[] = [
-    "uuid",
-    "form_name",
-    "form_special",
-    "forms",
-    "actions",
-  ];
+  static structureRequiredJSON: any = {
+    form: [
+      "uuid",
+      "form_name",
+      "form_special",
+      "forms",
+      "actions",
+    ],
+  };
 
 }

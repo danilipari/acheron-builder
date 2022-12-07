@@ -12,9 +12,9 @@ import Constants from '../constants';
 export class ImportJsonFileComponent implements OnInit {
   @Input() public exit_path!: any[];
   @Input() public format_accpeted!: string;
+  @Input() public requiredKeys: string[] = Constants.structureRequiredJSON.form;
   @Output() public emitStatus = new EventEmitter<boolean>(false);
-
-  private structure_filed_required: string[] = Constants.structureRequiredJSONExpImp;
+  @Output() public emitOpenJson = new EventEmitter<any>();
 
   public jsonFile: any = null;
   public fileInfo: any = null;
@@ -29,6 +29,10 @@ export class ImportJsonFileComponent implements OnInit {
 
   public exitAction(): void {
     this.router.navigate([...this.exit_path]);
+  }
+
+  public openJSON(): void {
+    this.emitOpenJson.emit(this.jsonFile);
   }
 
   public chooseFile(): void {
@@ -89,13 +93,17 @@ export class ImportJsonFileComponent implements OnInit {
 
   private validateJSONOutput(): any {
     const dataIn = Object.keys(this.jsonFile);
-    const validation = this.structure_filed_required.map((el: any) => ({ test: dataIn.includes(el), value: el}));
+    const validation = this.requiredKeys.map((el: any) => ({ test: dataIn.includes(el), value: el}));
     const resValidation = {
       missing: validation?.filter((el: any) => !el.test)?.map((elMiss: ({ test: boolean, value: string })) => (elMiss.value)),
       can: validation.every((elValid: ({ test: boolean, value: string })) => elValid.test === true)
     };
 
     return resValidation;
+  }
+
+  public isValid(): boolean {
+    return this.validateJSONOutput()?.can;
   }
 
 }
