@@ -52,7 +52,7 @@ export class FormComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
   ) {}
 
-  public  ngOnInit(): void {
+  public ngOnInit(): void {
     this.formService.getForms().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.forms = responseData;
     }), (error: any) => {
@@ -66,10 +66,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public openJSON(element: any): void {
     const STATE = {
-      state: this.cloneForm({ ...element, forms_quantity: [...element.actions, ...element.forms]?.length}, 'JSON').nf
+      state: this.cloneForm({ ...element.file, forms_quantity: [...element.file.actions, ...element.file.forms]?.length}, 'JSON').nf
     };
 
-    this.router.navigateByUrl(`/forms/action`, {...STATE});
+    this.router.navigateByUrl(`/${element.path?.join('/')}`, {...STATE});
   }
 
   public snackBar(message: string = 'Done!', color: string = 'default'): void {

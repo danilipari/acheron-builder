@@ -32,7 +32,7 @@ export class ImportJsonFileComponent implements OnInit {
   }
 
   public openJSON(): void {
-    this.emitOpenJson.emit(this.jsonFile);
+    this.emitOpenJson.emit({ file: this.jsonFile, path: this.exit_path });
   }
 
   public chooseFile(): void {
