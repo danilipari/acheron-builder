@@ -8,5 +8,7 @@ export const environment = {
   apiUrl: 'https://st-sti.escort-advisor.com/api/v1/',
   strapiUser: 'acheron@dontouch.ch',
   strapiPass: 'gabcYz9NuhsEazZEWPh',
-  apiUrlStrapi: 'http://babylon2.dontouch.group:1337/'
+  apiUrlStrapi: 'http://babylon2.dontouch.group:1337/',
+  apiUrlDeepL: 'https://api-free.deepl.com/v2/translate',
+  apiKeyDeepL: 'ccbb16f8-4f8d-3d25-38fd-eb04da569e54',
 };

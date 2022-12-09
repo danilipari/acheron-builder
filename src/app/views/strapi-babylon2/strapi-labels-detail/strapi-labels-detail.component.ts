@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StrapiBabylon2Service } from '../../../services/strapi-babylon2.service';
 import { GoogleService } from '../../../services/google.service';
+import { DeeplService } from '../../../services/deepl.service';
 import { GoogleObj } from '../../../shared/interfaces';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -30,6 +31,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   constructor(
     private strapiService: StrapiBabylon2Service,
     private googleService: GoogleService,
+    private deeplService: DeeplService,
     private router: Router,
     private route: ActivatedRoute,
   ) {}
@@ -68,11 +70,17 @@ export class StrapiLabelsDetailComponent implements OnInit {
     }
   }
 
-  public translateWithGoogle(): void {
-    console.log(this.googleObject, this.key, '----translateWithGoogle----');
-
+  public translate(): void {
     if (this.key.length > 0) {
-      this.googleTranslateAction();
+      this.deeplTranslateAction();
+    }
+  }
+
+  private deeplTranslateAction(): void {
+    this.deeplService.translateDeepL(this.key, 'IT', 'EN-GB').subscribe((responseData: any) => {
+      console.log(responseData, '----result DeepL----');
+    }), (error: any) => {
+      console.log(error);
     }
   }
 
