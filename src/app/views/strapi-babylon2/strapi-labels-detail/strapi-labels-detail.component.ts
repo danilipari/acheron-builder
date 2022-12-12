@@ -126,7 +126,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   public translateAllLabels(): void {
-    const labels = { "label_title": this.formTitle, ...this.formItemsMerge };
+    const labels = { "label_title": this.dataRes["label_title"], ...this.formItemsMerge };
 
     if (!Object.values(labels).every((res: any) => res != null)) {
       const _keys = Object.entries(labels).filter((el: any, index: number) => el[1] == null);
@@ -149,10 +149,10 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   public saveLabels(): void {
-    const labels = { "label_title": this.formTitle, ...this.formItemsMerge };
+    const labels = { "label_title": this.dataRes["label_title"], ...this.formItemsMerge };
     if (confirm(`Confirm save labels in ${this.formTitle}?`)) {
       const data = {
-        "label_title": this.formTitle,
+        "label_title": this.dataRes["label_title"],
         ...Object.assign({}, this.dataRes, ...Object.entries(this.formItemsMerge).reduce((acc: any, item: any, index: any) => {
           if (item[0].includes("_body")) {
             acc = [...acc, ({ [item[0]]: item[1] })];
