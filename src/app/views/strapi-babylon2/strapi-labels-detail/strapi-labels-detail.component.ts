@@ -72,7 +72,8 @@ export class StrapiLabelsDetailComponent implements OnInit {
 
   public translate(): void {
     if (this.key.length > 0) {
-      this.deeplTranslateAction();
+      // this.deeplTranslateAction();
+      this.googleTranslateAction();
     }
   }
 
@@ -85,8 +86,8 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   private googleTranslateAction(): void {
-    this.googleService.translate(this.googleObject, this.key).subscribe((responseData: any) => {
-      this.resultGoolge = responseData.data.translations[0].translatedText;
+    this.googleService.translate({ ...this.googleObject, q: this.key }).subscribe((responseData: any) => {
+      this.resultGoolge = responseData.data?.translations[0].translatedText;
       console.log(this.resultGoolge, '----resultGoolge----');
     }), (error: any) => {
       console.log(error);

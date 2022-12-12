@@ -11,4 +11,6 @@ export const environment = {
   apiUrlStrapi: 'http://babylon2.dontouch.group:1337/',
   apiUrlDeepL: 'https://api-free.deepl.com/v2/translate',
   apiKeyDeepL: 'ccbb16f8-4f8d-3d25-38fd-eb04da569e54',
+  apiUrlGoogle: 'https://translation.googleapis.com/language/translate/v2',
+  apiKeyGoogle: 'AIzaSyAPwDgVqTcT2qjf5oh8t9jlDOZObBzLEv4',
 };
