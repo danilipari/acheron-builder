@@ -3,16 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 const API = environment.apiUrlDeepL;
-const APIKEY = environment.apiKeyDeepL;
+const API_KEY = environment.apiKeyDeepL;
 
 const httpOptionsBearer = {
   headers: new HttpHeaders({
-    // 'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
     'Access-Control-Allow-Origin': '*',
     'User-Agent': 'acheron',
     'Content-Length': '',
-    'Authorization': `DeepL-Auth-Key ${APIKEY}:fx`
+    'Authorization': `DeepL-Auth-Key ${API_KEY}:fx`
   }),
   withCredentials: false
 };
