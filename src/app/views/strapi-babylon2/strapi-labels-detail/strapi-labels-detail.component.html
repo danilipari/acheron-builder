@@ -15,10 +15,10 @@
             <h4 class="my-auto mb-3">{{ item.key }}</h4>
             <div class="input-group">
               <input type="text" class="form-control" [(ngModel)]="item.value">
-              <div class="border border-success p-2" *ngIf="getItem(item.value).length">
+              <div class="border border-success p-2" *ngIf="getItem(item).length">
                 <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
               </div>
-              <button class="btn btn-outline-primary" [disabled]="false" type="button" id="button-addon">Translate</button>
+              <button *ngIf="!getItem(item).origin" class="btn btn-outline-primary" [disabled]="false" type="button" id="button-addon" (click)="translateAction(item)">Translate</button>
             </div>
           </div>
         </div>
@@ -53,10 +53,10 @@
 </div>
 
 
-<label for="1" class="text-white">{{ key | json }}</label>
-<br>
-<input type="text" id="1" [(ngModel)]="key">
-<button class="btn btn-primary" (click)="translate()">Translate</button>
+<!-- <label for="1" class="text-white">{{ key | json }}</label> -->
+<!-- <br> -->
+<!-- <input type="text" id="1" [(ngModel)]="key"> -->
+<!-- <button class="btn btn-primary" (click)="translate()">Translate</button> -->
 
 
 

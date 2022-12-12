@@ -25,7 +25,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
     target: 'en',
     format: 'text',
   };
-  key!: string;
+  // key!: string;
   resultGoolge!: any;
 
   constructor(
@@ -59,26 +59,42 @@ export class StrapiLabelsDetailComponent implements OnInit {
       this.formTitle = responseData.label_title;
       this.formItems = Object.assign({}, ...Object.entries(this.dataRes).reduce((acc: any, item: any, index: any) => {
         if (item[0].includes("_body")) {
-          acc = [...acc, ({[item[0]]: item[1]})];
+          acc = [...acc, ({ [item[0]]: item[1] })];
         }
         return acc;
       }, []));
-      this.formItemsMerge = { "label_title": responseData.label_title, ...this.formItems };
-      console.log(this.formItemsMerge);
+      const formItems = { /* "label_title": responseData.label_title, */ ...this.formItems };
+      this.formItemsMerge = formItems // ?.map((el: any) => ({ ...el, l: this.getItem(el) }));
+      console.log(this.formItemsMerge, 'controlPathIds');
     }), (error: any) => {
       console.log(error);
     }
   }
 
+  public translateAction(element: any): void {
+    const origin_lang = 'it';
+    const destination_lang = element.key?.split("_")[0];
+    const value_origin = this.formItemsMerge[`${origin_lang}_body`];
+
+    this.googleObject = {
+      ...this.googleObject,
+      q: value_origin,
+      source: origin_lang,
+      target: destination_lang,
+    };
+
+    this.translate();
+  }
+
   public translate(): void {
-    if (this.key.length > 0) {
-      // this.deeplTranslateAction();
+    if (this.googleObject.q.length > 0) {
       this.googleTranslateAction();
+      // this.deeplTranslateAction();
     }
   }
 
   private deeplTranslateAction(): void {
-    this.deeplService.translateDeepL(this.key, 'IT', 'EN-GB').subscribe((responseData: any) => {
+    this.deeplService.translateDeepL(/* this.key */'', 'IT', 'EN-GB').subscribe((responseData: any) => {
       console.log(responseData, '----result DeepL----');
     }), (error: any) => {
       console.log(error);
@@ -86,7 +102,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   private googleTranslateAction(): void {
-    this.googleService.translate({ ...this.googleObject, q: this.key }).subscribe((responseData: any) => {
+    this.googleService.translate(this.googleObject).subscribe((responseData: any) => {
       this.resultGoolge = responseData.data?.translations[0].translatedText;
       console.log(this.resultGoolge, '----resultGoolge----');
     }), (error: any) => {
@@ -94,8 +110,8 @@ export class StrapiLabelsDetailComponent implements OnInit {
     }
   }
 
-  public getItem(element: any): any {
-    return { el: element, length: element != null ? element.trim()?.length : 0 };
+  public getItem(element: any, origin: string = 'it'): any {
+    return { el: element, origin: element.key?.split("_")[0] === origin, length: element.value != null ? element.value.trim()?.length : 0 };
   }
 
 }
