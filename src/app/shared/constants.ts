@@ -631,12 +631,16 @@ export default class Constants {
     { label: "Russian", value: "RU" },
   ];
 
+  // https://cloud.google.com/translate/docs/languages
+
   static strapiCountries: [
     { label: "Germany", value: "DE" },
     { label: "Spain", value: "ES" },
     { label: "United Kingdom", value: "GB" },
     { label: "Italy", value: "IT" },
   ];
+
+  // https://cloud.google.com/translate/docs/languages
 
   static angularEditorConfig: AngularEditorConfig = {
     editable: true,

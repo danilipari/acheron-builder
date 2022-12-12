@@ -1,9 +1,18 @@
 <app-strapi-header></app-strapi-header>
 <div class="container-fluid p-4">
   <div class="bg-white text-dark w-100 p-3">
-    <div>
-      <h1 class="text-primary-ab my-auto">{{ formTitle | titlecase }}</h1>
-      <h4 class="text-muted my-auto">API ID: label</h4>
+    <div class="d-flex justify-content-between">
+      <div class="my-auto">
+        <input type="text" class="form-control border border-primary text-primary-ab" [(ngModel)]="formTitle">
+        <h4 class="text-muted my-auto">API ID: label</h4>
+      </div>
+      <div class="my-auto">
+        <div (click)="translateAllLabels()" class="my-auto p-2 border border-primary bg-dark-light-ab rounded position-relative d-flex" style="cursor: pointer;" mat-raised-button matTooltip="Auto Translate" aria-label="Auto Translate" matTooltipClass="tooltip">
+          <i-bs name="file-earmark-medical-fill" class="text-primary-ab my-auto mx-2" width="20px" height="20px"></i-bs>
+          <p class="my-auto mt-1 text-primary-ab">Translate</p>
+        </div>
+        <h4 class="text-muted my-auto">Translate all labels</h4>
+      </div>
     </div>
 
     <hr>
@@ -18,7 +27,7 @@
               <div class="border border-success p-2" *ngIf="getItem(item).length">
                 <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
               </div>
-              <button *ngIf="!getItem(item).origin" class="btn btn-outline-primary" [disabled]="false" type="button" id="button-addon" (click)="translateAction(item)">Translate</button>
+              <button *ngIf="!getItem(item).origin" class="btn btn-outline-primary" [disabled]="!getItem(item).can" type="button" id="button-addon" (click)="translateAction(item)">Translate</button>
             </div>
           </div>
         </div>
@@ -41,22 +50,29 @@
 
       </div>
     </div>
-    <div class="d-flex flex-row-reverse">
+    <div class="d-flex justify-content-end">
+      <div (click)="saveLabels()" class="my-auto p-2 border border-success rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Save" aria-label="Save" matTooltipClass="tooltip">
+        <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
+      </div>
       <div class="my-auto p-2 border border-danger rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Delete" aria-label="Delete" matTooltipClass="tooltip">
         <i-bs name="trash" class="text-danger" width="22px" height="22px"></i-bs>
       </div>
-      <div class="my-auto p-2 border border-success rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Save" aria-label="Save" matTooltipClass="tooltip">
-        <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
-      </div>
     </div>
   </div>
+</div>
+
+<div class="text-white">
+  <p>{{ { "label_title" : formTitle } | json }}</p>
+  <pre>{{ formItemsMerge | json }}</pre>
+  <hr>
+  <pre>{{ dataRes | json }}</pre>
 </div>
 
 
 <!-- <label for="1" class="text-white">{{ key | json }}</label> -->
 <!-- <br> -->
 <!-- <input type="text" id="1" [(ngModel)]="key"> -->
-<!-- <button class="btn btn-primary" (click)="translate()">Translate</button> -->
+<!-- <button class="btn btn-primary" (click)="translate(2)">Translate</button> -->
 
 
 
