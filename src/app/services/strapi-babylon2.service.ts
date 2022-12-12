@@ -62,4 +62,12 @@ export class StrapiBabylon2Service {
     return this.http.delete(`${API}content-manager/collection-types/${application}/${id}`, httpOptionsBearer);
   }
 
+  updateTableCollectionItem(application: string, data: any, id: string | number) {
+    return this.http.put(`${API}content-manager/collection-types/${application}/${id}`, data, httpOptionsBearer);
+  }
+
+  cloneTableCollectionItem(application: string, data: any) {
+    return this.http.post(`${API}content-manager/collection-types/${application}`, data, httpOptionsBearer);
+  }
+
 }

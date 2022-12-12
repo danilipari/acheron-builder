@@ -5,6 +5,7 @@ import { DeeplService } from '../../../services/deepl.service';
 import { GoogleObj } from '../../../shared/interfaces';
 import { forkJoin } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-strapi-labels-detail',
@@ -35,6 +36,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
     private deeplService: DeeplService,
     private router: Router,
     private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -136,17 +138,41 @@ export class StrapiLabelsDetailComponent implements OnInit {
     }
   }
 
+  public deleteLabelKey(): void {
+    if (confirm("Are you sure you want to delete this entry?")) {
+      this.strapiService.deleteTableCollectionItem("application::label.label", this.pId).subscribe((responseData: any) => {
+        this.router.navigate(['strapi', 'labels']);
+      }), (error: any) => {
+        console.log(error);
+      }
+    }
+  }
+
   public saveLabels(): void {
     const labels = { "label_title": this.formTitle, ...this.formItemsMerge };
     if (confirm(`Confirm save labels in ${this.formTitle}?`)) {
-      if (!Object.values(labels).every((res: any) => res != null)) {
-        if (confirm('There are some missing labels, do you want to auto translate the missing labels?')) {
-          this.translateAllLabels();
-        } else {
-          console.log(alert('There are some missing labels, please try later or try saving them again!'));
+      const data = {
+        "label_title": this.formTitle,
+        ...Object.assign({}, this.dataRes, ...Object.entries(this.formItemsMerge).reduce((acc: any, item: any, index: any) => {
+          if (item[0].includes("_body")) {
+            acc = [...acc, ({ [item[0]]: item[1] })];
+          }
+          return acc;
+        }, [])),
+      };
+
+      if (this.pId != this.qId) {
+        this.strapiService.updateTableCollectionItem("application::label.label", data, this.pId).subscribe((responseData: any) => {
+          console.debug(responseData, '--updateTableCollectionItem--');
+        }), (error: any) => {
+          console.log(error);
         }
       } else {
-        console.log("salvataggio dell'item");
+        this.strapiService.cloneTableCollectionItem("application::label.label", data).subscribe((responseData: any) => {
+          this.router.navigate(['strapi', 'labels']);
+        }), (error: any) => {
+          console.log(error);
+        }
       }
     }
   }

@@ -3,7 +3,7 @@
   <div class="bg-white text-dark w-100 p-3">
     <div class="d-flex justify-content-between">
       <div class="my-auto">
-        <input type="text" class="form-control border border-primary text-primary-ab" [(ngModel)]="formTitle">
+        <input type="text" class="form-control border border-primary text-primary-ab" [(ngModel)]="dataRes.label_title">
         <h4 class="text-muted my-auto">API ID: label</h4>
       </div>
       <div class="my-auto">
@@ -54,28 +54,14 @@
       <div (click)="saveLabels()" class="my-auto p-2 border border-success rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Save" aria-label="Save" matTooltipClass="tooltip">
         <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
       </div>
-      <div class="my-auto p-2 border border-danger rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Delete" aria-label="Delete" matTooltipClass="tooltip">
+      <div (click)="deleteLabelKey()" *ngIf="qId != pId" class="my-auto p-2 border border-danger rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Delete" aria-label="Delete" matTooltipClass="tooltip">
         <i-bs name="trash" class="text-danger" width="22px" height="22px"></i-bs>
       </div>
     </div>
   </div>
 </div>
 
-<div class="text-white">
-  <p>{{ { "label_title" : formTitle } | json }}</p>
-  <pre>{{ formItemsMerge | json }}</pre>
-  <hr>
-  <pre>{{ dataRes | json }}</pre>
-</div>
-
-
 <!-- <label for="1" class="text-white">{{ key | json }}</label> -->
 <!-- <br> -->
 <!-- <input type="text" id="1" [(ngModel)]="key"> -->
 <!-- <button class="btn btn-primary" (click)="translate(2)">Translate</button> -->
-
-
-
-<!-- <div class="text-white">
-  <pre>{{ dataRes | json }}</pre>
-</div> -->
