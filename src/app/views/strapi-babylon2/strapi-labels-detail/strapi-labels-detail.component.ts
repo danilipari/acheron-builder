@@ -123,7 +123,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
     return { el: element, can: element.key?.split("_")[0].trim()?.length > 0, origin: element.key?.split("_")[0] === origin, length: element.value != null ? element.value.trim()?.length : 0 };
   }
 
-  public async translateAllLabels(): Promise<void> {
+  public translateAllLabels(): void {
     const labels = { "label_title": this.formTitle, ...this.formItemsMerge };
 
     if (!Object.values(labels).every((res: any) => res != null)) {
@@ -141,7 +141,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
     if (confirm(`Confirm save labels in ${this.formTitle}?`)) {
       if (!Object.values(labels).every((res: any) => res != null)) {
         if (confirm('There are some missing labels, do you want to auto translate the missing labels?')) {
-          console.log('auto translate action', Object.entries(labels).filter((el: any, index: number) => el[1] == null));
+          this.translateAllLabels();
         } else {
           console.log(alert('There are some missing labels, please try later or try saving them again!'));
         }
