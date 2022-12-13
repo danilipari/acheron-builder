@@ -83,8 +83,6 @@ export class StrapiLabelsComponent implements OnInit {
   }
 
   private actionTable(element: any, section: string): void {
-    console.log(section, element);
-
     switch (section) {
       case "copy":
         this.router.navigate(['strapi', 'labels', 'detail', element.id], { queryParams: { cp: element.id } });

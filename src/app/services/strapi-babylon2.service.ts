@@ -70,4 +70,9 @@ export class StrapiBabylon2Service {
     return this.http.post(`${API}content-manager/collection-types/${application}`, data, httpOptionsBearer);
   }
 
+  getSelectRelationsCollection(application: string, entity: string, data: any, limit: number = 20) {
+    return this.http.post(`${API}content-manager/relations/${application}/${entity}?_limit=${limit}`, data, httpOptionsBearer);
+  }
+
+
 }

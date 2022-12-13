@@ -17,9 +17,8 @@ export class StrapiLabelsDetailComponent implements OnInit {
   pId: number  = 0;
 
   dataRes!: any;
-  formTitle!: string;
-  formItems!: any;
-  formItemsMerge!: any;
+  inputsItemsMerge!: any;
+  selectsItemsMerge!: any;
 
   googleObject: GoogleObj = {
     q: '',
@@ -54,14 +53,21 @@ export class StrapiLabelsDetailComponent implements OnInit {
         });
       }
     });
+
+    /* forkJoin({
+      categories: this.strapiService.getSelectRelationsCollection("application::label.label", "categories", {"idsToOmit":[]}, 20),
+      countries: this.strapiService.getSelectRelationsCollection("application::label.label", "countries", {"idsToOmit":[]}, 20),
+    }).subscribe((res: any) => {
+      console.log('--res--', res);
+    }); */
   }
 
   private controlPathIds(mode: number, id: number ): void {
     this.strapiService.getTableCollectionItem("application::label.label", id).subscribe((responseData: any) => {
       this.dataRes = responseData;
-      this.formTitle = responseData.label_title;
-      this.updateFormItemsMerge(this.dataRes);
-      console.debug(this.formItemsMerge, 'controlPathIds');
+      this.updateInputsItemsMerge(this.dataRes);
+      this.updateSelectsItemsMerge(this.dataRes);
+      console.debug(this.inputsItemsMerge, 'controlPathIds');
     }), (error: any) => {
       console.log(error);
     }
@@ -70,7 +76,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   public translateAction(element: any): void {
     const origin_lang = 'it';
     const destination_lang = element.key?.split("_")[0];
-    const value_origin = this.formItemsMerge[`${origin_lang}_body`];
+    const value_origin = this.inputsItemsMerge[`${origin_lang}_body`];
 
     this.googleObject = {
       ...this.googleObject,
@@ -103,22 +109,34 @@ export class StrapiLabelsDetailComponent implements OnInit {
   private googleTranslateAction(element: any): void {
     this.googleService.translate(this.googleObject).subscribe((responseData: any) => {
       this.resultGoolge = responseData.data?.translations[0].translatedText;
-      this.formItemsMerge[element.key] = this.resultGoolge;
-      this.updateFormItemsMerge(this.formItemsMerge);
-      console.debug(this.resultGoolge, this.formItemsMerge, '----resultGoolge----');
+      this.inputsItemsMerge[element.key] = this.resultGoolge;
+      this.updateInputsItemsMerge(this.inputsItemsMerge);
+      console.debug(this.resultGoolge, this.inputsItemsMerge, '----resultGoolge----');
     }), (error: any) => {
       console.log(error);
     }
   }
 
-  private updateFormItemsMerge(list: any): void {
-    this.formItems = Object.assign({}, ...Object.entries(list).reduce((acc: any, item: any, index: any) => {
+  private updateSelectsItemsMerge(list: any): void {
+    const selItems = Object.assign({}, ...Object.entries(list).reduce((acc: any, item: any, index: any) => {
+      if (Array.isArray(item[1])) {
+        acc = [...acc, ({ [item[0]]: item[1] })];
+      }
+      return acc;
+    }, []));
+
+    this.selectsItemsMerge = { ...selItems };
+  }
+
+  private updateInputsItemsMerge(list: any): void {
+    const inpItems = Object.assign({}, ...Object.entries(list).reduce((acc: any, item: any, index: any) => {
       if (item[0].includes("_body")) {
         acc = [...acc, ({ [item[0]]: item[1] })];
       }
       return acc;
     }, []));
-    this.formItemsMerge = { ...this.formItems };
+
+    this.inputsItemsMerge = { ...inpItems };
   }
 
   public getItem(element: any, origin: string = 'it'): any {
@@ -126,7 +144,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   public translateAllLabels(): void {
-    const labels = { "label_title": this.dataRes["label_title"], ...this.formItemsMerge };
+    const labels = { "label_title": this.dataRes["label_title"], ...this.inputsItemsMerge };
 
     if (!Object.values(labels).every((res: any) => res != null)) {
       const _keys = Object.entries(labels).filter((el: any, index: number) => el[1] == null);
@@ -149,11 +167,11 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   public saveLabels(): void {
-    const labels = { "label_title": this.dataRes["label_title"], ...this.formItemsMerge };
-    if (confirm(`Confirm save labels in ${this.formTitle}?`)) {
+    const labels = { "label_title": this.dataRes["label_title"], ...this.inputsItemsMerge };
+    if (confirm(`Confirm save labels in ${this.dataRes.label_title}?`)) {
       const data = {
         "label_title": this.dataRes["label_title"],
-        ...Object.assign({}, this.dataRes, ...Object.entries(this.formItemsMerge).reduce((acc: any, item: any, index: any) => {
+        ...Object.assign({}, this.dataRes, ...Object.entries(this.inputsItemsMerge).reduce((acc: any, item: any, index: any) => {
           if (item[0].includes("_body")) {
             acc = [...acc, ({ [item[0]]: item[1] })];
           }

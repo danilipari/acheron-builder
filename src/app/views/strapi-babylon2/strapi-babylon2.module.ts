@@ -21,20 +21,24 @@ import { StrapiBabylon2Component } from './strapi-babylon2.component';
 import { StrapiCategoriesComponent } from './strapi-categories/strapi-categories.component';
 import { StrapiCountriesComponent } from './strapi-countries/strapi-countries.component';
 import { StrapiLabelsComponent } from './strapi-labels/strapi-labels.component';
-import { StrapiHeaderComponent } from './strapi-header/strapi-header.component';
 import { StrapiLabelsDetailComponent } from './strapi-labels-detail/strapi-labels-detail.component';
 import { StrapiCategoriesDetailComponent } from './strapi-categories-detail/strapi-categories-detail.component';
 import { StrapiCountriesDetailComponent } from './strapi-countries-detail/strapi-countries-detail.component';
+
+import { StrapiHeaderComponent } from './components/strapi-header/strapi-header.component';
+import { StrapiDynamicSelectComponent } from './components/strapi-dynamic-select/strapi-dynamic-select.component';
 
 const components: Array<any> = [
   StrapiBabylon2Component,
   StrapiCategoriesComponent,
   StrapiCountriesComponent,
   StrapiLabelsComponent,
-  StrapiHeaderComponent,
   StrapiLabelsDetailComponent,
   StrapiCategoriesDetailComponent,
   StrapiCountriesDetailComponent,
+
+  StrapiHeaderComponent,
+  StrapiDynamicSelectComponent,
 ];
 
 const materialModules = [

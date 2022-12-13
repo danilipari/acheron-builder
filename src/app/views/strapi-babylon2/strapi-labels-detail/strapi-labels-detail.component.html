@@ -3,7 +3,7 @@
   <div class="bg-white text-dark w-100 p-3">
     <div class="d-flex justify-content-between">
       <div class="my-auto">
-        <input type="text" class="form-control border border-primary text-primary-ab" [(ngModel)]="dataRes.label_title">
+        <input type="text" class="form-control border border-primary text-primary-ab" [(ngModel)]="dataRes.label_title" *ngIf="dataRes">
         <h4 class="text-muted my-auto">API ID: label</h4>
       </div>
       <div class="my-auto">
@@ -20,7 +20,7 @@
     <div class="d-flex px-3">
       <div class="col-8">
         <div class="row bg-light rounded p-3 mb-5">
-          <div class="col-6 mb-3" *ngFor="let item of formItemsMerge | keyvalue; let i = index">
+          <div class="col-6 mb-3" *ngFor="let item of inputsItemsMerge | keyvalue">
             <h4 class="my-auto mb-3">{{ item.key }}</h4>
             <div class="input-group">
               <input type="text" class="form-control" [(ngModel)]="item.value">
@@ -38,14 +38,20 @@
         </div>
 
         <div class="row bg-light rounded p-3 mb-5">
-          <div class="">
+
+          <div class="" *ngFor="let item of selectsItemsMerge | keyvalue">
+            <app-strapi-dynamic-select #dynamicSelect [data]="item" (click)="dynamicSelect.getValues($event)"></app-strapi-dynamic-select>
+          </div>
+
+          <!-- <div class="">
             <h4 class="my-auto">Categories</h4>
             <select class="form-select" name="" id=""></select>
           </div>
           <div class="my-3">
             <h4 class="my-auto">Countries</h4>
             <select class="form-select" name="" id=""></select>
-          </div>
+          </div> -->
+
         </div>
 
       </div>
