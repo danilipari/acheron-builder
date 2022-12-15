@@ -143,6 +143,11 @@ export class StrapiLabelsDetailComponent implements OnInit {
     return { el: element, can: element.key?.split("_")[0].trim()?.length > 0, origin: element.key?.split("_")[0] === origin, length: element.value != null ? element.value.trim()?.length : 0 };
   }
 
+  public cleanValueInput(key: any, value: string): void {
+    const elValue = value?.trim()?.length > 0 ? value.trim() : null;
+    this.dataRes[key] = elValue;
+  }
+
   public translateAllLabels(): void {
     const labels = { "label_title": this.dataRes["label_title"], ...this.inputsItemsMerge };
 
@@ -177,15 +182,17 @@ export class StrapiLabelsDetailComponent implements OnInit {
     if (confirm(`Confirm save labels in ${this.dataRes.label_title}?`)) {
       const data = {
         "label_title": this.dataRes["label_title"],
-        ...Object.assign({}, this.dataRes, ...Object.entries(this.inputsItemsMerge).reduce((acc: any, item: any, index: any) => {
+        ...Object.assign({}, ...Object.entries(this.inputsItemsMerge).reduce((acc: any, item: any, index: any) => {
           if (item[0].includes("_body")) {
             acc = [...acc, ({ [item[0]]: item[1] })];
           }
           return acc;
-        }, [])),
+        }, []), this.dataRes),
       };
 
-      if (this.pId != this.qId) {
+      console.log('--data--', data);
+
+      /* if (this.pId != this.qId) {
         this.strapiService.updateTableCollectionItem("application::label.label", data, this.pId).subscribe((responseData: any) => {
           console.debug(responseData, '--updateTableCollectionItem--');
         }), (error: any) => {
@@ -197,7 +204,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
         }), (error: any) => {
           console.log(error);
         }
-      }
+      } */
     }
   }
 

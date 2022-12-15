@@ -1,5 +1,5 @@
 <app-strapi-header></app-strapi-header>
-<div class="container-fluid p-4">
+<div class="container-fluid p-4" *ngIf="dataRes">
   <div class="bg-white text-dark w-100 p-3">
     <div class="d-flex justify-content-between">
       <div class="my-auto">
@@ -23,7 +23,7 @@
           <div class="col-6 mb-3" *ngFor="let item of inputsItemsMerge | keyvalue">
             <h4 class="my-auto mb-3">{{ item.key }}</h4>
             <div class="input-group">
-              <input type="text" class="form-control" [(ngModel)]="item.value">
+              <input type="text" class="form-control" #input [(ngModel)]="item.value" (input)="cleanValueInput(item.key, item.value)">
               <div class="border border-success p-2" *ngIf="getItem(item).length">
                 <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
               </div>
@@ -38,11 +38,11 @@
           <div class="d-flex flex-column my-3">
             <div class="my-auto d-flex justify-content-between">
               <h4 class="my-auto text-muted">{{ 'Last Update' | uppercase }}</h4>
-              <p class="my-auto mb-0">{{ dataRes.updated_at | date: 'dd-MM-yyyy HH:mm' }}</p>
+              <p class="my-auto mb-0">{{ dataRes?.updated_at | date: 'dd-MM-yyyy HH:mm:ss' }}</p>
             </div>
             <div class="my-auto d-flex justify-content-between mt-3">
               <h4 class="my-auto text-muted">{{ 'By' | uppercase }}</h4>
-              <p class="my-auto mb-0">{{ dataRes.updated_by?.firstname }} {{ dataRes.updated_by?.lastname }}</p>
+              <p class="my-auto mb-0">{{ dataRes?.updated_by.firstname }} {{ dataRes.updated_by?.lastname }}</p>
             </div>
           </div>
         </div>
