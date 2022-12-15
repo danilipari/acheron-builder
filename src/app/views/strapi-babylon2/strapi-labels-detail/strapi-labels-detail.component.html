@@ -17,9 +17,9 @@
 
     <hr>
 
-    <div class="d-flex px-3">
+    <div class="d-flex px-3 bg-light">
       <div class="col-8">
-        <div class="row bg-light rounded p-3 mb-5">
+        <div class="row rounded p-3 mb-5">
           <div class="col-6 mb-3" *ngFor="let item of inputsItemsMerge | keyvalue">
             <h4 class="my-auto mb-3">{{ item.key }}</h4>
             <div class="input-group">
@@ -33,11 +33,21 @@
         </div>
       </div>
       <div class="col-4">
-        <div class="row bg-light rounded p-3 mb-5">
+        <div class="row rounded m-3 mb-5 bg-white pt-3 rounded pb-2 px-2 mt-4">
           <h4 class="my-auto">Information</h4>
+          <div class="d-flex flex-column my-3">
+            <div class="my-auto d-flex justify-content-between">
+              <h4 class="my-auto text-muted">{{ 'Last Update' | uppercase }}</h4>
+              <p class="my-auto mb-0">{{ dataRes.updated_at | date: 'dd-MM-yyyy HH:mm' }}</p>
+            </div>
+            <div class="my-auto d-flex justify-content-between mt-3">
+              <h4 class="my-auto text-muted">{{ 'By' | uppercase }}</h4>
+              <p class="my-auto mb-0">{{ dataRes.updated_by?.firstname }} {{ dataRes.updated_by?.lastname }}</p>
+            </div>
+          </div>
         </div>
 
-        <div class="row bg-light rounded p-3 mb-5">
+        <div class="row rounded m-3 mb-5 bg-white pt-3 rounded px-2 pb-2 mt-4">
 
           <div class="" *ngFor="let item of selectsItemsMerge | keyvalue">
             <app-strapi-dynamic-select #dynamicSelect [data]="item" (click)="dynamicSelect.getValues($event)" (emitList)="updateList($event)"></app-strapi-dynamic-select>
@@ -56,7 +66,7 @@
 
       </div>
     </div>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mt-4">
       <div (click)="saveLabels()" class="my-auto p-2 border border-success rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Save" aria-label="Save" matTooltipClass="tooltip">
         <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
       </div>
