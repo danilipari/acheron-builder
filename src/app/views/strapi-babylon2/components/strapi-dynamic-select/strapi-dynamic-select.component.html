@@ -1,4 +1,4 @@
-<h4 class="my-auto">{{ data.key }}</h4>
+<h4 class="my-auto">{{ data.key | titlecase }}</h4>
 <select class="form-select" [name]="'select-' + data.key" [id]="'select-' + data.key" [(ngModel)]="selectedItem" (change)="newSelected()">
   <option *ngFor="let option of options" [value]="option.id">
     {{ option[optionKey] }}
@@ -17,5 +17,3 @@
     </div>
   </div>
 </div>
-
-<!-- <pre>{{ data | json }}</pre> -->

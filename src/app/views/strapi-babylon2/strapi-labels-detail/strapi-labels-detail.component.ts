@@ -166,6 +166,12 @@ export class StrapiLabelsDetailComponent implements OnInit {
     }
   }
 
+  public updateList(event: any): void {
+    const entity = event.list;
+    const list = event.value;
+    this.dataRes[entity] = list;
+  }
+
   public saveLabels(): void {
     const labels = { "label_title": this.dataRes["label_title"], ...this.inputsItemsMerge };
     if (confirm(`Confirm save labels in ${this.dataRes.label_title}?`)) {
