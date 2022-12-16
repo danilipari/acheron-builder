@@ -163,13 +163,13 @@ export class StrapiLabelsDetailComponent implements OnInit {
     if (confirm(`Confirm save labels in ${this.dataRes.label_title}?`)) {
       const data = {
         "label_title": this.dataRes["label_title"],
-        ...Object.assign({}, this.dataRes, ...Object.entries(this.inputsItemsMerge).reduce((acc: any, item: any, index: any) => {
-          if (item[0].includes("_body")) {
-            if (this.dataRes[item[0]] === this.inputsItemsMerge[item[0]]){
-              acc = [...acc, ({ [item[0]]: (this.inputsItemsMerge[item[0]] !== null && this.inputsItemsMerge[item[0]]?.trim()?.length > 0) ? this.inputsItemsMerge[item[0]] : null  })];
-            } else {
-              acc = [...acc, ({ [item[0]]: (this.dataRes[item[0]] !== null && this.dataRes[item[0]]?.trim()?.length > 0) ? this.dataRes[item[0]] : null })];
-            }
+        ...Object.assign({}, this.dataRes, ...this.inputsItemsMerge.reduce((acc: any, item: any, index: any) => {
+          console.debug(item.key, '--', this.dataRes[item.key], '--', this.inputsItemsMerge.find((f: any) => f.key == item.key)?.value, '--item--');
+
+          if (this.dataRes[item.key] === this.inputsItemsMerge.find((f: any) => f.key == item.key)?.value) {
+            acc = [ ...acc, { [item.key]: this.dataRes[item.key] }];
+          } else {
+            acc = [ ...acc, { [item.key]: this.inputsItemsMerge.find((f: any) => f.key == item.key)?.value }];
           }
           return acc;
         }, [])),
