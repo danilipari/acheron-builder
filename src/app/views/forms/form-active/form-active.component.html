@@ -307,8 +307,16 @@
                   </div>
                 </div>
 
+
+
                 <div class="row mt-3" *ngIf="getItem().full_element['component'] === 'label'">
+                  sono quiii
                   <div class="col-6 form-group">
+                    <label class="text-primary-ab">Strapi Labels Keys</label>
+                  </div>
+
+
+                  <!-- <div class="col-6 form-group">
                     <label class="text-primary-ab">Countries</label>
                     <mat-select class="form-control mb-2" [(ngModel)]="getItem().full_element['options'][0]['value']">
                       <mat-option *ngFor="let country of strapi.countries" [value]="country.value">
@@ -323,8 +331,11 @@
                         <p class="mb-0">{{ language.label }}</p>
                       </mat-option>
                     </mat-select>
-                  </div>
+                  </div> -->
                 </div>
+
+
+
                 <div class="row mt-3">
                   <div class="col-12 form-group">
                     <label class="text-primary-ab">Value</label>

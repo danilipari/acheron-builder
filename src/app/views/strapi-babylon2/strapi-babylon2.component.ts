@@ -63,7 +63,8 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
     this.strapiService.getContentTypes().subscribe((responseData: any) => {
       this.contentTypes = responseData.data?.filter((el: any) => el.isDisplayed && this.labels.includes(el.info.label)).map((el: any) => ({ ...el, info: { ...el.info, path: el.info.label?.toLowerCase() } }));
     }), (error: any) => {
-      console.log(error, this.errorJWTStrapi());
+      this.errorJWTStrapi();
+      console.log(error);
     }
   }
 
