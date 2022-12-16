@@ -23,10 +23,10 @@
     <div class="d-flex px-3 bg-light">
       <div class="col-8">
         <div class="row rounded p-3 mb-5">
-          <div class="col-6 mb-3" *ngFor="let item of inputsItemsMerge | keyvalue">
+          <div class="col-6 mb-3" *ngFor="let item of inputsItemsMerge"> <!-- ; trackBy: trackByInputs -->
             <h4 class="my-auto mb-3">{{ item.key }}</h4>
             <div class="input-group">
-              <input type="text" class="form-control" #input [(ngModel)]="item.value" (input)="cleanValueInput(item.key, item.value)">
+              <input type="text" class="form-control" [value]="item.value" [(ngModel)]="item.value" (keyup)="clearValueInput(item.key, item.value)">
               <div class="border border-success p-2" *ngIf="getItem(item).length">
                 <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
               </div>
@@ -53,7 +53,7 @@
 
         <div class="row rounded m-3 mb-5 bg-white pt-3 rounded px-2 pb-2 mt-4">
 
-          <div class="" *ngFor="let item of selectsItemsMerge | keyvalue">
+          <div class="" *ngFor="let item of selectsItemsMerge">
             <app-strapi-dynamic-select #dynamicSelect [data]="item" (click)="dynamicSelect.getValues($event)" (emitList)="updateList($event)"></app-strapi-dynamic-select>
           </div>
 
@@ -71,8 +71,3 @@
     </div>
   </div>
 </div>
-
-<!-- <label for="1" class="text-white">{{ key | json }}</label> -->
-<!-- <br> -->
-<!-- <input type="text" id="1" [(ngModel)]="key"> -->
-<!-- <button class="btn btn-primary" (click)="translate(2)">Translate</button> -->

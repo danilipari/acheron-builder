@@ -58,9 +58,9 @@ export class StrapiLabelsDetailComponent implements OnInit {
   private controlPathIds(mode: number, id: number ): void {
     this.strapiService.getTableCollectionItem("application::label.label", id).subscribe((responseData: any) => {
       this.dataRes = responseData;
-      this.updateInputsItemsMerge(this.dataRes);
-      this.updateSelectsItemsMerge(this.dataRes);
-      console.debug(this.inputsItemsMerge, 'controlPathIds');
+      this.inputsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => elF[0].includes("_body")).map((elM: any) => ({ key: elM[0], value: elM[1] }));
+      this.selectsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => Array.isArray(elF[1]) ).map((elM: any) => ({ key: elM[0], value: elM[1] }));
+      console.debug(this.inputsItemsMerge, this.selectsItemsMerge, 'controlPathIds');
     }, (error: any) => {
       console.log(error);
       this.router.navigate(['strapi', 'labels']);
@@ -70,7 +70,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   public translateAction(element: any): void {
     const origin_lang = 'it';
     const destination_lang = element.key?.split("_")[0];
-    const value_origin = this.inputsItemsMerge[`${origin_lang}_body`];
+    const value_origin = this.dataRes[`${origin_lang}_body`];
 
     this.googleObject = {
       ...this.googleObject,
@@ -79,7 +79,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
       target: destination_lang,
     };
 
-    this.translate(1, element);
+    this.translate(1, { ...element, value: value_origin });
   }
 
   public translate(type: number = 1, element: any): void {
@@ -100,54 +100,38 @@ export class StrapiLabelsDetailComponent implements OnInit {
     });
   }
 
+  public trackByInputs(index: number, el: any): number {
+    console.debug(el, '--trackByInputs--');
+    return el;
+  }
+
   private googleTranslateAction(element: any): void {
+    console.log('--googleTranslateAction--', element, this.googleObject);
     this.googleService.translate(this.googleObject).subscribe((responseData: any) => {
       this.resultGoolge = responseData.data?.translations[0].translatedText;
+      this.dataRes[element.key] = this.resultGoolge;
       this.inputsItemsMerge[element.key] = this.resultGoolge;
-      this.updateInputsItemsMerge(this.inputsItemsMerge);
+      this.inputsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => elF[0].includes("_body")).map((elM: any) => ({ key: elM[0], value: elM[1] }));
     }, (error: any) => {
       console.log(error);
     });
-  }
-
-  private updateSelectsItemsMerge(list: any): void {
-    const selItems = Object.assign({}, ...Object.entries(list).reduce((acc: any, item: any, index: any) => {
-      if (Array.isArray(item[1])) {
-        acc = [...acc, ({ [item[0]]: item[1] })];
-      }
-      return acc;
-    }, []));
-
-    this.selectsItemsMerge = { ...selItems };
-  }
-
-  private updateInputsItemsMerge(list: any): void {
-    const inpItems = Object.assign({}, ...Object.entries(list).reduce((acc: any, item: any, index: any) => {
-      if (item[0].includes("_body")) {
-        acc = [...acc, ({ [item[0]]: (item[1] !== null && item[1]?.trim()?.length > 0) ? item[1] : null })];
-      }
-      return acc;
-    }, []));
-
-    this.inputsItemsMerge = { ...inpItems };
   }
 
   public getItem(element: any, origin: string = 'it'): any {
     return { el: element, can: element.key?.split("_")[0].trim()?.length > 0, origin: element.key?.split("_")[0] === origin, length: element.value != null ? element.value.trim()?.length : 0 };
   }
 
-  public cleanValueInput(key: any, value: string): void {
-    const elValue = value?.trim()?.length > 0 ? value.trim() : null;
+  public clearValueInput(key: any, value: string): void {
+    const elValue = value?.trim()?.length > 0 ? value?.trim() : null;
     this.dataRes[key] = elValue;
   }
 
   public translateAllLabels(): void {
-    const labels = { "label_title": this.dataRes["label_title"], ...this.inputsItemsMerge };
+    const labels = [ { key: "label_title", value: this.dataRes["label_title"] }, ...this.inputsItemsMerge ];
 
-    if (!Object.values(labels).every((res: any) => res != null)) {
-      const _keys = Object.entries(labels).filter((el: any, index: number) => el[1] == null);
-      const _queryKeys = _keys?.map((elQuery: any) => this.translateAction({ key: elQuery[0], value: elQuery[1] }));
-
+    if (!labels.every((res: any) => res.value != null)) {
+      const _keys = labels.filter((el: any, index: number) => el.value == null);
+      const _queryKeys = _keys?.map((elQuery: any) => this.translateAction({ key: elQuery.key, value: elQuery.value }));
       for (let el of _queryKeys) {
         console.debug('auto translate action finished!');
       }
@@ -165,7 +149,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   public clearFields(): void {
-    console.log('clearFields');
+    this.inputsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => elF[0].includes("_body")).map((elM: any) => ({ key: elM[0], value: (elM[0] === "it_body") ? elM[1] : null }));
   }
 
   public updateList(event: any): void {
@@ -181,10 +165,10 @@ export class StrapiLabelsDetailComponent implements OnInit {
         "label_title": this.dataRes["label_title"],
         ...Object.assign({}, this.dataRes, ...Object.entries(this.inputsItemsMerge).reduce((acc: any, item: any, index: any) => {
           if (item[0].includes("_body")) {
-            if (this.dataRes[item[0]] == this.inputsItemsMerge[item[0]]){
-              acc = [...acc, ({ [item[0]]: (item[1] !== null && item[1]?.trim()?.length > 0) ? item[1] : null })];
-            } else {
+            if (this.dataRes[item[0]] === this.inputsItemsMerge[item[0]]){
               acc = [...acc, ({ [item[0]]: (this.inputsItemsMerge[item[0]] !== null && this.inputsItemsMerge[item[0]]?.trim()?.length > 0) ? this.inputsItemsMerge[item[0]] : null  })];
+            } else {
+              acc = [...acc, ({ [item[0]]: (this.dataRes[item[0]] !== null && this.dataRes[item[0]]?.trim()?.length > 0) ? this.dataRes[item[0]] : null })];
             }
           }
           return acc;
