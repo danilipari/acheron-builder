@@ -218,7 +218,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public cloneFormAction(form: FormItem) {
     const data = this.cloneForm(form).nf;
-    this.formService.saveForm(data).subscribe((res: any) => {
+    this.formService.saveForm(data).pipe(takeUntil(this.unsubscribe$)).subscribe((res: any) => {
       console.debug("cloneFormAction", res);
       this.snackBar('Form cloned successfully');
       this.ngOnInit();
@@ -255,7 +255,7 @@ export class FormComponent implements OnInit, OnDestroy {
       console.debug('The dialog was closed', result);
       if (result) {
         if (result.type === 'delete-form') {
-          this.formService.deleteForm(this.fromDelete.form_id).subscribe((response: any) => {
+          this.formService.deleteForm(this.fromDelete.form_id).pipe(takeUntil(this.unsubscribe$)).subscribe((response: any) => {
             this.snackBar('Form successfully deleted!');
             this.forms = this.forms.filter((f: any) => f.form_id !== this.fromDelete.form_id);
           }), (error: any) => {

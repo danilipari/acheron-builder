@@ -1,17 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { StrapiBabylon2Service } from '../../../services/strapi-babylon2.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { RowTableActionHover } from '../../../shared/interfaces';
 import { Router } from '@angular/router';
+import { forkJoin, Subject, pipe } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-strapi-labels',
   templateUrl: './strapi-labels.component.html',
   styleUrls: ['./strapi-labels.component.scss']
 })
-export class StrapiLabelsComponent implements OnInit {
+export class StrapiLabelsComponent implements OnInit, OnDestroy {
+  unsubscribe$: Subject<boolean> = new Subject<boolean>();
   limit:  number = 10;
   skip: number = 0;
   totalLength: number = 0;
@@ -53,7 +56,7 @@ export class StrapiLabelsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.strapiService.getTableCollectionItems("application::label.label", this.skip, this.limit, "label_title", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::label.label", this.skip, this.limit, "label_title", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.changeTableColumns();
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
@@ -67,7 +70,7 @@ export class StrapiLabelsComponent implements OnInit {
   public getData(event: any) {
     const limit = event.pageSize;
     const skip = event.pageIndex * limit;
-    this.strapiService.getTableCollectionItems("application::label.label", skip, limit, "label_title", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::label.label", skip, limit, "label_title", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.changeTableColumns();
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
@@ -92,7 +95,7 @@ export class StrapiLabelsComponent implements OnInit {
         break;
       case "delete":
         if (confirm("Are you sure you want to delete this entry?")) {
-          this.strapiService.deleteTableCollectionItem("application::label.label", element.id).subscribe((responseData: any) => {
+          this.strapiService.deleteTableCollectionItem("application::label.label", element.id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
             const newList = this.dataSource.data.filter((el: any) => el.id !== element.id);
             this.dataSource.data = newList;
             this.totalLength = newList?.length;
@@ -106,6 +109,11 @@ export class StrapiLabelsComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
 }

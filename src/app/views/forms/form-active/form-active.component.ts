@@ -486,7 +486,7 @@ export class FormActiveComponent implements OnInit, OnDestroy {
           };
         } else if (result.type === 'delete-form') {
           console.debug('delete', this.route_id);
-          this.formService.deleteForm(this.route_id).subscribe((response: any) => {
+          this.formService.deleteForm(this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((response: any) => {
             this.snackBar('Form successfully deleted!');
             this.router.navigate(['/forms']);
           }), (error: any) => {

@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StrapiBabylon2Service } from '../../../services/strapi-babylon2.service';
 import { GoogleService } from '../../../services/google.service';
 import { DeeplService } from '../../../services/deepl.service';
 import { GoogleObj } from '../../../shared/interfaces';
-import { forkJoin } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { forkJoin, Subject, pipe } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-strapi-labels-detail',
   templateUrl: './strapi-labels-detail.component.html',
   styleUrls: ['./strapi-labels-detail.component.scss']
 })
-export class StrapiLabelsDetailComponent implements OnInit {
+export class StrapiLabelsDetailComponent implements OnInit, OnDestroy {
+  unsubscribe$: Subject<boolean> = new Subject<boolean>();
   qId: number = 0;
   pId: number  = 0;
 
@@ -56,7 +58,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   private controlPathIds(mode: number, id: number ): void {
-    this.strapiService.getTableCollectionItem("application::label.label", id).subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItem("application::label.label", id).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.dataRes = responseData;
       this.inputsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => elF[0].includes("_body")).map((elM: any) => ({ key: elM[0], value: elM[1] }));
       this.selectsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => Array.isArray(elF[1]) ).map((elM: any) => ({ key: elM[0], value: elM[1] }));
@@ -92,7 +94,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   }
 
   private deeplTranslateAction(): void {
-    this.deeplService.translateDeepL(/* this.key */'', 'IT', 'EN-GB').subscribe((responseData: any) => {
+    this.deeplService.translateDeepL(/* this.key */'', 'IT', 'EN-GB').pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       console.debug(responseData, '----result DeepL----');
     }, (error: any) => {
       console.log(error);
@@ -106,7 +108,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
 
   private googleTranslateAction(element: any): void {
     console.log('--googleTranslateAction--', element, this.googleObject);
-    this.googleService.translate(this.googleObject).subscribe((responseData: any) => {
+    this.googleService.translate(this.googleObject).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.resultGoolge = responseData.data?.translations[0].translatedText;
       this.dataRes[element.key] = this.resultGoolge;
       this.inputsItemsMerge[element.key] = this.resultGoolge;
@@ -139,7 +141,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
 
   public deleteLabelKey(): void {
     if (confirm("Are you sure you want to delete this entry?")) {
-      this.strapiService.deleteTableCollectionItem("application::label.label", this.pId).subscribe((responseData: any) => {
+      this.strapiService.deleteTableCollectionItem("application::label.label", this.pId).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
         this.router.navigate(['strapi', 'labels']);
       }), (error: any) => {
         console.log(error);
@@ -173,13 +175,13 @@ export class StrapiLabelsDetailComponent implements OnInit {
       };
 
       if (this.pId != this.qId) {
-        this.strapiService.updateTableCollectionItem("application::label.label", data, this.pId).subscribe((responseData: any) => {
+        this.strapiService.updateTableCollectionItem("application::label.label", data, this.pId).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
           console.debug(responseData, '--updateTableCollectionItem--');
         }), (error: any) => {
           console.log(error);
         }
       } else {
-        this.strapiService.cloneTableCollectionItem("application::label.label", data).subscribe((responseData: any) => {
+        this.strapiService.cloneTableCollectionItem("application::label.label", data).pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
           this.router.navigate(['strapi', 'labels']);
         }), (error: any) => {
           console.log(error);
@@ -188,4 +190,8 @@ export class StrapiLabelsDetailComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
+  }
 }

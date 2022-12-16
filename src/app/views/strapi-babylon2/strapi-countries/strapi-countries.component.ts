@@ -4,6 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { RowTableActionHover } from '../../../shared/interfaces';
+import { forkJoin, Subject, pipe } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-strapi-countries',
@@ -11,6 +14,7 @@ import { RowTableActionHover } from '../../../shared/interfaces';
   styleUrls: ['./strapi-countries.component.scss']
 })
 export class StrapiCountriesComponent implements OnInit {
+  unsubscribe$: Subject<boolean> = new Subject<boolean>();
   limit:  number = 10;
   skip: number = 0;
   totalLength: number = 0;
@@ -49,7 +53,7 @@ export class StrapiCountriesComponent implements OnInit {
   constructor(private strapiService: StrapiBabylon2Service) {}
 
   ngOnInit(): void {
-    this.strapiService.getTableCollectionItems("application::country.country", this.skip, this.limit, "Country", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::country.country", this.skip, this.limit, "Country", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.changeTableColumns();
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
@@ -63,7 +67,7 @@ export class StrapiCountriesComponent implements OnInit {
   public getData(event: any) {
     const limit = event.pageSize;
     const skip = event.pageIndex * limit;
-    this.strapiService.getTableCollectionItems("application::country.country", skip, limit, "Country", "ASC").subscribe((responseData: any) => {
+    this.strapiService.getTableCollectionItems("application::country.country", skip, limit, "Country", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.changeTableColumns();
       this.dataSource.data = responseData.results;
       this.totalLength = responseData.results?.length;
@@ -80,5 +84,10 @@ export class StrapiCountriesComponent implements OnInit {
 
   private actionTable(element: any, section: string): void {
     console.log(section, element);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 }

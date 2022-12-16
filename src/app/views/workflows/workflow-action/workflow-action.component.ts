@@ -72,7 +72,7 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
     forkJoin({
       forms: this.formService.getForms(),
       /* layouts: this.layoutService.getLayouts(), */
-    }).subscribe((res: any) => {
+    }).pipe(takeUntil(this.unsubscribe$)).subscribe((res: any) => {
       const _forms = res.forms?.map((f: any) => ({ ...f, form_special: Boolean(Number(f.form_special)) }));
       this.forms = {
         forms: _forms,
@@ -214,7 +214,7 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
 
   public saveWorkflow(): void {
     if (this.route_id === '') {
-      this.workflowService.saveWorkflow(this.workflow).subscribe((resS: any) => {
+      this.workflowService.saveWorkflow(this.workflow).pipe(takeUntil(this.unsubscribe$)).subscribe((resS: any) => {
         console.debug(resS, this.route_id);
         this.router.navigate(['/workflows']);
         this.snackBar('Workflow successfully created!');
@@ -223,7 +223,7 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
         console.log(error);
       };
     } else {
-      this.workflowService.saveWorkflow(this.workflow, this.route_id).subscribe((resE: any) => {
+      this.workflowService.saveWorkflow(this.workflow, this.route_id).pipe(takeUntil(this.unsubscribe$)).subscribe((resE: any) => {
         console.debug(resE, this.route_id);
         this.snackBar('Workflow successfully updated!');
       }), (error: any) => {
