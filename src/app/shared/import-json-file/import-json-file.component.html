@@ -25,7 +25,7 @@
       <p class="my-auto mb-0">{{ fileInfo.name }}</p>
     </div>
   </div>
-  <div (click)="deleteJson()" class="my-auto bg-white p-1 rounded border border-white position-absolute top-0 start-0 translate-middle" [matTooltip]="'Delete JSON'" matTooltipPosition="left" matTooltipClass="tooltip">
+  <div (click)="deleteJson()" class="my-auto bg-white p-1 rounded border border-white position-absolute top-0 start-0 translate-middle" [matTooltip]="'Delete JSON'" matTooltipPosition="left" matTooltipClass="tooltip-primary">
     <i-bs
       name="file-earmark-x-fill"
       class="text-danger my-auto"
@@ -33,7 +33,7 @@
       height="16px"
     ></i-bs>
   </div>
-  <div (click)="openJSON()" class="my-auto bg-white p-1 rounded border border-white position-absolute top-50 start-100 translate-middle" [matTooltip]="'Open JSON'" matTooltipPosition="left" matTooltipClass="tooltip" *ngIf="isValid()">
+  <div (click)="openJSON()" class="my-auto bg-white p-1 rounded border border-white position-absolute top-50 start-100 translate-middle" [matTooltip]="'Open JSON'" matTooltipPosition="left" matTooltipClass="tooltip-primary" *ngIf="isValid()">
     <i-bs
       name="arrow-right-circle-fill"
       class="text-primary-ab my-auto"
@@ -41,7 +41,7 @@
       height="16px"
     ></i-bs>
   </div>
-  <div class="my-auto bg-white p-1 rounded border border-white position-absolute top-50 start-100 translate-middle" [matTooltip]="'JSON not valid!'" matTooltipPosition="left" matTooltipClass="tooltip" *ngIf="!isValid()">
+  <div class="my-auto bg-white p-1 rounded border border-white position-absolute top-50 start-100 translate-middle" [matTooltip]="'JSON not valid!'" matTooltipPosition="left" matTooltipClass="tooltip-primary" *ngIf="!isValid()">
     <i-bs
       name="exclamation-triangle-fill"
       class="text-warning my-auto"

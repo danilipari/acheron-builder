@@ -25,9 +25,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dashboardService.getInfo().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.countResurces = responseData;
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    };
+    });
   }
 
   ngOnDestroy(): void {

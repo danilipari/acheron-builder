@@ -54,9 +54,9 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
       localStorage.setItem("userStrap", JSON.stringify(responseData.data.user));
 
       this.jwtStrapi && this.initWithJwt();
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    }
+    });
   }
 
   private initWithJwt(): void {

@@ -34,9 +34,9 @@ export class WorkflowComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.workflowService.getWorkflows('render').pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.workflows = responseData;
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    };
+    });
   }
 
   /**

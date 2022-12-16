@@ -61,9 +61,9 @@ export class FormComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.formService.getForms().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.forms = responseData;
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    }
+    });
   }
 
   public updateJsonImport(element: any): void {

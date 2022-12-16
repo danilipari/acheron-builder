@@ -55,9 +55,9 @@ export class StrapiCountriesComponent implements OnInit {
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    }
+    });
   }
 
   public getData(event: any) {
@@ -69,9 +69,9 @@ export class StrapiCountriesComponent implements OnInit {
       this.totalLength = responseData.results?.length;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    }
+    });
   }
 
   public changeTableColumns(): void {

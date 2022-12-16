@@ -53,13 +53,6 @@ export class StrapiLabelsDetailComponent implements OnInit {
         });
       }
     });
-
-    /* forkJoin({
-      categories: this.strapiService.getSelectRelationsCollection("application::label.label", "categories", {"idsToOmit":[]}, 20),
-      countries: this.strapiService.getSelectRelationsCollection("application::label.label", "countries", {"idsToOmit":[]}, 20),
-    }).subscribe((res: any) => {
-      console.log('--res--', res);
-    }); */
   }
 
   private controlPathIds(mode: number, id: number ): void {
@@ -68,9 +61,10 @@ export class StrapiLabelsDetailComponent implements OnInit {
       this.updateInputsItemsMerge(this.dataRes);
       this.updateSelectsItemsMerge(this.dataRes);
       console.debug(this.inputsItemsMerge, 'controlPathIds');
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    }
+      this.router.navigate(['strapi', 'labels']);
+    });
   }
 
   public translateAction(element: any): void {
@@ -101,9 +95,9 @@ export class StrapiLabelsDetailComponent implements OnInit {
   private deeplTranslateAction(): void {
     this.deeplService.translateDeepL(/* this.key */'', 'IT', 'EN-GB').subscribe((responseData: any) => {
       console.debug(responseData, '----result DeepL----');
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    }
+    });
   }
 
   private googleTranslateAction(element: any): void {
@@ -111,10 +105,9 @@ export class StrapiLabelsDetailComponent implements OnInit {
       this.resultGoolge = responseData.data?.translations[0].translatedText;
       this.inputsItemsMerge[element.key] = this.resultGoolge;
       this.updateInputsItemsMerge(this.inputsItemsMerge);
-      console.debug(this.resultGoolge, this.inputsItemsMerge, '----resultGoolge----');
-    }), (error: any) => {
+    }, (error: any) => {
       console.log(error);
-    }
+    });
   }
 
   private updateSelectsItemsMerge(list: any): void {
@@ -131,7 +124,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
   private updateInputsItemsMerge(list: any): void {
     const inpItems = Object.assign({}, ...Object.entries(list).reduce((acc: any, item: any, index: any) => {
       if (item[0].includes("_body")) {
-        acc = [...acc, ({ [item[0]]: item[1] })];
+        acc = [...acc, ({ [item[0]]: (item[1] !== null && item[1]?.trim()?.length > 0) ? item[1] : null })];
       }
       return acc;
     }, []));
@@ -171,6 +164,10 @@ export class StrapiLabelsDetailComponent implements OnInit {
     }
   }
 
+  public clearFields(): void {
+    console.log('clearFields');
+  }
+
   public updateList(event: any): void {
     const entity = event.list;
     const list = event.value;
@@ -182,17 +179,19 @@ export class StrapiLabelsDetailComponent implements OnInit {
     if (confirm(`Confirm save labels in ${this.dataRes.label_title}?`)) {
       const data = {
         "label_title": this.dataRes["label_title"],
-        ...Object.assign({}, ...Object.entries(this.inputsItemsMerge).reduce((acc: any, item: any, index: any) => {
+        ...Object.assign({}, this.dataRes, ...Object.entries(this.inputsItemsMerge).reduce((acc: any, item: any, index: any) => {
           if (item[0].includes("_body")) {
-            acc = [...acc, ({ [item[0]]: item[1] })];
+            if (this.dataRes[item[0]] == this.inputsItemsMerge[item[0]]){
+              acc = [...acc, ({ [item[0]]: (item[1] !== null && item[1]?.trim()?.length > 0) ? item[1] : null })];
+            } else {
+              acc = [...acc, ({ [item[0]]: (this.inputsItemsMerge[item[0]] !== null && this.inputsItemsMerge[item[0]]?.trim()?.length > 0) ? this.inputsItemsMerge[item[0]] : null  })];
+            }
           }
           return acc;
-        }, []), this.dataRes),
+        }, [])),
       };
 
-      console.log('--data--', data);
-
-      /* if (this.pId != this.qId) {
+      if (this.pId != this.qId) {
         this.strapiService.updateTableCollectionItem("application::label.label", data, this.pId).subscribe((responseData: any) => {
           console.debug(responseData, '--updateTableCollectionItem--');
         }), (error: any) => {
@@ -204,7 +203,7 @@ export class StrapiLabelsDetailComponent implements OnInit {
         }), (error: any) => {
           console.log(error);
         }
-      } */
+      }
     }
   }
 
