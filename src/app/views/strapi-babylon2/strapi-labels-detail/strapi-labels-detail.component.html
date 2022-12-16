@@ -38,7 +38,8 @@
           <div class="d-flex flex-column my-3">
             <div class="my-auto d-flex justify-content-between">
               <h4 class="my-auto text-muted">{{ 'Last Update' | uppercase }}</h4>
-              <p class="my-auto mb-0">{{ dataRes?.updated_at | date: 'dd-MM-yyyy HH:mm:ss' }}</p>
+              <!-- <p class="my-auto mb-0">{{ dataRes?.updated_at | date: 'dd-MM-yyyy HH:mm:ss' }}</p> -->
+              <p class="my-auto mb-0">{{ dataRes?.updated_at | ago }}</p>
             </div>
             <div class="my-auto d-flex justify-content-between mt-3">
               <h4 class="my-auto text-muted">{{ 'By' | uppercase }}</h4>

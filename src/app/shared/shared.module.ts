@@ -16,6 +16,7 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { LottieRenderComponent } from './lottie-render/lottie-render.component';
 import { SafePipe } from './safe.pipe';
+import { AgoPipe } from './ago.pipe';
 import { QrcodeComponent } from './qrcode/qrcode.component';
 import { ImportJsonFileComponent } from './import-json-file/import-json-file.component';
 import { ExportJsonFileComponent } from './export-json-file/export-json-file.component';
@@ -33,6 +34,7 @@ const components: Array<any> = [
   ImportJsonFileComponent,
   ExportJsonFileComponent,
   SafePipe,
+  AgoPipe
 ];
 
 @NgModule({
