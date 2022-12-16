@@ -8,6 +8,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem, CdkDrag
 import { DialogAlertMessagesComponent } from '../../../components/dialog-alert-messages/dialog-alert-messages.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormService } from '../../../services/form.service';
+import { StrapiBabylon2Service } from '../../../services/strapi-babylon2.service';
 import { bounceInRightOnEnterAnimation, bounceInLeftOnEnterAnimation, bounceOutLeftOnLeaveAnimation, bounceOutRightOnLeaveAnimation, bounceInAnimation } from 'angular-animations';
 import Utils from '../../../shared/utils';
 import Constants from '../../../shared/constants';
@@ -115,17 +116,29 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   fileInfo: any;
   hidden: boolean = false;
 
+  limit: number = 1_000_000_000;
+  skip: number = 0;
+  totalLength: number = 0;
+  labels: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
     public formService: FormService,
+    private strapiService: StrapiBabylon2Service,
   ) {}
 
   ngOnInit(): void {
     localStorage.getItem('-t-s-') ? this.testing = true : this.testing = false;
     console.debug('routeID Form', this.route_id, this.route_id !== '');
+
+    this.strapiService.getTableCollectionItems("application::label.label", this.skip, this.limit, "label_title", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+      console.log('--responseData labels--', responseData.results);
+    }, (error: any) => {
+      console.log(error);
+    });
 
     this.typesTypes = Utils.convertObjectToArray(Types);
     this.typesFormsFiltered = [...this.typesForms];
@@ -502,5 +515,4 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next(true);
     this.unsubscribe$.unsubscribe();
   }
-
 }

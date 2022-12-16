@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { forkJoin, Subject, pipe } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { StrapiBabylon2Service } from './../../services/strapi-babylon2.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (!localStorage.getItem("jwtStrap")) {
-      this.strapiService.loginStrapi().subscribe((responseData: any) => {
+      this.strapiService.loginStrapi().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
         this.jwtStrapi = responseData.data.token;
         this.userStrapi = responseData.data.user;
         localStorage.setItem("jwtStrap", responseData.data.token);
@@ -47,7 +47,7 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
   }
 
   private loginStrapi(): void {
-    this.strapiService.loginStrapi().subscribe((responseData: any) => {
+    this.strapiService.loginStrapi().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.jwtStrapi = responseData.data.token;
       this.userStrapi = responseData.data.user;
       localStorage.setItem("jwtStrap", responseData.data.token);
@@ -60,7 +60,7 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
   }
 
   private initWithJwt(): void {
-    this.strapiService.getContentTypes().subscribe((responseData: any) => {
+    this.strapiService.getContentTypes().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       this.contentTypes = responseData.data?.filter((el: any) => el.isDisplayed && this.labels.includes(el.info.label)).map((el: any) => ({ ...el, info: { ...el.info, path: el.info.label?.toLowerCase() } }));
     }), (error: any) => {
       this.errorJWTStrapi();
@@ -75,15 +75,14 @@ export class StrapiBabylon2Component implements OnInit, OnDestroy {
     return "Clean Strapi lcoal data";
   }
 
-  public logOutStrapi(): void {
+  public logoutStrapi(): void {
     this.jwtStrapi = localStorage.removeItem("jwtStrap");
     this.userStrapi = localStorage.removeItem("userStrap");
   }
 
   public sessionStrapi(action: string = "in"): void {
     if (action === "out") {
-      this.jwtStrapi = localStorage.removeItem("jwtStrap");
-      this.userStrapi = localStorage.removeItem("userStrap");
+      this.logoutStrapi();
     } else {
       this.loginStrapi();
     }

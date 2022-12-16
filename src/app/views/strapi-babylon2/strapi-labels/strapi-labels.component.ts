@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class StrapiLabelsComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<boolean> = new Subject<boolean>();
-  limit:  number = 10;
+  limit: number = 10;
   skip: number = 0;
   totalLength: number = 0;
 
