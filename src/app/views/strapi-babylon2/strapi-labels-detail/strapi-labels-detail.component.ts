@@ -60,7 +60,6 @@ export class StrapiLabelsDetailComponent implements OnInit {
       this.dataRes = responseData;
       this.inputsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => elF[0].includes("_body")).map((elM: any) => ({ key: elM[0], value: elM[1] }));
       this.selectsItemsMerge = Object.entries(this.dataRes).map((el: any) => (el)).filter((elF: any) => Array.isArray(elF[1]) ).map((elM: any) => ({ key: elM[0], value: elM[1] }));
-      console.debug(this.inputsItemsMerge, this.selectsItemsMerge, 'controlPathIds');
     }, (error: any) => {
       console.log(error);
       this.router.navigate(['strapi', 'labels']);
@@ -164,8 +163,6 @@ export class StrapiLabelsDetailComponent implements OnInit {
       const data = {
         "label_title": this.dataRes["label_title"],
         ...Object.assign({}, this.dataRes, ...this.inputsItemsMerge.reduce((acc: any, item: any, index: any) => {
-          console.debug(item.key, '--', this.dataRes[item.key], '--', this.inputsItemsMerge.find((f: any) => f.key == item.key)?.value, '--item--');
-
           if (this.dataRes[item.key] === this.inputsItemsMerge.find((f: any) => f.key == item.key)?.value) {
             acc = [ ...acc, { [item.key]: this.dataRes[item.key] }];
           } else {
