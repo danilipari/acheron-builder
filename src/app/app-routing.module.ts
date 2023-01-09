@@ -45,7 +45,7 @@ const routes: Routes = [
       routes,
       {
         useHash: false,
-        enableTracing: true, // <-- debugging purposes only
+        enableTracing: false, // <-- debugging purposes only
       }
     )
   ],
