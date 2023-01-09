@@ -112,7 +112,7 @@ export interface TypeStructure {
 export interface resInfo {
   quantity_workflows: number;
   quantity_forms: number;
-  /* quantity_layouts: number; */
+  quantity_layouts?: number;
 }
 
 export enum TypesInt {

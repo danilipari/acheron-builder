@@ -73,7 +73,7 @@
                 <div
                   *ngFor="let type of typesFormsFiltered; let iTF = index"
                   cdkDrag
-                  [cdkDragData]="types"
+                  [cdkDragData]="typesF"
                   (cdkDragStarted)="dragStart($event, 'typesF', type.uuid, iTF)"
                   class=" list-group px-4 py-3 col-4 "
                   >

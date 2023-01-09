@@ -7,7 +7,7 @@
       <app-qrcode [qrdata]="'https://www.escort-advisor.com/'"></app-qrcode>
     </div> -->
   </div>
-  <div class="row row-space justify-content-around">
+  <div class="row row-space justify-content-around" *ngIf="countResurces">
     <div class="col-3 col-md-6 mt-5 box-p-ab" [routerLink]="'/workflows'">
       <div class="box-c-ab text-center">
         <div class="mx-auto" style="width: 86px; height: 86px;">
@@ -15,7 +15,7 @@
         </div>
         <p>{{ 'Workflows' | uppercase }}</p>
         <div class="box-counter mx-auto">
-          <p>{{ countResurces?.quantity_workflows }}</p>
+          <p>{{ countResurces.quantity_workflows }}</p>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
         </div>
         <p>{{ 'Forms' | uppercase }}</p>
         <div class="box-counter mx-auto">
-          <p>{{ countResurces?.quantity_forms }}</p>
+          <p>{{ countResurces.quantity_forms }}</p>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
         </div>
         <p>{{ 'Layouts' | uppercase }}</p>
         <div class="box-counter mx-auto">
-          <p>{{ countResurces?.quantity_layouts }}</p>
+          <p>{{ countResurces.quantity_layouts }}</p>
         </div>
       </div>
     </div>

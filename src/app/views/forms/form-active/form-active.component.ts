@@ -121,6 +121,11 @@ export class FormActiveComponent implements OnInit, OnDestroy {
   totalLength: number = 0;
   labels: any[] = [];
 
+  typesF: any;
+  typesA: any;
+  forms: any;
+  actions: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -134,11 +139,11 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     localStorage.getItem('-t-s-') ? this.testing = true : this.testing = false;
     console.debug('routeID Form', this.route_id, this.route_id !== '');
 
-    this.strapiService.getTableCollectionItems("application::label.label", this.skip, this.limit, "label_title", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
+    /* this.strapiService.getTableCollectionItems("application::label.label", this.skip, this.limit, "label_title", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
       console.log('--responseData labels--', responseData.results);
     }, (error: any) => {
       console.log(error);
-    });
+    }); */
 
     this.typesTypes = Utils.convertObjectToArray(Types);
     this.typesFormsFiltered = [...this.typesForms];
@@ -362,7 +367,8 @@ export class FormActiveComponent implements OnInit, OnDestroy {
     return item?.uuid;
   }
 
-  drop($event: CdkDragDrop<number[]>) {
+  /* drop($event: CdkDragDrop<number[]>) { */
+  drop($event: CdkDragDrop<TypeStructure[], any, any>) {
     const fromIndex = $event.previousIndex;
     const leaveIndex = $event.currentIndex;
     if (this.type.type === 'typesF' || this.type.type === 'typesA') {

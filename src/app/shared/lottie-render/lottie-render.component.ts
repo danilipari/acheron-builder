@@ -12,8 +12,7 @@ import { AnimationOptions } from 'ngx-lottie';
   `,
 })
 export class LottieRenderComponent implements OnInit {
-
-  @Input() public route: string = "/assets/lottie/";
+  @Input() public route?: string = "/assets/lottie/";
   @Input() public name: string = "";
 
   icon: any;

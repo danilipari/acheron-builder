@@ -105,7 +105,7 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
     this.formSelected().forms.length && this.callInit();
   }
 
-  private callInit(): void {
+  public callInit(): void {
     if (this.counterInit === 0) {
       this.counterInit = this.counterInit +1;
       this.updateFlowUI();
@@ -144,7 +144,7 @@ export class WorkflowActionComponent implements OnInit, AfterViewChecked, OnDest
     }
   }
 
-  private updateFlowUI(): any {
+  public updateFlowUI(): any {
     if (this.formSelected().forms.length > 1) {
       this.lines.forEach((l: any) => l.remove());
       this.lines = [];
