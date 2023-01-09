@@ -8,6 +8,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: '**',
+    loadChildren: () => import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [],
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
     canActivate: [],
@@ -35,7 +40,17 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      {
+        useHash: false,
+        enableTracing: true, // <-- debugging purposes only
+      }
+    )
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule {}
