@@ -1,18 +1,40 @@
 <h4 class="my-auto">{{ data.key | titlecase }}</h4>
-<select class="form-select" [name]="'select-' + data.key" [id]="'select-' + data.key" [(ngModel)]="selectedItem" (change)="newSelected()">
+<select
+  class="form-select"
+  [name]="'select-' + data.key"
+  [id]="'select-' + data.key"
+  [(ngModel)]="selectedItem"
+  (change)="newSelected()"
+>
   <option *ngFor="let option of options" [value]="option.id">
     {{ option[optionKey] }}
   </option>
 </select>
 
 <div class="list-group my-2">
-  <div class="list-group-item mb-1 d-flex justify-content-between" *ngFor="let sel of data.value">
+  <div
+    class="list-group-item mb-1 d-flex justify-content-between"
+    *ngFor="let sel of data.value"
+  >
     <div class="my-auto">
       {{ sel[getValueKey(sel)] }}
     </div>
     <div class="my-auto">
-      <div (click)="deleteSelected(sel)" class="my-auto p-1 border border-danger rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Delete" aria-label="delete" matTooltipClass="tooltip-primary">
-        <i-bs name="trash" class="text-danger" width="16px" height="16px"></i-bs>
+      <div
+        (click)="deleteSelected(sel)"
+        class="my-auto p-1 border border-danger rounded position-relative mx-3"
+        style="cursor: pointer"
+        mat-raised-button
+        matTooltip="Delete"
+        aria-label="delete"
+        matTooltipClass="tooltip-primary"
+      >
+        <i-bs
+          name="trash"
+          class="text-danger"
+          width="16px"
+          height="16px"
+        ></i-bs>
       </div>
     </div>
   </div>

@@ -1,20 +1,33 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from './../../services/form.service';
-import { ConfigurationDialog, FormStructure, FormItem, CloneFormUUIDStructure } from '././../../shared/interfaces';
+import {
+  ConfigurationDialog,
+  FormStructure,
+  FormItem,
+  CloneFormUUIDStructure,
+} from '././../../shared/interfaces';
 import Constants from '././../../shared/constants';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 import Utils from '../../shared/utils';
 import { DialogAlertMessagesComponent } from '../../components/dialog-alert-messages/dialog-alert-messages.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import * as uuid from "uuid";
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit, OnDestroy {
   forms!: any;
@@ -43,7 +56,7 @@ export class FormComponent implements OnInit, OnDestroy {
     forms: [],
     actions: [],
     created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
+    updated_at: new Date().toISOString(),
   };
 
   statusJsonImport: boolean = false;
@@ -55,15 +68,21 @@ export class FormComponent implements OnInit, OnDestroy {
     private router: Router,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
-    public formService: FormService,
+    public formService: FormService
   ) {}
 
   public ngOnInit(): void {
-    this.formService.getForms().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-      this.forms = responseData;
-    }, (error: any) => {
-      console.log(error);
-    });
+    this.formService
+      .getForms()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (responseData: any) => {
+          this.forms = responseData;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   public updateJsonImport(element: any): void {
@@ -72,10 +91,17 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public openJSON(element: any): void {
     const STATE = {
-      state: this.cloneForm({ ...element.file, forms_quantity: [...element.file.actions, ...element.file.forms]?.length}, 'JSON').nf
+      state: this.cloneForm(
+        {
+          ...element.file,
+          forms_quantity: [...element.file.actions, ...element.file.forms]
+            ?.length,
+        },
+        'JSON'
+      ).nf,
     };
 
-    this.router.navigateByUrl(`/${element.path?.join('/')}`, {...STATE});
+    this.router.navigateByUrl(`/${element.path?.join('/')}`, { ...STATE });
   }
 
   public snackBar(message: string = 'Done!', color: string = 'default'): void {
@@ -83,7 +109,7 @@ export class FormComponent implements OnInit, OnDestroy {
       horizontalPosition: this._horizontalPosition,
       verticalPosition: this._verticalPosition,
       duration: 2500,
-      panelClass: [`snake-${color}`]
+      panelClass: [`snake-${color}`],
     });
   }
 
@@ -94,18 +120,21 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public openMenu(event: any, form: FormItem, where: string = 'left'): void {
     // console.debug(event, 'openmenu', where, form.form_id);
-    if (where === "right") {
-      (this.show_menu_click_id == 0 || this.show_menu_click_id == form.form_id) && (this.show_right_click = !this.show_right_click);
+    if (where === 'right') {
+      (this.show_menu_click_id == 0 ||
+        this.show_menu_click_id == form.form_id) &&
+        (this.show_right_click = !this.show_right_click);
       if (this.show_right_click) {
         this.show_left_click && (this.show_left_click = !this.show_left_click);
-        this.clientY = event["layerY"];
-        this.clientX = event["layerX"];
+        this.clientY = event['layerY'];
+        this.clientX = event['layerX'];
       } else {
         this.clientY = 0;
         this.clientX = 0;
       }
     } else {
-      (this.show_menu_click_id == form.form_id) && (this.show_left_click = !this.show_left_click);
+      this.show_menu_click_id == form.form_id &&
+        (this.show_left_click = !this.show_left_click);
       this.clientY = 0;
       this.clientX = 0;
       this.use_left = true;
@@ -124,47 +153,56 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
-  private cloneForm(form: FormItem, action: string = "COPY"): { nf: FormItem, uuidS: Array<CloneFormUUIDStructure> } {
+  private cloneForm(
+    form: FormItem,
+    action: string = 'COPY'
+  ): { nf: FormItem; uuidS: Array<CloneFormUUIDStructure> } {
     let newForm: any = structuredClone(form);
     let uuidS: Array<CloneFormUUIDStructure> = [];
-    let arrL: any[] = new Array(newForm.forms_quantity *2).fill({ uuid: "", uuidRef: "" }).map(() => ({ uuid: uuid.v4(), uuidRef: uuid.v4() }));
+    let arrL: any[] = new Array(newForm.forms_quantity * 2)
+      .fill({ uuid: '', uuidRef: '' })
+      .map(() => ({ uuid: uuid.v4(), uuidRef: uuid.v4() }));
 
     for (let key of Object.entries(newForm)) {
       // console.debug(key[0], key[1]);
       switch (key[0]) {
-        case "uuid":
+        case 'uuid':
           // newForm["_uuid"] = key[1];
           newForm[key[0]] = uuid.v4();
           break;
-        case "forms":
-          newForm[key[0]] = ([key[1]]).flat().map((f: any, index: number) => (
-            uuidS.push({
-              _uuid: f.uuid,
-              uuid: arrL[0].uuid,
-              _uuidRef: f.uuidRef,
-              uuidRef: arrL[0].uuidRef
-            }),
-            {
-              ...f,
-              uuid: uuidS.reverse()[0].uuid,
-              uuidRef: uuidS.reverse()[0].uuidRef
-            }
-          ));
+        case 'forms':
+          newForm[key[0]] = [key[1]].flat().map(
+            (f: any, index: number) => (
+              uuidS.push({
+                _uuid: f.uuid,
+                uuid: arrL[0].uuid,
+                _uuidRef: f.uuidRef,
+                uuidRef: arrL[0].uuidRef,
+              }),
+              {
+                ...f,
+                uuid: uuidS.reverse()[0].uuid,
+                uuidRef: uuidS.reverse()[0].uuidRef,
+              }
+            )
+          );
           break;
-        case "actions":
-          newForm[key[0]] = ([key[1]]).flat().map((f: any) => (
-            uuidS.push({
-              _uuid: f.uuid,
-              uuid: arrL[0].uuid,
-              _uuidRef: f.uuidRef,
-              uuidRef: arrL[0].uuidRef
-            }),
-            {
-              ...f,
-              uuid: uuidS.reverse()[0].uuid,
-              uuidRef: uuidS.reverse()[0].uuidRef
-            }
-          ));
+        case 'actions':
+          newForm[key[0]] = [key[1]].flat().map(
+            (f: any) => (
+              uuidS.push({
+                _uuid: f.uuid,
+                uuid: arrL[0].uuid,
+                _uuidRef: f.uuidRef,
+                uuidRef: arrL[0].uuidRef,
+              }),
+              {
+                ...f,
+                uuid: uuidS.reverse()[0].uuid,
+                uuidRef: uuidS.reverse()[0].uuidRef,
+              }
+            )
+          );
           break;
         default:
           break;
@@ -174,38 +212,44 @@ export class FormComponent implements OnInit, OnDestroy {
     for (let key of Object.entries(newForm)) {
       // console.debug(key[0], key[1]);
       switch (key[0]) {
-        case "forms":
-          newForm[key[0]] = ([key[1]]).flat().map((f: any, index: number) => (
-            {
-              ...f,
-              color: Utils.stringToColour(`${f.inputType} - ${f.uuidRef}`),
-              childrenRef: [...f.childrenRef].map((cR: any) => ({
-                ...cR,
-                color: Utils.stringToColour(`${cR.inputType} - ${uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef}`),
-                uuid: uuidS.find((u: any) => u._uuid === cR.uuid)!.uuid,
-                uuidRef: uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef
-              })),
-            }
-          ));
+        case 'forms':
+          newForm[key[0]] = [key[1]].flat().map((f: any, index: number) => ({
+            ...f,
+            color: Utils.stringToColour(`${f.inputType} - ${f.uuidRef}`),
+            childrenRef: [...f.childrenRef].map((cR: any) => ({
+              ...cR,
+              color: Utils.stringToColour(
+                `${cR.inputType} - ${
+                  uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef
+                }`
+              ),
+              uuid: uuidS.find((u: any) => u._uuid === cR.uuid)!.uuid,
+              uuidRef: uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!
+                .uuidRef,
+            })),
+          }));
           break;
-        case "actions":
-          newForm[key[0]] = ([key[1]]).flat().map((f: any) => (
-            {
-              ...f,
-              color: Utils.stringToColour(`${f.inputType} - ${f.uuidRef}`),
-              childrenRef: [...f.childrenRef].map((cR: any) => ({
-                ...cR,
-                color: Utils.stringToColour(`${cR.inputType} - ${uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef}`),
-                uuid: uuidS.find((u: any) => u._uuid === cR.uuid)!.uuid,
-                uuidRef: uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef,
-              })),
-            }
-          ));
+        case 'actions':
+          newForm[key[0]] = [key[1]].flat().map((f: any) => ({
+            ...f,
+            color: Utils.stringToColour(`${f.inputType} - ${f.uuidRef}`),
+            childrenRef: [...f.childrenRef].map((cR: any) => ({
+              ...cR,
+              color: Utils.stringToColour(
+                `${cR.inputType} - ${
+                  uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!.uuidRef
+                }`
+              ),
+              uuid: uuidS.find((u: any) => u._uuid === cR.uuid)!.uuid,
+              uuidRef: uuidS.find((u: any) => u._uuidRef === cR.uuidRef)!
+                .uuidRef,
+            })),
+          }));
           break;
-        case "form_name":
+        case 'form_name':
           newForm[key[0]] = `${key[1]} - ${action}`;
           break;
-        case "form_text":
+        case 'form_text':
           newForm[key[0]] = `${key[1]} - ${action}`;
           break;
         default:
@@ -218,13 +262,17 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public cloneFormAction(form: FormItem) {
     const data = this.cloneForm(form).nf;
-    this.formService.saveForm(data).pipe(takeUntil(this.unsubscribe$)).subscribe((res: any) => {
-      console.debug("cloneFormAction", res);
-      this.snackBar('Form cloned successfully');
-      this.ngOnInit();
-    }), (err: any) => {
-      console.error(err);
-    };
+    this.formService
+      .saveForm(data)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: any) => {
+        console.debug('cloneFormAction', res);
+        this.snackBar('Form cloned successfully');
+        this.ngOnInit();
+      }),
+      (err: any) => {
+        console.error(err);
+      };
   }
 
   public dialogAlertMessage(
@@ -233,9 +281,9 @@ export class FormComponent implements OnInit, OnDestroy {
     icon: string = 'check-circle-fill',
     action: string = 'save',
     options: any[] = [
-      {label: 'No', value: 'no', color: 'danger', action: 'close'},
-      {label: 'Yes', value: 'yes', color: 'success', action: 'confirm'}
-    ],
+      { label: 'No', value: 'no', color: 'danger', action: 'close' },
+      { label: 'Yes', value: 'yes', color: 'success', action: 'confirm' },
+    ]
   ): void {
     const config: ConfigurationDialog = {
       width: `800px`,
@@ -255,26 +303,33 @@ export class FormComponent implements OnInit, OnDestroy {
       console.debug('The dialog was closed', result);
       if (result) {
         if (result.type === 'delete-form') {
-          this.formService.deleteForm(this.fromDelete.form_id).pipe(takeUntil(this.unsubscribe$)).subscribe((response: any) => {
-            this.snackBar('Form successfully deleted!');
-            this.forms = this.forms.filter((f: any) => f.form_id !== this.fromDelete.form_id);
-          }), (error: any) => {
-            this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
-            console.log(error);
-          };
+          this.formService
+            .deleteForm(this.fromDelete.form_id)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((response: any) => {
+              this.snackBar('Form successfully deleted!');
+              this.forms = this.forms.filter(
+                (f: any) => f.form_id !== this.fromDelete.form_id
+              );
+            }),
+            (error: any) => {
+              this.snackBar(`${error.status} - ${JSON.stringify(error.error)}`);
+              console.log(error);
+            };
         }
       }
     });
   }
 
   public sumListLength(array: Array<any>): number {
-    return array.map((element: any[]) => (element.length)).reduce((a, b) => a + b, 0);
+    return array
+      .map((element: any[]) => element.length)
+      .reduce((a, b) => a + b, 0);
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next(true);
     this.unsubscribe$.unsubscribe();
   }
-
 }
 // https://register.sandbox.game

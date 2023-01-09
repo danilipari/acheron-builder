@@ -2,24 +2,26 @@ import { Injectable } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpinnerService {
-
-  constructor(private ngxSpinnerService: NgxSpinnerService) { }
+  constructor(private ngxSpinnerService: NgxSpinnerService) {}
 
   /**
    * Shows the spinner
    */
   show() {
-    setTimeout(() => {this.ngxSpinnerService.show(); }, 0);
+    setTimeout(() => {
+      this.ngxSpinnerService.show();
+    }, 0);
   }
 
   /**
    * Hides the spinner
    */
   hide() {
-    setTimeout(() => {this.ngxSpinnerService.hide(); }, 250);
+    setTimeout(() => {
+      this.ngxSpinnerService.hide();
+    }, 250);
   }
-
 }

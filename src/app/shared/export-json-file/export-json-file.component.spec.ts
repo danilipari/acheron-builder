@@ -8,9 +8,8 @@ describe('ExportJsonFileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExportJsonFileComponent ]
-    })
-    .compileComponents();
+      declarations: [ExportJsonFileComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ExportJsonFileComponent);
     component = fixture.componentInstance;

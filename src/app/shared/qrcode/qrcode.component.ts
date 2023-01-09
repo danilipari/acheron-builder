@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-qrcode',
   templateUrl: './qrcode.component.html',
-  styleUrls: ['./qrcode.component.scss']
+  styleUrls: ['./qrcode.component.scss'],
 })
 export class QrcodeComponent implements OnInit {
   @Input() public qrdata!: string;
@@ -13,5 +13,4 @@ export class QrcodeComponent implements OnInit {
   ngOnInit(): void {
     /*  */
   }
-
 }

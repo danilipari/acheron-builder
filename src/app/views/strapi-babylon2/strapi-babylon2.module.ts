@@ -14,7 +14,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 
-
 import { StrapiBabylon2RoutingModule } from './strapi-babylon2-routing.module';
 
 import { StrapiBabylon2Component } from './strapi-babylon2.component';
@@ -41,17 +40,10 @@ const components: Array<any> = [
   StrapiDynamicSelectComponent,
 ];
 
-const materialModules = [
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-];
-
+const materialModules = [MatTableModule, MatPaginatorModule, MatSortModule];
 
 @NgModule({
-  declarations: [
-    components,
-  ],
+  declarations: [components],
   imports: [
     CommonModule,
     FormsModule,
@@ -67,8 +59,6 @@ const materialModules = [
     ...materialModules,
     MatSelectModule,
   ],
-  exports: [
-    components,
-  ],
+  exports: [components],
 })
-export class StrapiBabylon2Module { }
+export class StrapiBabylon2Module {}

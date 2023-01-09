@@ -12,12 +12,12 @@ import { AnimationOptions } from 'ngx-lottie';
   `,
 })
 export class LottieRenderComponent implements OnInit {
-  @Input() public route?: string = "/assets/lottie/";
-  @Input() public name: string = "";
+  @Input() public route?: string = '/assets/lottie/';
+  @Input() public name: string = '';
 
   icon: any;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.icon = this.convertLottieUrl(this.name);
@@ -34,5 +34,4 @@ export class LottieRenderComponent implements OnInit {
 
     return svg;
   }
-
 }

@@ -15,16 +15,10 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { LayoutActionComponent } from './layout-action/layout-action.component';
 
-const components: Array<any> = [
-  LayoutComponent,
-  LayoutActionComponent,
-];
-
+const components: Array<any> = [LayoutComponent, LayoutActionComponent];
 
 @NgModule({
-  declarations: [
-    components,
-  ],
+  declarations: [components],
   imports: [
     CommonModule,
     FormsModule,
@@ -38,8 +32,6 @@ const components: Array<any> = [
     MatButtonModule,
     NgxJsonViewerModule,
   ],
-  exports: [
-    components,
-  ],
+  exports: [components],
 })
-export class LayoutModule { }
+export class LayoutModule {}

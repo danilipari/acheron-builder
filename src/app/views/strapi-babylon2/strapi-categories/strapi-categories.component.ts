@@ -7,15 +7,14 @@ import { RowTableActionHover } from '../../../shared/interfaces';
 import { forkJoin, Subject, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-strapi-categories',
   templateUrl: './strapi-categories.component.html',
-  styleUrls: ['./strapi-categories.component.scss']
+  styleUrls: ['./strapi-categories.component.scss'],
 })
 export class StrapiCategoriesComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<boolean> = new Subject<boolean>();
-  limit:  number = 10;
+  limit: number = 10;
   skip: number = 0;
   totalLength: number = 0;
 
@@ -37,12 +36,12 @@ export class StrapiCategoriesComponent implements OnInit, OnDestroy {
       label: 'Delete',
       icon: 'trash',
       action: (row: any) => this.actionTable(row, 'delete'),
-    }
+    },
   ];
 
   rowHover: RowTableActionHover = {
     actionIndex: null,
-    elementIndex: null
+    elementIndex: null,
   };
 
   displayedColumns!: string[];
@@ -53,29 +52,53 @@ export class StrapiCategoriesComponent implements OnInit, OnDestroy {
   constructor(private strapiService: StrapiBabylon2Service) {}
 
   ngOnInit(): void {
-    this.strapiService.getTableCollectionItems("application::category.category", this.skip, this.limit, "category_title", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-      this.changeTableColumns();
-      this.dataSource.data = responseData.results;
-      this.totalLength = responseData.results?.length;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }, (error: any) => {
-      console.log(error);
-    });
+    this.strapiService
+      .getTableCollectionItems(
+        'application::category.category',
+        this.skip,
+        this.limit,
+        'category_title',
+        'ASC'
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (responseData: any) => {
+          this.changeTableColumns();
+          this.dataSource.data = responseData.results;
+          this.totalLength = responseData.results?.length;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   public getData(event: any) {
     const limit = event.pageSize;
     const skip = event.pageIndex * limit;
-    this.strapiService.getTableCollectionItems("application::category.category", skip, limit, "category_title", "ASC").pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-      this.changeTableColumns();
-      this.dataSource.data = responseData.results;
-      this.totalLength = responseData.results?.length;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }, (error: any) => {
-      console.log(error);
-    });
+    this.strapiService
+      .getTableCollectionItems(
+        'application::category.category',
+        skip,
+        limit,
+        'category_title',
+        'ASC'
+      )
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (responseData: any) => {
+          this.changeTableColumns();
+          this.dataSource.data = responseData.results;
+          this.totalLength = responseData.results?.length;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   public changeTableColumns(): void {

@@ -5,18 +5,18 @@ import Constants from '../constants';
 @Component({
   selector: 'app-export-json-file',
   templateUrl: './export-json-file.component.html',
-  styleUrls: ['./export-json-file.component.scss']
+  styleUrls: ['./export-json-file.component.scss'],
 })
 export class ExportJsonFileComponent implements OnInit {
-
-  private structure_filed_required: string[] = Constants.structureRequiredJSON.form;
+  private structure_filed_required: string[] =
+    Constants.structureRequiredJSON.form;
 
   @Input() public jsonFile!: FormStructure;
   @Input() public fileInfo!: any;
   @Input() public hidden: boolean = false;
   @Input() public color: string = 'light';
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     /*  */
@@ -27,7 +27,10 @@ export class ExportJsonFileComponent implements OnInit {
       if (confirm(`Confirm download ${this.fileInfo.name}?`)) {
         let sJson = JSON.stringify(this.jsonFile);
         let element = document.createElement('a');
-        element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
+        element.setAttribute(
+          'href',
+          'data:text/json;charset=UTF-8,' + encodeURIComponent(sJson)
+        );
         element.setAttribute('download', `${this.fileInfo.name}`);
         element.style.display = 'none';
         document.body.appendChild(element);
@@ -35,19 +38,29 @@ export class ExportJsonFileComponent implements OnInit {
         document.body.removeChild(element);
       }
     } else {
-      alert(`JSON structure not valid, missing some required '${this.validateJSONOutput()?.missing?.join(', ')}'`);
+      alert(
+        `JSON structure not valid, missing some required '${this.validateJSONOutput()?.missing?.join(
+          ', '
+        )}'`
+      );
     }
   }
 
   private validateJSONOutput(): any {
     const dataIn = Object.keys(this.jsonFile);
-    const validation = this.structure_filed_required.map((el: any) => ({ test: dataIn.includes(el), value: el}));
+    const validation = this.structure_filed_required.map((el: any) => ({
+      test: dataIn.includes(el),
+      value: el,
+    }));
     const resValidation = {
-      missing: validation?.filter((el: any) => !el.test)?.map((elMiss: ({ test: boolean, value: string })) => (elMiss.value)),
-      can: validation.every((elValid: ({ test: boolean, value: string })) => elValid.test === true)
+      missing: validation
+        ?.filter((el: any) => !el.test)
+        ?.map((elMiss: { test: boolean; value: string }) => elMiss.value),
+      can: validation.every(
+        (elValid: { test: boolean; value: string }) => elValid.test === true
+      ),
     };
 
     return resValidation;
   }
-
 }

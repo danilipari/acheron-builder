@@ -8,9 +8,8 @@ describe('StrapiHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StrapiHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [StrapiHeaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StrapiHeaderComponent);
     component = fixture.componentInstance;

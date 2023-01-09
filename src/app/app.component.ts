@@ -7,7 +7,7 @@ import { StrapiBabylon2Service } from './services/strapi-babylon2.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<boolean> = new Subject<boolean>();
@@ -21,9 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   jwtStrapi: any;
   userStrapi: any;
 
-  constructor (
-    private strapiService: StrapiBabylon2Service,
-  ) {}
+  constructor(private strapiService: StrapiBabylon2Service) {}
 
   ngOnInit(): void {
     // if (!localStorage.getItem("jwtStrap")) {
@@ -32,7 +30,6 @@ export class AppComponent implements OnInit, OnDestroy {
     //     this.userStrapi = responseData.data.user;
     //     localStorage.setItem("jwtStrap", responseData.data.token);
     //     localStorage.setItem("userStrap", JSON.stringify(responseData.data.user));
-
     //     // this.jwtStrapi && this.initWithJwt();
     //   }), (error: any) => {
     //     console.log(error);
@@ -41,7 +38,6 @@ export class AppComponent implements OnInit, OnDestroy {
     //   const us: any = localStorage.getItem("userStrap");
     //   this.jwtStrapi = localStorage.getItem("jwtStrap");
     //   this.userStrapi = localStorage.getItem("userStrap") ? JSON.parse(us) : {};
-
     //   // /* this.initWithJwt(); */
     // }
   }

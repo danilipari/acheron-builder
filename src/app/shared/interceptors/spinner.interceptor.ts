@@ -18,12 +18,14 @@ export class SpinnerInterceptor implements HttpInterceptor {
 
   constructor(public spinnerService: SpinnerService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     let lastResponse: HttpEvent<any>;
     let error: HttpErrorResponse;
     this.totalRequests++;
     this.spinnerService.show();
-
 
     return next.handle(req).pipe(
       tap((res) => {

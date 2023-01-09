@@ -1,25 +1,59 @@
-<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-dark-ab" [style]="!side ? 'width: 250px;' : 'width: 125px;'">
-  <a class="d-flex mx-auto align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-    <div class="fs-5 mx-auto" [routerLink]="'dashboard'">{{ !side ? title : min_title }}</div>
-    <div class="my-auto mx-2" [style]="!side ? 'width: 15%;' : 'width: 30%;'" (click)="toggleSidebar()" [matTooltip]="!side ? 'Close Sidebar' : 'Open Sidebar'" matTooltipPosition="after" matTooltipClass="tooltip-primary">
-      <acheron-lottie-render [route]="" [name]="dashboardIcon"></acheron-lottie-render>
+<div
+  id="sidebar"
+  class="d-flex flex-column flex-shrink-0 p-3 bg-dark-ab"
+  [style]="!side ? 'width: 250px;' : 'width: 125px;'"
+>
+  <a
+    class="d-flex mx-auto align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+  >
+    <div class="fs-5 mx-auto" [routerLink]="'dashboard'">
+      {{ !side ? title : min_title }}
+    </div>
+    <div
+      class="my-auto mx-2"
+      [style]="!side ? 'width: 15%;' : 'width: 30%;'"
+      (click)="toggleSidebar()"
+      [matTooltip]="!side ? 'Close Sidebar' : 'Open Sidebar'"
+      matTooltipPosition="after"
+      matTooltipClass="tooltip-primary"
+    >
+      <acheron-lottie-render
+        [route]=""
+        [name]="dashboardIcon"
+      ></acheron-lottie-render>
     </div>
   </a>
-  <hr class="text-white">
+  <hr class="text-white" />
   <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item" *ngFor="let route of routes; let iR = index;" [matTooltip]="side ? route.name : ''" matTooltipPosition="after" matTooltipClass="tooltip-primary">
-      <a [routerLink]="route.path" [routerLinkActive]="'active'" class="nav-link text-white text-center d-flex justify-content-around" aria-current="page">
+    <li
+      class="nav-item"
+      *ngFor="let route of routes; let iR = index"
+      [matTooltip]="side ? route.name : ''"
+      matTooltipPosition="after"
+      matTooltipClass="tooltip-primary"
+    >
+      <a
+        [routerLink]="route.path"
+        [routerLinkActive]="'active'"
+        class="nav-link text-white text-center d-flex justify-content-around"
+        aria-current="page"
+      >
         <ng-container *ngIf="!side">
           <div class="my-auto fs-5">{{ route.name }}</div>
         </ng-container>
         <ng-container *ngIf="side">
           <div class="my-auto mx-2 w-50">
-            <acheron-lottie-render [route]="" [name]="route.icon"></acheron-lottie-render>
+            <acheron-lottie-render
+              [route]=""
+              [name]="route.icon"
+            ></acheron-lottie-render>
           </div>
         </ng-container>
       </a>
     </li>
   </ul>
-  <hr class="text-white">
-  <p class="text-center text-white">{{ !side ? title : min_title }} v{{ version }}</p>
+  <hr class="text-white" />
+  <p class="text-center text-white">
+    {{ !side ? title : min_title }} v{{ version }}
+  </p>
 </div>

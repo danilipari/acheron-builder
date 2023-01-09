@@ -8,9 +8,8 @@ describe('StrapiBabylon2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StrapiBabylon2Component ]
-    })
-    .compileComponents();
+      declarations: [StrapiBabylon2Component],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StrapiBabylon2Component);
     component = fixture.componentInstance;

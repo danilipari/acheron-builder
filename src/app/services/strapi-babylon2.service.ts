@@ -13,19 +13,19 @@ const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
   }),
-  withCredentials: false
+  withCredentials: false,
 };
 
 const httpOptionsBearer = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${sessionToken}`
+    Authorization: `Bearer ${sessionToken}`,
   }),
-  withCredentials: false
+  withCredentials: false,
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StrapiBabylon2Service {
   constructor(private http: HttpClient) {}
@@ -34,45 +34,89 @@ export class StrapiBabylon2Service {
     const data = {
       email: USER,
       password: PASS,
-    }
+    };
     return this.http.post(`${API}admin/login`, data, httpOptions);
   }
 
-  getContentTypesSettings(){
-    return this.http.get(`${API}content-manager/content-types-settings`, httpOptionsBearer);
+  getContentTypesSettings() {
+    return this.http.get(
+      `${API}content-manager/content-types-settings`,
+      httpOptionsBearer
+    );
   }
 
-  getContentTypes(){
-    return this.http.get(`${API}content-manager/content-types`, httpOptionsBearer);
+  getContentTypes() {
+    return this.http.get(
+      `${API}content-manager/content-types`,
+      httpOptionsBearer
+    );
   }
 
-  getTableCollectionItems(application: string, page: string | number, size: string | number, sortKey: string, sortOrder: string = "ASC") {
-    return this.http.get(`${API}content-manager/collection-types/${application}?page=${page}&pageSize=${size}&_sort=${sortKey}:${sortOrder}`, httpOptionsBearer);
+  getTableCollectionItems(
+    application: string,
+    page: string | number,
+    size: string | number,
+    sortKey: string,
+    sortOrder: string = 'ASC'
+  ) {
+    return this.http.get(
+      `${API}content-manager/collection-types/${application}?page=${page}&pageSize=${size}&_sort=${sortKey}:${sortOrder}`,
+      httpOptionsBearer
+    );
   }
 
   getTableCollectionItem(application: string, id: string | number) {
-    return this.http.get(`${API}content-manager/collection-types/${application}/${id}`, httpOptionsBearer);
+    return this.http.get(
+      `${API}content-manager/collection-types/${application}/${id}`,
+      httpOptionsBearer
+    );
   }
 
   setTableCollectionItem(application: string, data: any) {
-    return this.http.post(`${API}content-manager/collection-types/${application}`, data, httpOptionsBearer);
+    return this.http.post(
+      `${API}content-manager/collection-types/${application}`,
+      data,
+      httpOptionsBearer
+    );
   }
 
   deleteTableCollectionItem(application: string, id: string | number) {
-    return this.http.delete(`${API}content-manager/collection-types/${application}/${id}`, httpOptionsBearer);
+    return this.http.delete(
+      `${API}content-manager/collection-types/${application}/${id}`,
+      httpOptionsBearer
+    );
   }
 
-  updateTableCollectionItem(application: string, data: any, id: string | number) {
-    return this.http.put(`${API}content-manager/collection-types/${application}/${id}`, data, httpOptionsBearer);
+  updateTableCollectionItem(
+    application: string,
+    data: any,
+    id: string | number
+  ) {
+    return this.http.put(
+      `${API}content-manager/collection-types/${application}/${id}`,
+      data,
+      httpOptionsBearer
+    );
   }
 
   cloneTableCollectionItem(application: string, data: any) {
-    return this.http.post(`${API}content-manager/collection-types/${application}`, data, httpOptionsBearer);
+    return this.http.post(
+      `${API}content-manager/collection-types/${application}`,
+      data,
+      httpOptionsBearer
+    );
   }
 
-  getSelectRelationsCollection(application: string, entity: string, data: any, limit: number = 20) {
-    return this.http.post(`${API}content-manager/relations/${application}/${entity}?_limit=${limit}`, data, httpOptionsBearer);
+  getSelectRelationsCollection(
+    application: string,
+    entity: string,
+    data: any,
+    limit: number = 20
+  ) {
+    return this.http.post(
+      `${API}content-manager/relations/${application}/${entity}?_limit=${limit}`,
+      data,
+      httpOptionsBearer
+    );
   }
-
-
 }

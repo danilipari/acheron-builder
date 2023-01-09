@@ -8,9 +8,8 @@ describe('LayoutActionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LayoutActionComponent ]
-    })
-    .compileComponents();
+      declarations: [LayoutActionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

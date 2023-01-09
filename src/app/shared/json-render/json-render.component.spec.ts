@@ -8,9 +8,8 @@ describe('JsonRenderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JsonRenderComponent ]
-    })
-    .compileComponents();
+      declarations: [JsonRenderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

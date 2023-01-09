@@ -6,21 +6,20 @@ import { WorkflowActionComponent } from './workflow-action/workflow-action.compo
 const routes: Routes = [
   {
     path: '',
-    component: WorkflowComponent
+    component: WorkflowComponent,
   },
   {
     path: 'action',
-    component: WorkflowActionComponent
+    component: WorkflowActionComponent,
   },
   {
     path: 'action/:id',
-    component: WorkflowActionComponent
-  }
-
+    component: WorkflowActionComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class WorkflowRoutingModule {}

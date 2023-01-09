@@ -3,7 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+  HttpClient,
+} from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
@@ -13,31 +17,35 @@ import { DialogRenderModule } from './components/dialog-render/dialog-render.mod
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { MAT_MOMENT_DATE_FORMATS, MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateModule,
+  MomentDateAdapter,
+} from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 
 export const MY_FORMATS = {
   parse: {
-      dateInput: 'DD/MM/YYYY',
+    dateInput: 'DD/MM/YYYY',
   },
   display: {
-      dateInput: 'DD/MM/YYYY',
-      monthYearLabel: 'MM YYYY',
-      dateA11yLabel: 'DD/MM/YYYY',
-      monthYearA11yLabel: 'MM YYYY',
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MM YYYY',
   },
 };
-
 
 const components: Array<any> = [
   /*  */
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    components,
-  ],
+  declarations: [AppComponent, components],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -50,12 +58,14 @@ const components: Array<any> = [
     NgxSpinnerModule,
     MatTooltipModule,
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'it-IT' },
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     HttpClient,
     {
@@ -65,11 +75,9 @@ const components: Array<any> = [
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'fill' }
+      useValue: { appearance: 'fill' },
     },
   ],
-  bootstrap: [
-    AppComponent,
-  ]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

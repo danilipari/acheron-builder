@@ -8,9 +8,8 @@ describe('StrapiLabelsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StrapiLabelsComponent ]
-    })
-    .compileComponents();
+      declarations: [StrapiLabelsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StrapiLabelsComponent);
     component = fixture.componentInstance;

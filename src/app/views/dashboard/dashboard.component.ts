@@ -7,27 +7,31 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   countResurces!: resInfo;
   unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
-  optionsW: string = "35-compare-solid-edited.json";
-  optionsF: string = "76-newspaper-solid-edited.json";
-  optionsL: string = "40-add-card-solid-edited.json";
-  optionsS: string = "19-book-solid-edited.json";
+  optionsW: string = '35-compare-solid-edited.json';
+  optionsF: string = '76-newspaper-solid-edited.json';
+  optionsL: string = '40-add-card-solid-edited.json';
+  optionsS: string = '19-book-solid-edited.json';
 
-  constructor(
-    private dashboardService: DashbordService,
-  ) {}
+  constructor(private dashboardService: DashbordService) {}
 
   ngOnInit(): void {
-    this.dashboardService.getInfo().pipe(takeUntil(this.unsubscribe$)).subscribe((responseData: any) => {
-      this.countResurces = responseData;
-    }, (error: any) => {
-      console.log(error);
-    });
+    this.dashboardService
+      .getInfo()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (responseData: any) => {
+          this.countResurces = responseData;
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
 
   ngOnDestroy(): void {

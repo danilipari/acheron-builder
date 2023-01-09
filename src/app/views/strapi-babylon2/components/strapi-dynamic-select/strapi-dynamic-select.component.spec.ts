@@ -8,9 +8,8 @@ describe('StrapiDynamicSelectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StrapiDynamicSelectComponent ]
-    })
-    .compileComponents();
+      declarations: [StrapiDynamicSelectComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StrapiDynamicSelectComponent);
     component = fixture.componentInstance;

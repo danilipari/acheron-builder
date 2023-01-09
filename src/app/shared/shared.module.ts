@@ -11,7 +11,6 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgBytesPipeModule } from 'angular-pipes';
 
-
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { LottieRenderComponent } from './lottie-render/lottie-render.component';
@@ -25,7 +24,6 @@ export function playerFactory() {
   return player;
 }
 
-
 const components: Array<any> = [
   SidebarComponent,
   JsonRenderComponent,
@@ -34,13 +32,11 @@ const components: Array<any> = [
   ImportJsonFileComponent,
   ExportJsonFileComponent,
   SafePipe,
-  AgoPipe
+  AgoPipe,
 ];
 
 @NgModule({
-  declarations: [
-    components,
-  ],
+  declarations: [components],
   imports: [
     CommonModule,
     RouterModule,
@@ -52,8 +48,6 @@ const components: Array<any> = [
     QRCodeModule,
     NgBytesPipeModule,
   ],
-  exports: [
-    components,
-  ],
+  exports: [components],
 })
 export class SharedModule {}

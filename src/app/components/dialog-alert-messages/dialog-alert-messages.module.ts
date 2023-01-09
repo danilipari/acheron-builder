@@ -6,17 +6,13 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { AppRoutingModule } from '../../app-routing.module';
 
-
-
 @NgModule({
-  declarations: [
-    DialogAlertMessagesComponent
-  ],
+  declarations: [DialogAlertMessagesComponent],
   imports: [
     CommonModule,
     SharedModule,
     NgxBootstrapIconsModule.pick(allIcons),
     AppRoutingModule,
-  ]
+  ],
 })
 export class DialogAlertMessagesModule {}

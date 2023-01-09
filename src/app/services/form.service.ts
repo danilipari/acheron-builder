@@ -6,13 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 const API = environment.apiUrl;
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }),
-  withCredentials: false
+  withCredentials: false,
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormService {
   constructor(private http: HttpClient) {}
@@ -33,12 +33,19 @@ export class FormService {
     }
   }
 
-  saveFormField(form_id: number | string, form_detail_id: number | string, data: any) {
-    return this.http.post(`${API}form/${form_id}/${form_detail_id}`, data, httpOptions);
+  saveFormField(
+    form_id: number | string,
+    form_detail_id: number | string,
+    data: any
+  ) {
+    return this.http.post(
+      `${API}form/${form_id}/${form_detail_id}`,
+      data,
+      httpOptions
+    );
   }
 
   deleteForm(id: number | string) {
     return this.http.delete(`${API}form/${id}`, httpOptions);
   }
-
 }

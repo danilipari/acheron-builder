@@ -5,7 +5,9 @@
     height: 100%;
     width: 100%;
 
-    & .card-header, .card-body, .card-footer {
+    & .card-header,
+    .card-body,
+    .card-footer {
       border: none;
       background-color: transparent;
     }

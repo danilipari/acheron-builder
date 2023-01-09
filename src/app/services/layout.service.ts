@@ -6,13 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 const API = environment.apiUrl;
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }),
-  withCredentials: false
+  withCredentials: false,
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LayoutService {
   constructor(private http: HttpClient) {}
@@ -32,5 +32,4 @@ export class LayoutService {
   getLayout(id: string) {
     return this.http.get(`${API}layout/${id}`, httpOptions);
   }
-
 }

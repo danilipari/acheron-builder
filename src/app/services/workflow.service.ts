@@ -6,13 +6,13 @@ import { BehaviorSubject } from 'rxjs';
 const API = environment.apiUrl;
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }),
-  withCredentials: false
+  withCredentials: false,
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WorkflowService {
   constructor(private http: HttpClient) {}
@@ -40,5 +40,4 @@ export class WorkflowService {
   deleteWorkflow(id: number | string) {
     return this.http.delete(`${API}workflow/${id}`, httpOptions);
   }
-
 }

@@ -8,9 +8,8 @@ describe('StrapiCountriesDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StrapiCountriesDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [StrapiCountriesDetailComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StrapiCountriesDetailComponent);
     component = fixture.componentInstance;

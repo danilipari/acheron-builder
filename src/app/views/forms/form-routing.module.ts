@@ -7,20 +7,20 @@ import { FormActiveComponent } from './form-active/form-active.component';
 const routes: Routes = [
   {
     path: '',
-    component: FormComponent
+    component: FormComponent,
   },
   {
     path: 'action',
-    component: FormActiveComponent
+    component: FormActiveComponent,
   },
   {
     path: 'action/:id',
-    component: FormActiveComponent
-  }
+    component: FormActiveComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FormRoutingModule { }
+export class FormRoutingModule {}

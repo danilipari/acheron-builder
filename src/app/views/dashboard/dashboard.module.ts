@@ -8,14 +8,12 @@ import { DashboardComponent } from './dashboard.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
     NgxBootstrapIconsModule.pick(allIcons),
-  ]
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

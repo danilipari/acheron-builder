@@ -1,8 +1,18 @@
 <div class="container-fluid d-flex px-0">
-  <ngx-spinner bdColor="rgba(0,0,0,0.4)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
-    <p style="color: white;">Loading...</p>
+  <ngx-spinner
+    bdColor="rgba(0,0,0,0.4)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+    [fullScreen]="true"
+  >
+    <p style="color: white">Loading...</p>
   </ngx-spinner>
-  <app-sidebar [version]="version" [title]="title_header" [min_title]="min_title_header"></app-sidebar>
+  <app-sidebar
+    [version]="version"
+    [title]="title_header"
+    [min_title]="min_title_header"
+  ></app-sidebar>
   <div id="main">
     <router-outlet></router-outlet>
   </div>

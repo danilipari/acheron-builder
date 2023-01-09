@@ -1,13 +1,7 @@
 <div class="container-fluid text-center" id="dialog-alert-message">
-
   <div id="header" class="d-flex">
     <div class="icon-box">
-      <i-bs
-        [name]="data.icon"
-        width="24px"
-        height="24px"
-      >
-      </i-bs>
+      <i-bs [name]="data.icon" width="24px" height="24px"> </i-bs>
     </div>
     <h2 class="my-auto mx-3">{{ data.title }}</h2>
   </div>
@@ -17,11 +11,23 @@
   </div>
 
   <div id="actions" class="d-flex justify-content-around mt-5 pt-5">
-    <div *ngFor="let option of data.options; let iO = index" (click)="option.action === 'close' ? onNoClick() : onSaveClick()">
+    <div
+      *ngFor="let option of data.options; let iO = index"
+      (click)="option.action === 'close' ? onNoClick() : onSaveClick()"
+    >
       <button
-        [ngClass]="'btn btn-lg border border-' + option.color + ' bg-' + option.color + '-light-ab w-100 mt-auto text-' + option.color + ' '"
-      >{{ option.label | uppercase }}</button>
+        [ngClass]="
+          'btn btn-lg border border-' +
+          option.color +
+          ' bg-' +
+          option.color +
+          '-light-ab w-100 mt-auto text-' +
+          option.color +
+          ' '
+        "
+      >
+        {{ option.label | uppercase }}
+      </button>
     </div>
   </div>
 </div>
-

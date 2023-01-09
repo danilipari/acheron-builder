@@ -8,9 +8,8 @@ describe('LottieRenderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LottieRenderComponent ]
-    })
-    .compileComponents();
+      declarations: [LottieRenderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LottieRenderComponent);
     component = fixture.componentInstance;

@@ -9,14 +9,23 @@ import { Component, OnInit, Input } from '@angular/core';
       </ng-container>
       <ng-template #render>
         <form class="form-group">
-          <div class="mt-2" *ngFor="let element of json; let iJ = index;">
+          <div class="mt-2" *ngFor="let element of json; let iJ = index">
             <!-- {{ element | json }}
             <hr> -->
             <div class="d-flex justify-content-between">
               <label>{{ element.label }}</label>
               <p class="mb-0 text-muted">{{ element.description }}</p>
             </div>
-            <input class="form-control" [autocomplete]="'on'" [name]="element.name" [id]="element.name" [type]="element.inputType" [placeholder]="element.placeholder" [disabled]="!element.enabled" [(ngModel)]="element.value">
+            <input
+              class="form-control"
+              [autocomplete]="'on'"
+              [name]="element.name"
+              [id]="element.name"
+              [type]="element.inputType"
+              [placeholder]="element.placeholder"
+              [disabled]="!element.enabled"
+              [(ngModel)]="element.value"
+            />
           </div>
         </form>
       </ng-template>
@@ -24,14 +33,12 @@ import { Component, OnInit, Input } from '@angular/core';
   `,
 })
 export class JsonRenderComponent implements OnInit {
-
   @Input() public json: any;
   @Input() public in_out: any;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     /*  */
   }
-
 }

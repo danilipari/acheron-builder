@@ -1,5 +1,4 @@
 export default class Utils {
-
   static convertObjectToArray(obj: any): Array<any> {
     const arr = [];
     for (const key in obj) {
@@ -14,7 +13,7 @@ export default class Utils {
   }
 
   static power_of_2(n: number): boolean {
-    return (n % 2) == 0 ? false : true;
+    return n % 2 == 0 ? false : true;
   }
 
   static stringToColour(str: string): string {
@@ -24,10 +23,9 @@ export default class Utils {
     }
     let colour = '#';
     for (let i = 0; i < 3; i++) {
-      let value = (hash >> (i * 8)) & 0xFF;
+      let value = (hash >> (i * 8)) & 0xff;
       colour += ('00' + value.toString(16)).substr(-2);
     }
     return colour;
   }
-
 }

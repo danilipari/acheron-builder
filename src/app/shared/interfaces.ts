@@ -108,7 +108,6 @@ export interface TypeStructure {
   value: string | null;
 }
 
-
 export interface resInfo {
   quantity_workflows: number;
   quantity_forms: number;
@@ -116,12 +115,12 @@ export interface resInfo {
 }
 
 export enum TypesInt {
-  String = "string",
-  Number = "number",
-  Object = "object",
-  Array = "array",
-  Boolean = "boolean",
-  Any = "any",
+  String = 'string',
+  Number = 'number',
+  Object = 'object',
+  Array = 'array',
+  Boolean = 'boolean',
+  Any = 'any',
 }
 
 export enum Types {

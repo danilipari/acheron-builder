@@ -9,7 +9,7 @@ const API_KEY = environment.apiKeyGoogle;
 const API_URL = `${API}?key=${API_KEY}`;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GoogleService {
   constructor(private http: HttpClient) {}

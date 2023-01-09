@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'ago',
   pure: false,
 })
-
 export class AgoPipe implements PipeTransform {
   constructor() {}
 

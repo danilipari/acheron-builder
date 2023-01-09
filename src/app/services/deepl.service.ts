@@ -11,20 +11,25 @@ const httpOptionsBearer = {
     'Access-Control-Allow-Origin': '*',
     'User-Agent': 'acheron',
     'Content-Length': '',
-    'Authorization': `DeepL-Auth-Key ${API_KEY}:fx`
+    Authorization: `DeepL-Auth-Key ${API_KEY}:fx`,
   }),
-  withCredentials: false
+  withCredentials: false,
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeeplService {
-
   constructor(private http: HttpClient) {}
 
-
-  translateDeepL(text: string, source_lang: string = "IT", target_lang: string = ""){
-    return this.http.post(`${API}?text=${text}&source_lang=${source_lang}&target_lang=${target_lang}`, httpOptionsBearer);
+  translateDeepL(
+    text: string,
+    source_lang: string = 'IT',
+    target_lang: string = ''
+  ) {
+    return this.http.post(
+      `${API}?text=${text}&source_lang=${source_lang}&target_lang=${target_lang}`,
+      httpOptionsBearer
+    );
   }
 }

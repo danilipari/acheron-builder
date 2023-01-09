@@ -15,11 +15,11 @@ const routes: Routes = [
   {
     path: 'action/:id',
     component: LayoutActionComponent,
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}

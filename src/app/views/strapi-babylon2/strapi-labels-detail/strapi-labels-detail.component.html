@@ -3,34 +3,89 @@
   <div class="bg-white text-dark w-100 p-3">
     <div class="d-flex justify-content-between">
       <div class="my-auto">
-        <input type="text" class="form-control border border-primary text-primary-ab" [(ngModel)]="dataRes.label_title" *ngIf="dataRes">
+        <input
+          type="text"
+          class="form-control border border-primary text-primary-ab"
+          [(ngModel)]="dataRes.label_title"
+          *ngIf="dataRes"
+        />
         <h4 class="text-muted my-auto">API ID: label</h4>
       </div>
       <div class="my-auto d-flex">
-        <div (click)="translateAllLabels()" class="my-auto p-2 border border-primary bg-dark-light-ab rounded position-relative d-flex" style="cursor: pointer;" mat-raised-button matTooltip="Auto Translate" aria-label="Auto Translate" matTooltipClass="tooltip-primary">
-          <i-bs name="file-earmark-medical-fill" class="text-primary-ab my-auto mx-2" width="20px" height="20px"></i-bs>
+        <div
+          (click)="translateAllLabels()"
+          class="my-auto p-2 border border-primary bg-dark-light-ab rounded position-relative d-flex"
+          style="cursor: pointer"
+          mat-raised-button
+          matTooltip="Auto Translate"
+          aria-label="Auto Translate"
+          matTooltipClass="tooltip-primary"
+        >
+          <i-bs
+            name="file-earmark-medical-fill"
+            class="text-primary-ab my-auto mx-2"
+            width="20px"
+            height="20px"
+          ></i-bs>
           <p class="my-auto mt-1 text-primary-ab">Translate all labels</p>
         </div>
-        <div (click)="clearFields()" class="my-auto mx-3 p-2 border border-warning bg-warning-light-ab rounded position-relative d-flex" style="cursor: pointer;" mat-raised-button matTooltip="Clear" aria-label="Clear" matTooltipClass="tooltip-warning">
-          <i-bs name="recycle" class="text-warning my-auto mx-2" width="20px" height="20px"></i-bs>
+        <div
+          (click)="clearFields()"
+          class="my-auto mx-3 p-2 border border-warning bg-warning-light-ab rounded position-relative d-flex"
+          style="cursor: pointer"
+          mat-raised-button
+          matTooltip="Clear"
+          aria-label="Clear"
+          matTooltipClass="tooltip-warning"
+        >
+          <i-bs
+            name="recycle"
+            class="text-warning my-auto mx-2"
+            width="20px"
+            height="20px"
+          ></i-bs>
           <p class="my-auto mt-1 text-warning">Clear all fields</p>
         </div>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="d-flex px-3 bg-light">
       <div class="col-8">
         <div class="row rounded p-3 mb-5">
-          <div class="col-6 mb-3" *ngFor="let item of inputsItemsMerge"> <!-- ; trackBy: trackByInputs -->
+          <div class="col-6 mb-3" *ngFor="let item of inputsItemsMerge">
+            <!-- ; trackBy: trackByInputs -->
             <h4 class="my-auto mb-3">{{ item.key }}</h4>
             <div class="input-group">
-              <input type="text" class="form-control" [value]="item.value" [(ngModel)]="item.value" (input)="clearValueInput(item.key, item.value)">
-              <div class="border border-success p-2" *ngIf="getItem(item).length">
-                <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
+              <input
+                type="text"
+                class="form-control"
+                [value]="item.value"
+                [(ngModel)]="item.value"
+                (input)="clearValueInput(item.key, item.value)"
+              />
+              <div
+                class="border border-success p-2"
+                *ngIf="getItem(item).length"
+              >
+                <i-bs
+                  name="check-circle-fill"
+                  class="text-success"
+                  width="22px"
+                  height="22px"
+                ></i-bs>
               </div>
-              <button *ngIf="!getItem(item).origin" class="btn btn-outline-primary" [disabled]="!getItem(item).can" type="button" id="button-addon" (click)="translateAction(item)">Translate</button>
+              <button
+                *ngIf="!getItem(item).origin"
+                class="btn btn-outline-primary"
+                [disabled]="!getItem(item).can"
+                type="button"
+                id="button-addon"
+                (click)="translateAction(item)"
+              >
+                Translate
+              </button>
             </div>
           </div>
         </div>
@@ -40,33 +95,67 @@
           <h4 class="my-auto">Information</h4>
           <div class="d-flex flex-column my-3">
             <div class="my-auto d-flex justify-content-between">
-              <h4 class="my-auto text-muted">{{ 'Last Update' | uppercase }}</h4>
+              <h4 class="my-auto text-muted">
+                {{ "Last Update" | uppercase }}
+              </h4>
               <!-- <p class="my-auto mb-0">{{ dataRes?.updated_at | date: 'dd-MM-yyyy HH:mm:ss' }}</p> -->
               <p class="my-auto mb-0">{{ dataRes?.updated_at | ago }}</p>
             </div>
             <div class="my-auto d-flex justify-content-between mt-3">
-              <h4 class="my-auto text-muted">{{ 'By' | uppercase }}</h4>
-              <p class="my-auto mb-0">{{ dataRes?.updated_by.firstname }} {{ dataRes.updated_by?.lastname }}</p>
+              <h4 class="my-auto text-muted">{{ "By" | uppercase }}</h4>
+              <p class="my-auto mb-0">
+                {{ dataRes?.updated_by.firstname }}
+                {{ dataRes.updated_by?.lastname }}
+              </p>
             </div>
           </div>
         </div>
 
         <div class="row rounded m-3 mb-5 bg-white pt-3 rounded px-2 pb-2 mt-4">
-
           <div class="" *ngFor="let item of selectsItemsMerge">
-            <app-strapi-dynamic-select #dynamicSelect [data]="item" (click)="dynamicSelect.getValues($event)" (emitList)="updateList($event)"></app-strapi-dynamic-select>
+            <app-strapi-dynamic-select
+              #dynamicSelect
+              [data]="item"
+              (click)="dynamicSelect.getValues($event)"
+              (emitList)="updateList($event)"
+            ></app-strapi-dynamic-select>
           </div>
-
         </div>
-
       </div>
     </div>
     <div class="d-flex justify-content-end mt-4">
-      <div (click)="saveLabels()" class="my-auto p-2 border border-success rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Save" aria-label="Save" matTooltipClass="tooltip-primary">
-        <i-bs name="check-circle-fill" class="text-success" width="22px" height="22px"></i-bs>
+      <div
+        (click)="saveLabels()"
+        class="my-auto p-2 border border-success rounded position-relative mx-3"
+        style="cursor: pointer"
+        mat-raised-button
+        matTooltip="Save"
+        aria-label="Save"
+        matTooltipClass="tooltip-primary"
+      >
+        <i-bs
+          name="check-circle-fill"
+          class="text-success"
+          width="22px"
+          height="22px"
+        ></i-bs>
       </div>
-      <div (click)="deleteLabelKey()" *ngIf="qId != pId" class="my-auto p-2 border border-danger rounded position-relative mx-3" style="cursor: pointer;" mat-raised-button matTooltip="Delete" aria-label="Delete" matTooltipClass="tooltip-primary">
-        <i-bs name="trash" class="text-danger" width="22px" height="22px"></i-bs>
+      <div
+        (click)="deleteLabelKey()"
+        *ngIf="qId != pId"
+        class="my-auto p-2 border border-danger rounded position-relative mx-3"
+        style="cursor: pointer"
+        mat-raised-button
+        matTooltip="Delete"
+        aria-label="Delete"
+        matTooltipClass="tooltip-primary"
+      >
+        <i-bs
+          name="trash"
+          class="text-danger"
+          width="22px"
+          height="22px"
+        ></i-bs>
       </div>
     </div>
   </div>

@@ -8,9 +8,8 @@ describe('WorkflowActionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WorkflowActionComponent ]
-    })
-    .compileComponents();
+      declarations: [WorkflowActionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

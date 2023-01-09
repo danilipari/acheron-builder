@@ -1,13 +1,21 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfigurationDialog, Workflow, FormStructure } from '../../shared/interfaces';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import {
+  ConfigurationDialog,
+  Workflow,
+  FormStructure,
+} from '../../shared/interfaces';
 import { DialogAlertMessagesComponent } from '../dialog-alert-messages/dialog-alert-messages.component';
-import * as uuid from "uuid";
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-dialog-render',
   templateUrl: './dialog-render.component.html',
-  styleUrls: ['./dialog-render.component.scss']
+  styleUrls: ['./dialog-render.component.scss'],
 })
 export class DialogRenderComponent implements OnInit {
   private deleteId!: number | string;
@@ -15,7 +23,7 @@ export class DialogRenderComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DialogRenderComponent>,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: ConfigurationDialog | any,
+    @Inject(MAT_DIALOG_DATA) public data: ConfigurationDialog | any
   ) {
     dialogRef.disableClose = false;
   }
@@ -26,7 +34,7 @@ export class DialogRenderComponent implements OnInit {
 
   public renderJsonWorkflow(data: Workflow): any {
     const res = {
-      ...data
+      ...data,
     };
     return res;
   }
@@ -63,16 +71,16 @@ export class DialogRenderComponent implements OnInit {
    * @param {String} options
    * @visibility Public
    * @returns Void
-  */
+   */
   public dialogAlertMessage(
     title: string = 'Delete Workflow',
     message: string = 'Are you sure you want to delete this workflow?',
     icon: string = 'check-circle-fill',
     action: string = 'delete',
     options: any[] = [
-      {label: 'No', value: 'no', color: 'danger', action: 'close'},
-      {label: 'Yes', value: 'yes', color: 'success', action: 'confirm'}
-    ],
+      { label: 'No', value: 'no', color: 'danger', action: 'close' },
+      { label: 'Yes', value: 'yes', color: 'success', action: 'confirm' },
+    ]
   ): void {
     const config: ConfigurationDialog = {
       width: `800px`,
@@ -96,5 +104,4 @@ export class DialogRenderComponent implements OnInit {
       }
     });
   }
-
 }

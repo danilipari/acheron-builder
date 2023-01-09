@@ -5,7 +5,6 @@ import { FormRoutingModule } from './form-routing.module';
 import { FormComponent } from './form.component';
 import { FormActiveComponent } from './form-active/form-active.component';
 
-
 /*  */
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -24,12 +23,8 @@ import { MatSelectModule } from '@angular/material/select';
 
 /*  */
 
-
 @NgModule({
-  declarations: [
-    FormComponent,
-    FormActiveComponent
-  ],
+  declarations: [FormComponent, FormActiveComponent],
   imports: [
     CommonModule,
     FormRoutingModule,
@@ -44,7 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatChipsModule,
     MatSelectModule,
     NgxJsonViewerModule,
-    AngularEditorModule
-  ]
+    AngularEditorModule,
+  ],
 })
-export class FormModule { }
+export class FormModule {}

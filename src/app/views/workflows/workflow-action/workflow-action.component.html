@@ -1,7 +1,5 @@
 <div class="" id="workflow-action">
-
   <div class="container-fluid px-0" *ngIf="workflow">
-
     <div class="p-5">
       <div class="flow-boundary-p p-5 d-flex flex-row justify-content-around">
         <!-- -- {{ addFlowStatus && addFlowUuid == fS.uuid && lines?.length && !checkStartsFlow() && formSelected().forms_r.length }} -- -->
@@ -18,11 +16,35 @@
           (mouseover)="addFlowStatus = true; addFlowUuid = fS.uuid"
           (mouseleave)="addFlowStatus = false; addFlowUuid = null"
         >
-          <div class="flow-remove bg-white border border-white shadow" (click)="deleteFlowItem(fS)" *ngIf="workflow.forms.length > 1">
-            <i-bs name="x-circle-fill" class="text-danger" width="24px" height="24px"></i-bs>
+          <div
+            class="flow-remove bg-white border border-white shadow"
+            (click)="deleteFlowItem(fS)"
+            *ngIf="workflow.forms.length > 1"
+          >
+            <i-bs
+              name="x-circle-fill"
+              class="text-danger"
+              width="24px"
+              height="24px"
+            ></i-bs>
           </div>
-          <div class="flow-add" *ngIf="addFlowStatus && addFlowUuid == fS.uuid && lines?.length && !checkStartsFlow() && formSelected().forms_r.length" (click)="openFlowEnd()">
-            <i-bs name="node-plus-fill" class="text-primary-ab" width="46px" height="46px"></i-bs>
+          <div
+            class="flow-add"
+            *ngIf="
+              addFlowStatus &&
+              addFlowUuid == fS.uuid &&
+              lines?.length &&
+              !checkStartsFlow() &&
+              formSelected().forms_r.length
+            "
+            (click)="openFlowEnd()"
+          >
+            <i-bs
+              name="node-plus-fill"
+              class="text-primary-ab"
+              width="46px"
+              height="46px"
+            ></i-bs>
           </div>
           <div class="p-2">
             {{ fS.form_name }}
@@ -30,8 +52,23 @@
         </div>
       </div>
 
-      <div *ngIf="addFlowEndUp" class="" style="position: absolute;  width: 100%; height: 100%; background-color: #212529d7; z-index: 1000; top: 0px; left: 0px; padding-top: 600px;">
-        <div class="border border-success rounded p-5 d-flex flex-row bg-white w-75 mx-auto">
+      <div
+        *ngIf="addFlowEndUp"
+        class=""
+        style="
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-color: #212529d7;
+          z-index: 1000;
+          top: 0px;
+          left: 0px;
+          padding-top: 600px;
+        "
+      >
+        <div
+          class="border border-success rounded p-5 d-flex flex-row bg-white w-75 mx-auto"
+        >
           <div
             *ngFor="let fSR of formSelected().forms_r; let ix = index"
             (click)="addFlowEnd(fSR)"
@@ -41,23 +78,45 @@
           </div>
         </div>
         <div class="text-center mt-5">
-          <button class="btn btn-lg btn-outline-danger text-white my-auto" (click)="addFlowEndUp = false">Close <i-bs name="x-circle-fill" class="text-white my-auto" width="18px" height="18px"></i-bs></button>
+          <button
+            class="btn btn-lg btn-outline-danger text-white my-auto"
+            (click)="addFlowEndUp = false"
+          >
+            Close
+            <i-bs
+              name="x-circle-fill"
+              class="text-white my-auto"
+              width="18px"
+              height="18px"
+            ></i-bs>
+          </button>
         </div>
       </div>
-
     </div>
 
     <div class="d-flex body">
       <div class="card w-100 d-flex body">
         <div class="card-header">
-          <p class="text-primary-ab px-4 mt-4">{{ "Workflow info" | titlecase }}</p>
+          <p class="text-primary-ab px-4 mt-4">
+            {{ "Workflow info" | titlecase }}
+          </p>
           <div class="m-4 p-2">
             <div class="d-flex flex-column">
               <label class="text-primary-ab" for="uuid">UUID</label>
               <div class="input-group mb-3">
-                <input type="text" for="uuid" class="form-control shadow-sm mb-3" disabled [(ngModel)]="workflow.uuid" placeholder="uuid">
+                <input
+                  type="text"
+                  for="uuid"
+                  class="form-control shadow-sm mb-3"
+                  disabled
+                  [(ngModel)]="workflow.uuid"
+                  placeholder="uuid"
+                />
                 <div class="input-group-append">
-                  <span class="input-group-text bg-light" (click)="generateUUID()">
+                  <span
+                    class="input-group-text bg-light"
+                    (click)="generateUUID()"
+                  >
                     <i-bs
                       name="arrow-clockwise"
                       class="text-primary-ab"
@@ -69,38 +128,89 @@
               </div>
               <div class="mb-3">
                 <label class="text-primary-ab" for="title">Title</label>
-                <input type="text" for="title" class="form-control shadow-sm mb-3" [ngClass]="{'border border-danger rounded' : !workflow.title}" [(ngModel)]="workflow.title" placeholder="Nome del workflow">
+                <input
+                  type="text"
+                  for="title"
+                  class="form-control shadow-sm mb-3"
+                  [ngClass]="{
+                    'border border-danger rounded': !workflow.title
+                  }"
+                  [(ngModel)]="workflow.title"
+                  placeholder="Nome del workflow"
+                />
               </div>
               <div class="mb-3">
-                <label class="text-primary-ab" for="description">Description</label>
-                <textarea class="form-control shadow-sm mb-3" for="description" rows="5" [(ngModel)]="workflow.description" placeholder="Descrizione del workflow"></textarea>
+                <label class="text-primary-ab" for="description"
+                  >Description</label
+                >
+                <textarea
+                  class="form-control shadow-sm mb-3"
+                  for="description"
+                  rows="5"
+                  [(ngModel)]="workflow.description"
+                  placeholder="Descrizione del workflow"
+                ></textarea>
               </div>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <p class="text-primary-ab px-4 mt-4">{{ "Configuration" | titlecase }}</p>
+          <p class="text-primary-ab px-4 mt-4">
+            {{ "Configuration" | titlecase }}
+          </p>
           <div class="m-4 p-2">
             <div class="d-flex flex-column">
               <div class="w-100 my-auto mb-4">
                 <label class="text-primary-ab">Forms</label>
-                <mat-select class="form-control" name="types" id="types" [(ngModel)]="workflow.forms" (selectionChange)="updateFlowUI()" multiple>
-                  <mat-option [value]="form.form_id" *ngFor="let form of forms.regular"><!-- {{ form.form_id }} - --> {{ form.form_name | titlecase }}</mat-option>
+                <mat-select
+                  class="form-control"
+                  name="types"
+                  id="types"
+                  [(ngModel)]="workflow.forms"
+                  (selectionChange)="updateFlowUI()"
+                  multiple
+                >
+                  <mat-option
+                    [value]="form.form_id"
+                    *ngFor="let form of forms.regular"
+                    ><!-- {{ form.form_id }} - -->
+                    {{ form.form_name | titlecase }}</mat-option
+                  >
                 </mat-select>
               </div>
               <div class="w-100 my-auto mb-4">
                 <label class="text-primary-ab">Layout</label>
-                <mat-select class="form-control" name="layout" id="layout" [(ngModel)]="workflow.layout_id">
-                  <mat-option [value]="layout.id" *ngFor="let layout of layouts"><!-- {{ layout.id }} - --> {{ layout.layout_name | titlecase }}</mat-option>
+                <mat-select
+                  class="form-control"
+                  name="layout"
+                  id="layout"
+                  [(ngModel)]="workflow.layout_id"
+                >
+                  <mat-option [value]="layout.id" *ngFor="let layout of layouts"
+                    ><!-- {{ layout.id }} - -->
+                    {{ layout.layout_name | titlecase }}</mat-option
+                  >
                 </mat-select>
               </div>
               <div class="d-flex flex-row justify-content-between mb-4">
                 <div class="w-100 my-auto">
                   <label class="text-primary-ab">Online From</label>
                   <div class="position-relative">
-                    <input class="form-control" matInput [matDatepicker]="pickerFrom" [(ngModel)]="workflow.online_from" (dateChange)="dateChange($event, 'online_from')">
-                    <div class="position-absolute" style="bottom: -2px; right: 5px;">
-                      <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                    <input
+                      class="form-control"
+                      matInput
+                      [matDatepicker]="pickerFrom"
+                      [(ngModel)]="workflow.online_from"
+                      (dateChange)="dateChange($event, 'online_from')"
+                    />
+                    <div
+                      class="position-absolute"
+                      style="bottom: -2px; right: 5px"
+                    >
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickerFrom"
+                      ></mat-datepicker-toggle>
                       <mat-datepicker touchUi #pickerFrom></mat-datepicker>
                     </div>
                   </div>
@@ -111,9 +221,21 @@
                 <div class="w-100 my-auto">
                   <label class="text-primary-ab">Online To</label>
                   <div class="position-relative">
-                    <input class="form-control" matInput [matDatepicker]="pickerTo" [(ngModel)]="workflow.online_to" (dateChange)="dateChange($event, 'online_to')">
-                    <div class="position-absolute" style="bottom: -2px; right: 5px;">
-                      <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                    <input
+                      class="form-control"
+                      matInput
+                      [matDatepicker]="pickerTo"
+                      [(ngModel)]="workflow.online_to"
+                      (dateChange)="dateChange($event, 'online_to')"
+                    />
+                    <div
+                      class="position-absolute"
+                      style="bottom: -2px; right: 5px"
+                    >
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="pickerTo"
+                      ></mat-datepicker-toggle>
                       <mat-datepicker touchUi #pickerTo></mat-datepicker>
                     </div>
                   </div>
@@ -121,56 +243,118 @@
               </div>
               <div class="w-100 my-auto mb-4">
                 <label class="text-primary-ab">Error form</label>
-                <mat-select class="form-control" name="types" id="types" [(ngModel)]="workflow.error_form">
-                  <mat-option [value]="fsE.form_id" *ngFor="let fsE of forms.special"><!-- {{ fsE.form_id }} - --> {{ fsE.form_name | titlecase }}</mat-option>
+                <mat-select
+                  class="form-control"
+                  name="types"
+                  id="types"
+                  [(ngModel)]="workflow.error_form"
+                >
+                  <mat-option
+                    [value]="fsE.form_id"
+                    *ngFor="let fsE of forms.special"
+                    ><!-- {{ fsE.form_id }} - -->
+                    {{ fsE.form_name | titlecase }}</mat-option
+                  >
                 </mat-select>
               </div>
               <div class="w-100 my-auto mb-4">
                 <label class="text-primary-ab">Unavailable form</label>
-                <mat-select class="form-control" name="types" id="types" [(ngModel)]="workflow.unavailable_form">
-                  <mat-option [value]="fsU.form_id" *ngFor="let fsU of forms.special"><!-- {{ fsU.form_id }} - --> {{ fsU.form_name | titlecase }}</mat-option>
+                <mat-select
+                  class="form-control"
+                  name="types"
+                  id="types"
+                  [(ngModel)]="workflow.unavailable_form"
+                >
+                  <mat-option
+                    [value]="fsU.form_id"
+                    *ngFor="let fsU of forms.special"
+                    ><!-- {{ fsU.form_id }} - -->
+                    {{ fsU.form_name | titlecase }}</mat-option
+                  >
                 </mat-select>
               </div>
             </div>
           </div>
         </div>
         <div class="card-footer d-flex justify-content-between p-5">
-          <button class="btn btn-lg border border-success bg-success-light-ab w-100 mt-auto text-success" (click)="saveWorkflow()">{{ (route_id ? "edit" : 'save') | uppercase }}</button>
+          <button
+            class="btn btn-lg border border-success bg-success-light-ab w-100 mt-auto text-success"
+            (click)="saveWorkflow()"
+          >
+            {{ (route_id ? "edit" : "save") | uppercase }}
+          </button>
           <!-- <button type="button" class="btn btn-lg btn-outline-success w-100" (click)="saveWorkflow()">{{ (route_id ? "edit" : 'save') | uppercase }}</button> -->
         </div>
       </div>
 
-      <div class="card w-50 d-flex body" *ngIf="workflow && (formSelected().forms?.length || formSelected().error_form?.length || formSelected().unavailable_form?.length)">
+      <div
+        class="card w-50 d-flex body"
+        *ngIf="
+          workflow &&
+          (formSelected().forms?.length ||
+            formSelected().error_form?.length ||
+            formSelected().unavailable_form?.length)
+        "
+      >
         <div class="card-body">
-          <p class="text-primary-ab mt-3">{{ "Forms selected preview" | titlecase }}</p>
+          <p class="text-primary-ab mt-3">
+            {{ "Forms selected preview" | titlecase }}
+          </p>
           <div class="px-3">
-            <div [style]="'height: ' + 250 + 'px;'" class="border rounded overflow-scroll my-4 p-3" *ngFor="let form of formSelected().forms; let ifP = index;">
+            <div
+              [style]="'height: ' + 250 + 'px;'"
+              class="border rounded overflow-scroll my-4 p-3"
+              *ngFor="let form of formSelected().forms; let ifP = index"
+            >
               <div>
-                <ngx-json-viewer [json]="form" [expanded]="true"></ngx-json-viewer>
+                <ngx-json-viewer
+                  [json]="form"
+                  [expanded]="true"
+                ></ngx-json-viewer>
               </div>
             </div>
           </div>
           <!--  -->
-          <p class="text-primary-ab mt-3">{{ "Error form preview" | titlecase }}</p>
+          <p class="text-primary-ab mt-3">
+            {{ "Error form preview" | titlecase }}
+          </p>
           <div class="px-3">
-            <div [style]="'height: ' + 250 + 'px;'" class="border rounded overflow-scroll my-4 p-3" *ngFor="let fef of formSelected().error_form; let ifef = index;">
+            <div
+              [style]="'height: ' + 250 + 'px;'"
+              class="border rounded overflow-scroll my-4 p-3"
+              *ngFor="let fef of formSelected().error_form; let ifef = index"
+            >
               <div>
-                <ngx-json-viewer [json]="fef" [expanded]="true"></ngx-json-viewer>
+                <ngx-json-viewer
+                  [json]="fef"
+                  [expanded]="true"
+                ></ngx-json-viewer>
               </div>
             </div>
           </div>
           <!--  -->
-          <p class="text-primary-ab mt-3">{{ "Unavailable form preview" | titlecase }}</p>
+          <p class="text-primary-ab mt-3">
+            {{ "Unavailable form preview" | titlecase }}
+          </p>
           <div class="px-3">
-            <div [style]="'height: ' + 250 + 'px;'" class="border rounded overflow-scroll my-4 p-3" *ngFor="let fuf of formSelected().unavailable_form; let ifuf = index;">
+            <div
+              [style]="'height: ' + 250 + 'px;'"
+              class="border rounded overflow-scroll my-4 p-3"
+              *ngFor="
+                let fuf of formSelected().unavailable_form;
+                let ifuf = index
+              "
+            >
               <div>
-                <ngx-json-viewer [json]="fuf" [expanded]="true"></ngx-json-viewer>
+                <ngx-json-viewer
+                  [json]="fuf"
+                  [expanded]="true"
+                ></ngx-json-viewer>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
