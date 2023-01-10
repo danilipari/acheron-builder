@@ -7,11 +7,6 @@ const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full',
   },
-  /* {
-    path: '**',
-    loadChildren: () => import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
-    canActivate: [],
-  }, */
   {
     path: 'dashboard',
     loadChildren: () =>
